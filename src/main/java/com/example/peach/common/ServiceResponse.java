@@ -65,7 +65,7 @@ public class ServiceResponse<T> implements Serializable {
     public static  <T> ServiceResponse<T> createBySuccess(T data){
         return new ServiceResponse<T>(ResponseCode.SUCCESS.getCode(),data);
     }
-    public static  <T> ServiceResponse<T> createBuSuccess(String msg,T data){
+    public static  <T> ServiceResponse<T> createBySuccess(String msg, T data){
         return  new ServiceResponse<T>(ResponseCode.SUCCESS.getCode(),msg,data);
     }
 
@@ -82,7 +82,7 @@ public class ServiceResponse<T> implements Serializable {
     public static <T> ServiceResponse<T> createByError(T errorData){
         return new ServiceResponse<T>(ResponseCode.ERROR.getCode(),errorData);
     }
-    public static <T> ServiceResponse<T> createByError(String errorMsg,T errorData){
+    public static <T> ServiceResponse<T> createByError(String errorMsg, T errorData){
         return new ServiceResponse<T>(ResponseCode.ERROR.getCode(),errorMsg,errorData);
     }
 }
