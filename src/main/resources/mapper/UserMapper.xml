@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.peachone.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.example.peachone.pojo.User">
+<mapper namespace="com.example.peach.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.example.peach.pojo.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="user_realname" jdbcType="VARCHAR" property="userRealname" />
@@ -42,7 +42,7 @@
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.peachone.pojo.User">
+  <insert id="insert" parameterType="com.example.peach.pojo.User">
     insert into user (id, nickname, user_realname, 
       user_birthday, sex, country, 
       province, city, user_address, 
@@ -60,7 +60,7 @@
       #{headimgurl,jdbcType=VARCHAR}, #{userIntegral,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, 
       #{userHeadportrait,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.peachone.pojo.User">
+  <insert id="insertSelective" parameterType="com.example.peach.pojo.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -205,7 +205,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.peachone.pojo.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.peach.pojo.User">
     update user
     <set>
       <if test="nickname != null">
@@ -277,7 +277,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.peachone.pojo.User">
+  <update id="updateByPrimaryKey" parameterType="com.example.peach.pojo.User">
     update user
     set nickname = #{nickname,jdbcType=VARCHAR},
       user_realname = #{userRealname,jdbcType=VARCHAR},
