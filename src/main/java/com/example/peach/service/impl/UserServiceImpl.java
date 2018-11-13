@@ -42,4 +42,14 @@ public class UserServiceImpl implements UserService {
         return ServiceResponse.createBySuccess("授权成功");
     }
 
+
+
+    //注册用户
+    @Override
+    public int updateUserPhone(String user_phone,int id){
+
+        int rs=userJPA.setFixedUserphoneFor(user_phone,id);
+
+        return rs;
+    }
 }

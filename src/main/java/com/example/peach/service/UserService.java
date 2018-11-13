@@ -9,4 +9,6 @@ public interface UserService {
     ServiceResponse<String> selectOpenid(String str,String type);
 
     ServiceResponse<String> lognUser(User user);
+
+    int updateUserPhone(String user_phone,int id);
 }

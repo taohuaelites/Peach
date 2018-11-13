@@ -47,7 +47,9 @@ public class SmsController {
         }else {
             querySendDetailsResponse = smsDemo.querySendDetails(PhoneNumber, map.get("BizId"));
 
+
             map.remove("BizId");
+
             //存储短信验证结果
             if (querySendDetailsResponse.getCode().equals("OK")) {
                 map.put("status", "true");
@@ -57,6 +59,7 @@ public class SmsController {
             }
         }
 
+        //map转化成josn字符串
         String josn = null;
         try {
             josn = mapper.writeValueAsString(map);

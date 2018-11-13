@@ -11,6 +11,8 @@ public class User {
     private Integer id;
     @Column(name = "nickname")
     private String nickname;//昵称
+    @Column(name = "user_phone")
+    private String userphone;//昵称
     @Column(name = "user_realname")
     private String userRealname;//真实姓名
     @Column(name = "user_Birthday")
@@ -217,6 +219,15 @@ public class User {
 
     public void setOpenid(String openid) {
         this.openid = openid == null ? null : openid.trim();
+    }
+
+    public String getUserphone() {
+
+        return userphone;
+    }
+
+    public void setUserphone(String userphone) {
+        this.userphone = userphone;
     }
 
 }

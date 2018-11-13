@@ -4,11 +4,10 @@ import com.example.peach.common.Conts;
 import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.User;
 import com.example.peach.service.UserService;
+import org.apache.ibatis.jdbc.Null;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -16,6 +15,7 @@ import javax.annotation.Resource;
 @RequestMapping("/user")
 @MapperScan("com.example.peach.mapper")
 public class UserController {
+
     @Resource
     private UserService userService;
 
@@ -45,4 +45,18 @@ public class UserController {
 
     /*@RequestMapping(value = "/registerUser",method = RequestMethod.POST)
     public  ServiceResponse<String> SaveUser*/
+
+
+
+    //绑定手机号
+    @RequestMapping(value="/Registration/{user_phone}/{id}")
+    public String  RegistrationController(@PathVariable("user_phone") String  user_phone,@PathVariable("id")int id){
+        int rs=userService.updateUserPhone(user_phone,id);
+        if(rs>0){
+            return "hellow,word";
+        }else{
+            return "hellow,word";
+        }
+    }
+
 }
