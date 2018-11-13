@@ -22,10 +22,11 @@ public class UserServiceImpl implements UserService {
         User user = userJPA.findByOpenid(str);
         if(type.equals(Conts.OPENID)){
             if(user ==null){
-                return ServiceResponse.createByError("用户已经注册过");
+                return  ServiceResponse.createBySuccess("用户需要注册");
+
             }
         }
-        return  ServiceResponse.createBySuccess("用户需要注册");
+        return ServiceResponse.createByError("用户已经注册过");
     }
 
     //录入授权信息

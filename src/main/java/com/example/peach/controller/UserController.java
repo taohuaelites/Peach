@@ -5,7 +5,6 @@ import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.User;
 import com.example.peach.service.UserService;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,10 +38,9 @@ public class UserController {
     @RequestMapping(value = "/findUserByOpenid",method = RequestMethod.POST)
     public ServiceResponse<String> selectOpenid(String openid){
         ServiceResponse<String> response = userService.selectOpenid(openid, Conts.OPENID);
-
         return response;
     }
 
     /*@RequestMapping(value = "/registerUser",method = RequestMethod.POST)
-    public  ServiceResponse<String> SaveUser*/
+    public  ServiceResponse<String> re*/
 }
