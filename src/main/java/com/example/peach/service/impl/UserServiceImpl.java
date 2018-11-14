@@ -25,12 +25,21 @@ public class UserServiceImpl implements UserService {
     public ServiceResponse<String> selectByOpenid(String openid, String type) {
         User user= userMapper.selectByOpenid(openid);
         if(type.equals(Conts.OPENID)){
+<<<<<<< HEAD
             if (user!=null){
                 return ServiceResponse.createByError("用户已经注册过");
             }
         }
 
         return  ServiceResponse.createBySuccess("用户需要注册");
+=======
+            if(user ==null){
+                return  ServiceResponse.createBySuccess("用户需要注册");
+
+            }
+        }
+        return ServiceResponse.createByError("用户已经注册过");
+>>>>>>> b578bdac68c4bacddf0dd37591fabc5b013931c2
     }
 
     @Override

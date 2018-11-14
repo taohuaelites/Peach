@@ -5,8 +5,14 @@ import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.User;
 import com.example.peach.service.UserService;
 import org.mybatis.spring.annotation.MapperScan;
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> b578bdac68c4bacddf0dd37591fabc5b013931c2
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -36,6 +42,7 @@ public class UserController {
      */
     @RequestMapping(value = "/findUserByOpenid",method = RequestMethod.POST)
     public ServiceResponse<String> selectOpenid(String openid){
+<<<<<<< HEAD
 //        ServiceResponse<String> response = userService.selectOpenid(openid, Conts.OPENID);
         return null;
     }
@@ -63,4 +70,12 @@ public class UserController {
 //        ServiceResponse<String> response = userService.updateUser(user);
         return null;
     }
+=======
+        ServiceResponse<String> response = userService.selectOpenid(openid, Conts.OPENID);
+        return response;
+    }
+
+    /*@RequestMapping(value = "/registerUser",method = RequestMethod.POST)
+    public  ServiceResponse<String> re*/
+>>>>>>> b578bdac68c4bacddf0dd37591fabc5b013931c2
 }
