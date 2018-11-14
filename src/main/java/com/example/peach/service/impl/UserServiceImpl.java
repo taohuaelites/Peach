@@ -43,4 +43,16 @@ public class UserServiceImpl implements UserService {
         return ServiceResponse.createBySuccess("授权成功");
     }
 
+    //绑定手机号
+    @Override
+    public  ServiceResponse<String> updateUserPhone(String user_phone,int id) {
+
+        int rs = userJPA.updateUsersetPhone(user_phone,id);
+        if (rs > 0) {
+            return ServiceResponse.createByError("授权失败!!");
+        } else {
+            return ServiceResponse.createBySuccess("授权成功");
+        }
+    }
+
 }

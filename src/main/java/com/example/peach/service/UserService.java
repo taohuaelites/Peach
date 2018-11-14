@@ -9,4 +9,7 @@ public interface UserService {
     ServiceResponse<String> selectOpenid(String str,String type);
 
     ServiceResponse<String> lognUser(User user);
+
+    //绑定手机号
+    ServiceResponse<String> updateUserPhone(String user_phone,int id);
 }

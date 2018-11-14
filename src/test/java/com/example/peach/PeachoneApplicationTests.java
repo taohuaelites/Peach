@@ -16,12 +16,14 @@ public class PeachoneApplicationTests {
     private UserJPA userJPA;
     @Test
     public void contextLoads() {
-        int getrows = userJPA.updateUsersetNickname("胡孝",1);
-        if(getrows>0){
-            System.out.println("修改成功");
-        }else {
-            System.out.println("修改失败");
-        }
+//        int getrows = userJPA.updateUsersetNickname("胡孝",1);
+//        if(getrows>0){
+//            System.out.println("修改成功");
+//        }else {
+//            System.out.println("修改失败");
+
+
+//        }
     }
 
 }
