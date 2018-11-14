@@ -1,53 +1,30 @@
 package com.example.peach.pojo;
 
-import javax.persistence.*;
 import java.util.Date;
-@Entity
-@Table(name = "user")
+
 public class User {
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
     private Integer id;
-    @Column(name = "nickname")
     private String nickname;//昵称
-    @Column(name = "user_realname")
     private String userRealname;//真实姓名
-    @Column(name = "user_Birthday")
     private Date userBirthday;//生日
-    @Column(name = "sex")
+    private String userphone;//手机号
+    private Integer userage;//年龄
     private Boolean sex;
-    @Column(name = "country")
     private String country;
-    @Column(name = "province")
     private String province;//省份
-    @Column(name = "city")
     private String city;
-    @Column(name = "user_address")
     private String userAddress;//地址
-    @Column(name = "uset_autograph")
     private String userAutograph;//签名
-    @Column(name = "user_occupation")
     private String userOccupation;//职业
-    @Column(name = "is_marriage")
     private Boolean isMarriage;//是否
-    @Column(name = "user_height")
     private Integer userHeight;
-    @Column(name = "user_education")
     private String userEducation;//学历
-    @Column(name = "user_salary")
     private String userSalary;//年薪
-    @Column(name = "user_interest")
     private String userInterest;//兴趣爱好
-    @Column(name = "user_jurisdiction")
     private Boolean userJurisdiction;//会员等级
-    @Column(name = "user_idcard")
     private String userIdcard;//身份证
-    @Column(name = "headimgurl")
     private String headimgurl;//头像
-    @Column(name = "user_integral")
     private Integer userIntegral;//积分
-    @Column(name = "openid")
     private String openid;//用户唯一标识
 
 
@@ -63,8 +40,24 @@ public class User {
         return nickname;
     }
 
+    public Integer getUserage() {
+        return userage;
+    }
+
+    public void setUserage(Integer userage) {
+        this.userage = userage;
+    }
+
     public void setNickname(String nickname) {
         this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public String getUserphone() {
+        return userphone;
+    }
+
+    public void setUserphone(String userphone) {
+        this.userphone = userphone;
     }
 
     public String getUserRealname() {

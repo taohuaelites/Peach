@@ -6,13 +6,25 @@ import com.example.peach.pojo.User;
 import com.example.peach.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.mybatis.spring.annotation.MapperScan;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PathVariable;
+=======
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+>>>>>>> df52ec428250523b049c5492f50177d8dbaccee9
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import javax.annotation.Resource;
+<<<<<<< HEAD
 import java.util.HashMap;
+=======
+import javax.servlet.http.HttpSession;
+>>>>>>> df52ec428250523b049c5492f50177d8dbaccee9
 
 @RestController
 @RequestMapping("/user")
@@ -27,12 +39,11 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/lognUser",method = RequestMethod.POST)
-    public ServiceResponse<String> lognUser(User user){
+    public ServiceResponse<String> lognUser(User user, HttpSession session){
         ServiceResponse<String> response = userService.lognUser(user);
-        System.out.println();
+        session.setAttribute("user",user);
         return response;
     }
-
     /**
      * 查询用户唯一标识
      * @param openid
@@ -40,10 +51,12 @@ public class UserController {
      */
     @RequestMapping(value = "/findUserByOpenid")
     public ServiceResponse<String> selectOpenid(String openid){
-        ServiceResponse<String> response = userService.selectOpenid(openid, Conts.OPENID);
-        return response;
+
+//        ServiceResponse<String> response = userService.selectOpenid(openid, Conts.OPENID);
+        return null;
     }
 
+<<<<<<< HEAD
 
 
 
@@ -56,4 +69,31 @@ public class UserController {
 //        return response;
 //    }
 
+=======
+    /*@RequestMapping(value = "/registerUser",method = RequestMethod.POST)
+    public  ServiceResponse<String> SaveUser*/
+    /**
+     *
+     */
+    /**
+     *  查询手机号是否已经绑定
+     */
+    @RequestMapping(value = "/selectPhone",method = RequestMethod.POST)
+    public ServiceResponse<String> selectPhone(@RequestParam("userphone") String phone){
+        ServiceResponse<String> response = userService.selectPhone(phone);
+        return response;
+    }
+    /**
+     * 用户信息完善
+     */
+    @RequestMapping(value = "/updatePhone",method = RequestMethod.POST)
+    public ServiceResponse<String> updatePhone(@ModelAttribute User user, HttpSession session){
+//         User getuser=(User) session.getAttribute("user");
+//         user.setOpenid(getuser.getOpenid());
+//        ServiceResponse<String> response = userService.updateUser(user);
+        return null;
+    }
+
+
+>>>>>>> df52ec428250523b049c5492f50177d8dbaccee9
 }
