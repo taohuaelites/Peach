@@ -6,7 +6,9 @@ import com.example.peach.pojo.User;
 public interface UserService {
 //    ServiceResponse<User> selectUserByid(int id);
 
-    ServiceResponse<String> selectOpenid(String str,String type);
+    ServiceResponse<String> selectByOpenid(String str,String type);
 
     ServiceResponse<String> lognUser(User user);
+    ServiceResponse<String> selectPhone(String phone);
+    ServiceResponse<String> updateUser(User user);
 }
