@@ -25,23 +25,20 @@ public class UserServiceImpl implements UserService {
     public ServiceResponse<String> selectByOpenid(String openid, String type) {
         User user= userMapper.selectByOpenid(openid);
         if(type.equals(Conts.OPENID)){
-<<<<<<< HEAD
+
             if (user!=null){
                 return ServiceResponse.createByError("用户已经注册过");
             }
         }
-
         return  ServiceResponse.createBySuccess("用户需要注册");
-=======
-            if(user ==null){
-                return  ServiceResponse.createBySuccess("用户需要注册");
 
-            }
-        }
-        return ServiceResponse.createByError("用户已经注册过");
->>>>>>> b578bdac68c4bacddf0dd37591fabc5b013931c2
-    }
+}
 
+    /**
+     * 授权成功保存用户数据
+     * @param user
+     * @return
+     */
     @Override
     public ServiceResponse<String> lognUser(@ModelAttribute User user) {
         ServiceResponse<String> response =  this.selectByOpenid(user.getOpenid(),Conts.OPENID);
@@ -57,69 +54,23 @@ public class UserServiceImpl implements UserService {
         return  ServiceResponse.createByError("授权失败!!");
     }
 
+    /**
+     * 根据phone查询user
+     * @param phone
+     * @return
+     */
     @Override
     public ServiceResponse<String> selectPhone(String phone) {
-        return null;
+        User user=  userMapper.selectByphone(phone);
+        if (user!=null){
+            return ServiceResponse.createByError("该手机号已经绑定了");
+        }
+        return ServiceResponse.createBySuccess("√");
     }
 
     @Override
     public ServiceResponse<String> updateUser(User user) {
         return null;
     }
-//
-//    //查询标识
-//    @Override
-//    public ServiceResponse<String> selectOpenid(String str, String type) {
-////        User user = userJPA.findByOpenid(str);
-////        if(type.equals(Conts.OPENID)){
-////            if(user !=null){
-////                return ServiceResponse.createByError("用户已经注册过");
-////            }
-////        }
-////        return  ServiceResponse.createBySuccess("用户需要注册");
-////    }
-//
-//    //录入授权信息
-//    @Override
-//    public ServiceResponse<String> lognUser(User user) {
-////        ServiceResponse<String> response =  this.selectOpenid(user.getOpenid(),Conts.OPENID);
-////        if(!response.isSuccess()){
-////            return response;
-////        }
-////        User userlogn = userJPA.save(user);
-////        if(userlogn==null){
-////            return  ServiceResponse.createByError("授权失败!!");
-////        }
-////
-////        return ServiceResponse.createBySuccess("授权成功");
-//   }
-//
-//    /**
-//     * 查询手机号
-//     * @param phone
-//     * @return user
-//     */
-//    @Override
-//    public ServiceResponse<String> selectPhone( String phone) {
-////        User user =userJPA.findByUserphone(phone);
-////        if (user!=null){
-////            return ServiceResponse.createBySuccess("该手机号已被绑定");
-////        }
-////        return ServiceResponse.createBySuccess();
-//    }
-//
-//    /**
-//     * 用户完善信息
-//     * @return
-//     */
-//    @Override
-//    public ServiceResponse<String> updateUser(User user) {
-//
-////        int users  =userJPA.updateUser(user);
-////        if (users>0){
-////            return ServiceResponse.createBySuccess("注册成功");
-////        }
-////        return ServiceResponse.createBySuccess();
-////    }
 
 }

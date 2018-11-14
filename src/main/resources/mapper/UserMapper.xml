@@ -46,7 +46,13 @@
     from user
     where openid = #{openid,jdbcType=VARCHAR}
   </select>
-
+<!--根据手机号phone查询user-->
+  <select id="selectByphone" parameterType="java.lang.String" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from user
+  where user_phone = #{userphone,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where id = #{id,jdbcType=INTEGER}
@@ -283,12 +289,12 @@
       <if test="userIntegral != null">
         user_integral = #{userIntegral,jdbcType=INTEGER},
       </if>
-      <if test="openid != null">
-        openid = #{openid,jdbcType=VARCHAR},
-      </if>
+      <!--<if test="openid != null">-->
+        <!--openid = #{openid,jdbcType=VARCHAR},-->
+      <!--</if>-->
 
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where openid = #{openid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.peach.pojo.User">
     update user
