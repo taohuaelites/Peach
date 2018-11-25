@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.peach.dao.AppointmentMapper">
+
+
+    <!--查询自己约见的对象-->
+    <select id="selectByMyId" parameterType="java.lang.Integer" resultType="com.example.peach.pojo.Appointment">
+        <!--SELECT a.myid,u.user_realname,u.id
+            FROM  appointment a JOIN user u ON a.youid=u.id
+            WHERE a.myid= #{myid}-->
+        SELECT u.id
+        FROM user u
+        WHERE id in(SELECT youid FROM appointment WHERE myid=  #{myid} )
+    </select>
+
+    <!--查询约见自己的对象-->
+    <select id="selectByYouId" parameterType="java.lang.Integer" resultType="com.example.peach.pojo.Appointment">
+        <!--SELECT a.youid,u.user_realname,u.id
+        FROM  appointment a JOIN user u ON a.myid=u.id
+        WHERE a.youid=1-->
+        SELECT u.id,u.user_realname
+        FROM user u
+        WHERE id in(SELECT myid FROM appointment WHERE youid= #{youid} )
+    </select>
+
+    <!--查询相互心仪的对象-->
+    <!--<select id="selectAll"  resultType="com.example.peach.pojo.Appointment">-->
+        <!--SELECT	u.id,u.user_realname,f.myid,f.youid-->
+        <!--FROM user u-->
+        <!--JOIN favorite f ON u.id=f.myid-->
+        <!--JOIN favorite a ON u.id=a.youid-->
+        <!--WHERE f.youid=a.myid AND a.youid=f.myid-->
+    <!--</select>-->
+
+
+
+    <!--查询是否已有约见计划-->
+    <select id="selectAppointment" parameterType="com.example.peach.pojo.Appointment" resultType="com.example.peach.pojo.Appointment">
+        SELECT	a.id
+        FROM appointment a
+        WHERE (a.myid= #{myid} AND a.youid= #{youid} ) OR (a.myid=#{youid} AND a.youid=#{myid} )
+    </select>
+
+    <!--添加约见对象-->
+    <insert id="insertAppointment" parameterType="java.lang.Integer">
+        INSERT INTO appointment(myid,youid,status)
+        VALUES( #{myid} , #{youid} , 0 )
+    </insert>
+
+    <!--拒绝约见-->
+    <update id="updateStatus1" parameterType="com.example.peach.pojo.Appointment" >
+          UPDATE appointment  SET status= 1 WHERE myid= #{youid} AND youid= #{myid}
+    </update>
+
+    <!--同意约见-->
+    <update id="updateStatus2" parameterType="com.example.peach.pojo.Appointment" >
+        UPDATE appointment  SET status= 2 WHERE myid= #{youid} AND youid= #{myid}
+    </update>
+
+</mapper>

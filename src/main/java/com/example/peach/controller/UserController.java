@@ -4,27 +4,24 @@ import com.example.peach.common.Conts;
 import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.User;
 import com.example.peach.service.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.mybatis.spring.annotation.MapperScan;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.PathVariable;
-=======
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mybatis.spring.annotation.MapperScan;
+
+
+
+
 import org.springframework.web.bind.annotation.*;
 
->>>>>>> df52ec428250523b049c5492f50177d8dbaccee9
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import javax.annotation.Resource;
-<<<<<<< HEAD
-import java.util.HashMap;
-=======
+
 import javax.servlet.http.HttpSession;
->>>>>>> df52ec428250523b049c5492f50177d8dbaccee9
+
 
 @RestController
 @RequestMapping("/user")
@@ -56,7 +53,7 @@ public class UserController {
         return null;
     }
 
-<<<<<<< HEAD
+
 
 
 
@@ -69,7 +66,7 @@ public class UserController {
 //        return response;
 //    }
 
-=======
+
     /*@RequestMapping(value = "/registerUser",method = RequestMethod.POST)
     public  ServiceResponse<String> SaveUser*/
     /**
@@ -95,5 +92,4 @@ public class UserController {
     }
 
 
->>>>>>> df52ec428250523b049c5492f50177d8dbaccee9
 }

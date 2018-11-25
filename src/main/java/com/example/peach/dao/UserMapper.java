@@ -4,10 +4,12 @@ import com.example.peach.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 @Component
 @Mapper
-public interface UserMapper  {
+public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(User record);
@@ -15,9 +17,14 @@ public interface UserMapper  {
     int insertSelective(User user);
 
     User selectByPrimaryKey(Integer id);
+
     User selectByOpenid(String openid);
+
     User selectByphone(String phone);
-    int updateByPrimaryKeySelective(User record);
+
+    int updateByPrimaryKeySelective(User user);
 
     int updateByPrimaryKey(User record);
+
+    List<User> userList();
 }

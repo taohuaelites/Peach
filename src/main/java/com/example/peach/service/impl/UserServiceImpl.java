@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -70,19 +71,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServiceResponse<String> updateUser(User user) {
-        return null;
+       int users= userMapper.updateByPrimaryKeySelective(user);
+       if (users>0){
+           return ServiceResponse.createBySuccess("修改成功");
+       }
+        return  ServiceResponse.createByError("修改失败");
+
     }
 
-    //绑定手机号
     @Override
-    public  ServiceResponse<String> updateUserPhone(String user_phone,int id) {
-
-        int rs = userJPA.updateUsersetPhone(user_phone,id);
-        if (rs > 0) {
-            return ServiceResponse.createByError("授权失败!!");
-        } else {
-            return ServiceResponse.createBySuccess("授权成功");
-        }
+    public List<User> userList() {
+        return userMapper.userList();
     }
 
 }

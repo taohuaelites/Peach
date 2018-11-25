@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.peach.dao.FavoriteMapper">
+
+
+    <!--查询自己的心仪对象-->
+    <select id="selectByMyId" parameterType="int" resultType="com.example.peach.pojo.Favorite">
+        <!--SELECT f.myid,u.user_realname,u.id
+            FROM  favorite f JOIN user u ON f.youid=u.id
+            WHERE f.myid= #{myid}-->
+        SELECT u.id,u.user_realname
+        FROM user u
+        WHERE id in(SELECT youid FROM favorite WHERE myid= #{myid} )
+    </select>
+
+    <!--查询心仪自己的对象-->
+    <select id="selectByYouId" parameterType="int" resultType="com.example.peach.pojo.Favorite">
+        <!--SELECT f.youid,u.user_realname,u.id
+        FROM  favorite f JOIN user u ON f.myid=u.id
+        WHERE f.youid=1-->
+        SELECT u.id,u.user_realname
+        FROM user u
+        WHERE id in(SELECT myid FROM favorite WHERE youid= #{youid} )
+    </select>
+
+    <!--查询相互心仪的对象-->
+    <select id="selectAll" parameterType="int" resultType="com.example.peach.pojo.Favorite">
+        SELECT	u.id,u.user_realname,f.myid,f.youid
+        FROM user u
+				JOIN favorite f ON u.id=f.myid
+				JOIN favorite a ON u.id=a.youid
+        WHERE f.youid=a.myid AND a.youid=f.myid
+    </select>
+
+    <!--查询是否重复的对象-->
+    <select id="selectFavorite" parameterType="com.example.peach.pojo.Favorite" resultType="com.example.peach.pojo.Favorite">
+        SELECT	f.id
+        FROM favorite f
+        WHERE f.myid= #{myid} AND f.youid= #{youid}
+    </select>
+
+    <!--添加心仪对象-->
+    <insert id="insertFavorite" parameterType="com.example.peach.pojo.Favorite">
+        INSERT INTO favorite(myid,youid)
+        VALUES( #{myid} , #{youid} )
+    </insert>
+
+    <!--删除心仪对象-->
+    <delete id="deleteFavorite" parameterType="com.example.peach.pojo.Favorite">
+        DELETE FROM favorite
+        WHERE myid= #{myid} AND youid= #{youid}
+    </delete>
+
+</mapper>

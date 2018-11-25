@@ -7,8 +7,7 @@ package com.example.peach.controller;
 
 import com.aliyuncs.dysmsapi.model.v20170525.QuerySendDetailsResponse;
 import com.aliyuncs.exceptions.ClientException;
-import com.example.peach.common.SmsDemo;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.example.peach.util.SmsSend;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,7 @@ import java.util.HashMap;
 public class SmsController {
 
 
-    SmsDemo smsDemo = new SmsDemo();
+    SmsSend smsDemo = new SmsSend();
 
     /*
     阿里云短信发送接口
@@ -33,37 +32,32 @@ public class SmsController {
 
      */
     @RequestMapping(value = "/Send/{PhoneNumber}")
-    public String SmsSend(@PathVariable String PhoneNumber) throws ClientException {
+    public HashMap<String, String> SmsSend(@PathVariable String PhoneNumber) throws ClientException {
 
-        HashMap<String, String> map = new HashMap<String, String>();
+
         // /发送信息
-        map = smsDemo.sendSms(PhoneNumber);
+        HashMap<String, String> map = smsDemo.sendSms(PhoneNumber);
 
         ObjectMapper mapper = new ObjectMapper();
         QuerySendDetailsResponse querySendDetailsResponse =null;
         //检查信息是否成功
         if (map.get("BizId").equals("null")){
-            map.put("sms","false");
+            map.put("status","ERROR");
         }else {
             querySendDetailsResponse = smsDemo.querySendDetails(PhoneNumber, map.get("BizId"));
 
             map.remove("BizId");
             //存储短信验证结果
             if (querySendDetailsResponse.getCode().equals("OK")) {
-                map.put("status", "true");
+                map.put("status", "SUCCESS");
             } else {
                 map.remove("Number");
-                map.put("status", "false");
+                map.put("status", "ERROR");
             }
         }
 
-        String josn = null;
-        try {
-            josn = mapper.writeValueAsString(map);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return josn;
+
+        return map;
     }
 
 
