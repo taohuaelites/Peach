@@ -6,10 +6,7 @@ import com.example.peach.service.FavoriteService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -26,8 +23,8 @@ public class FavoriteController {
     private FavoriteService favoriteService;
 
     //查询自己的心仪对象
-    @RequestMapping(value = "/selectByMyId/{myid}")
-    public HashMap<String,Object> selectByMyId(@PathVariable("myid") int myid) {
+    @RequestMapping(value = "/selectByMyId" , method = RequestMethod.POST)
+    public HashMap<String,Object> selectByMyId(@RequestParam int myid) {
 
         HashMap<String,Object> map = favoriteService.selectByMyId(myid);
 
@@ -36,8 +33,8 @@ public class FavoriteController {
 
 
     //查询心仪自己的对象
-    @RequestMapping(value = "/selectByYouId/{youid}")
-    public HashMap<String,Object> selectByYouId(@PathVariable("youid") int youid) {
+    @RequestMapping(value = "/selectByYouId", method = RequestMethod.POST)
+    public HashMap<String,Object> selectByYouId(@RequestParam int youid) {
 
         HashMap<String,Object> map= favoriteService.selectByYouId(youid);
 
@@ -46,7 +43,7 @@ public class FavoriteController {
 
 
     //查询相互心仪的对象
-    @RequestMapping(value = "/selectAll")
+    @RequestMapping(value = "/selectAll" , method = RequestMethod.GET)
     public HashMap<String,Object> selectAll() {
 
         HashMap<String,Object> map = favoriteService.selectAll();
@@ -55,7 +52,7 @@ public class FavoriteController {
     }
 
 
-    @RequestMapping(value = "/insertFavorite/{myid}/{youid}")
+    @RequestMapping(value = "/insertFavorite", method = RequestMethod.POST)
     public ServiceResponse<String> insertFavorite(@ModelAttribute Favorite favorite) {
 
         //查询是否已存在
@@ -72,7 +69,7 @@ public class FavoriteController {
 
 
     //删除心仪对象
-    @RequestMapping(value = "/deleteFavorite/{myid}/{youid}")
+    @RequestMapping(value = "/deleteFavorite", method = RequestMethod.POST)
     public ServiceResponse<String> deleteFavorite(@ModelAttribute Favorite favorite) {
 
             //删除

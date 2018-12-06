@@ -78,6 +78,9 @@ public class SmsSend {
 
         //存储数据
         String BizId=sendSmsResponse.getBizId();//获取BizId码
+
+
+
         HashMap<String, String> map=new HashMap<String, String>();
         map.put("PhoneNumber",PhoneNumber);
         map.put("BizId",BizId);
@@ -155,6 +158,37 @@ public class SmsSend {
 //        }
 //
 //    }
+
+    public static QuerySendDetailsResponse querySendDetails(String PhoneNumber) throws ClientException {
+
+        //可自助调整超时时间
+        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
+        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+
+        //初始化acsClient,暂不支持region化
+        IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
+        DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product, domain);
+        IAcsClient acsClient = new DefaultAcsClient(profile);
+
+        //组装请求对象
+        QuerySendDetailsRequest request = new QuerySendDetailsRequest();
+        //必填-号码
+        request.setPhoneNumber(PhoneNumber);
+        //可选-流水号
+        //request.setBizId(null);
+        //必填-发送日期 支持30天内记录查询，格式yyyyMMdd
+        SimpleDateFormat ft = new SimpleDateFormat("yyyyMMdd");
+        request.setSendDate(ft.format(new Date()));
+        //必填-页大小
+        request.setPageSize(10L);
+        //必填-当前页码从1开始计数
+        request.setCurrentPage(1L);
+
+        //hint 此处可能会抛出异常，注意catch
+        QuerySendDetailsResponse querySendDetailsResponse = acsClient.getAcsResponse(request);
+
+        return querySendDetailsResponse;
+    }
 
     /**
      * 生成随机的6位数，短信验证码

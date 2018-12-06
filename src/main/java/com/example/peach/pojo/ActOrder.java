@@ -4,16 +4,17 @@ package com.example.peach.pojo;
 import java.util.List;
 
 /**
+ * 活动单
  * Created by Administrator on 2018/11/17.
  */
 public class ActOrder {
-    private Integer id;
-    private Integer activityId;
-    private List<Activity> activityList;
-    private Integer userId;
-    private  List<User> userList;
-    private String orderNumber;
-    private Integer status;
+    private Integer id;//主键
+    private Integer activityId;//活动id
+    private Integer userId;//用户id
+    private String orderNumber;//单号
+    private Integer status;//状态
+    private List<Activity> activityList;//活动表集合
+    private  List<User> userList;//用户集合
 
     public Integer getId() {
         return id;

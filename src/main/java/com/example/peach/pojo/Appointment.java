@@ -2,6 +2,7 @@ package com.example.peach.pojo;
 
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  *
@@ -14,6 +15,15 @@ public class Appointment {
     private int youid;//约见对象
     private int status;//状态
     private Timestamp createTime;//创建时间
+    private List<User> list;
+
+    public List<User> getList() {
+        return list;
+    }
+
+    public void setList(List<User> list) {
+        this.list = list;
+    }
 
     public int getId() {
         return id;

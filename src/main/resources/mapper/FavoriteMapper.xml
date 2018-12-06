@@ -1,10 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.peach.dao.FavoriteMapper">
+         <resultMap  id="BaseResultMap" type="com.example.peach.pojo.Favorite" >
+             <id column="id" property="id"/>
+             <result column="user_id" property="userid"/>
+             <result column="number" property="number"/>
+             <result column="createtime" property="createTime"/>
+             <result column="note" property="note"/>
+             <collection property="list" ofType="com.example.peach.pojo.User">
+                 <id column="id" property="id" jdbcType="INTEGER" />
+                 <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+                 <result column="user_realname" property="userRealname" jdbcType="VARCHAR" />
+                 <result column="user_sex" property="userSex" jdbcType="BIT" />
+                 <result column="user_phone" property="userPhone" jdbcType="INTEGER" />
+                 <result column="user_birthday" property="userBirthday" jdbcType="DATE" />
+                 <result column="user_address" property="userAddress" jdbcType="VARCHAR" />
+                 <result column="user_autograph" property="userAutograph" jdbcType="VARCHAR" />
+                 <result column="user_occupation" property="userOccupation" jdbcType="VARCHAR" />
+                 <result column="is_marriage" property="isMarriage" jdbcType="BIT" />
+                 <result column="user_height" property="userHeight" jdbcType="INTEGER" />
+                 <result column="user_education" property="userEducation" jdbcType="VARCHAR" />
+                 <result column="user_salary" property="userSalary" jdbcType="VARCHAR" />
+                 <result column="user_interest" property="userInterest" jdbcType="VARCHAR" />
+                 <result column="user_jurisdiction" property="userJurisdiction" jdbcType="INTEGER" />
+                 <result column="user_idcard" property="userIdcard" jdbcType="CHAR" />
+                 <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
+                 <result column="user_integral" property="userIntegral" jdbcType="INTEGER" />
+                 <result column="is_realname" property="isRealname" jdbcType="BIT" />
+                 <result column="openid" property="openid" jdbcType="VARCHAR" />
+                 <result column="user_native" property="userNative" jdbcType="VARCHAR" />
+                 <result column="unionid" property="unionid" jdbcType="VARCHAR" />
+                 <result column="province" property="province" jdbcType="VARCHAR" />
+                 <result column="city" property="city" jdbcType="VARCHAR" />
+                 <result column="country" property="country" jdbcType="VARCHAR" />
+             </collection>
 
+         </resultMap>
 
     <!--查询自己的心仪对象-->
-    <select id="selectByMyId" parameterType="int" resultType="com.example.peach.pojo.Favorite">
+    <select id="selectByMyId" parameterType="int" resultMap="BaseResultMap">
         <!--SELECT f.myid,u.user_realname,u.id
             FROM  favorite f JOIN user u ON f.youid=u.id
             WHERE f.myid= #{myid}-->

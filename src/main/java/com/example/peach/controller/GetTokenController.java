@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -21,7 +22,7 @@ public class GetTokenController {
     @Resource
     private TokenService tokenService;
 
-    @RequestMapping(value = "/token")
+    @RequestMapping(value = "/token",  method = RequestMethod.GET)
     public HashMap<String,String> GetToken(){
 
         Token token=tokenService.selectById();
