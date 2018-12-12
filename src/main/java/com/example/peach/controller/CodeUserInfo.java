@@ -2,9 +2,12 @@ package com.example.peach.controller;
 
 
 
+<<<<<<< HEAD
 import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.User;
 import com.example.peach.service.UserService;
+=======
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 import com.example.peach.util.AesCbcUtil;
 import com.example.peach.util.HttpRequest;
 
@@ -13,11 +16,20 @@ import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
 
+<<<<<<< HEAD
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+=======
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +37,7 @@ import java.util.Map;
  * Created by Administrator on 2018/11/15.
  */
 @RestController
+<<<<<<< HEAD
 @MapperScan("com.example.peach.mapper")
 public class CodeUserInfo {
     @Resource
@@ -47,6 +60,28 @@ public class CodeUserInfo {
         //授权（必填）
         String grant_type = "authorization_code";
 
+=======
+public class CodeUserInfo {
+    @RequestMapping(value = "/decodeUserInfo", method = RequestMethod.GET)
+    public Map decodeUserInfo( String encryptedData, String iv, String code) throws JSONException {
+
+        Map map = new HashMap();
+        //登录凭证不能为空
+        if (code == null || code.length() == 0) {
+            map.put("status", 0);
+            map.put("msg", "code 不能为空");
+            return map;
+        }
+
+        //小程序唯一标识   (在微信小程序管理后台获取)
+        String wxspAppid = "wxid_9ctl7c98zkc21";//wxid_9ctl7c98zkc21 wx8fbfb3afbb0cc35a
+        //小程序的 app secret (在微信小程序管理后台获取)
+        String wxspSecret = "08dc40c4037c00f55ba492850a6c9041";
+        //授权（必填）
+        String grant_type = "authorization_code";
+
+
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
         //////////////// 1、向微信服务器 使用登录凭证 code 获取 session_key 和 openid ////////////////
         //请求参数
         String params = "appid=" + wxspAppid + "&secret=" + wxspSecret + "&js_code=" + code + "&grant_type=" + grant_type;
@@ -58,6 +93,7 @@ public class CodeUserInfo {
         String session_key = json.get("session_key").toString();
         //用户的唯一标识（openid）
         String openid = (String) json.get("openid");
+<<<<<<< HEAD
         user.setOpenid(openid);
 
 
@@ -89,5 +125,34 @@ public class CodeUserInfo {
 //        map.put("msg", "解密失败");
         ServiceResponse<Map> response=userService.lognUser(user);
         return response;
+=======
+
+        //////////////// 2、对encryptedData加密数据进行AES解密 ////////////////
+        try {
+            String result = AesCbcUtil.decrypt(encryptedData, session_key, iv, "UTF-8");
+            if (null != result && result.length() > 0) {
+                map.put("status", 1);
+                map.put("msg", "解密成功");
+
+                JSONObject userInfoJSON = JSONObject.fromObject(result);
+                Map userInfo = new HashMap();
+                userInfo.put("openId", userInfoJSON.get("openId"));
+                userInfo.put("nickName", userInfoJSON.get("nickName"));
+                userInfo.put("gender", userInfoJSON.get("gender"));
+                userInfo.put("city", userInfoJSON.get("city"));
+                userInfo.put("province", userInfoJSON.get("province"));
+                userInfo.put("country", userInfoJSON.get("country"));
+                userInfo.put("avatarUrl", userInfoJSON.get("avatarUrl"));
+                userInfo.put("unionId", userInfoJSON.get("unionId"));
+                map.put("userInfo", userInfo);
+                return map;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        map.put("status", 0);
+        map.put("msg", "解密失败");
+        return map;
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
     }
 }

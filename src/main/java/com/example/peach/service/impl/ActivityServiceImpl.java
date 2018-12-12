@@ -7,9 +7,12 @@ import com.example.peach.service.ActivityService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+=======
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 
 /**
  * Created by Administrator on 2018/11/15.
@@ -25,12 +28,19 @@ public class ActivityServiceImpl implements ActivityService {
      * @return
      */
     @Override
+<<<<<<< HEAD
     public ServiceResponse<Map> selectById(Integer id) {
         Activity activity=activityMapper.selectById(id);
         if (activity!=null){
             Map<String,Object> map=new HashMap<>();
             map.put("activity",activity);
             return ServiceResponse.createBySuccess("有活动",map);
+=======
+    public ServiceResponse<String> selectById(Integer id) {
+        Activity activity=activityMapper.selectById(id);
+        if (activity!=null){
+            return ServiceResponse.createBySuccess("有活动");
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
         }
         return ServiceResponse.createByError("没活动");
     }
@@ -73,7 +83,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+<<<<<<< HEAD
     public List<Activity> selectByActnature() {
         return activityMapper.selectByActnature();
+=======
+    public Activity selectByActnature(String actnature) {
+        return activityMapper.selectByActnature(actnature);
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
     }
 }

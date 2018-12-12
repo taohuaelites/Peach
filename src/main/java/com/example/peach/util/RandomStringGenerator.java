@@ -27,11 +27,14 @@ public class RandomStringGenerator {
         return sb.toString();
     }
 
+<<<<<<< HEAD
     /**
      * 前面是时间后面是随机数
      * @param length
      * @return
      */
+=======
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
     public static String getRandomStringtime(int length) {
         String base = "0123456789";
         SimpleDateFormat myFmt = new SimpleDateFormat("yyMMddHHmmss");
@@ -45,6 +48,7 @@ public class RandomStringGenerator {
         }
         return sb.toString();
     }
+<<<<<<< HEAD
     /**
      * 随机数
      */
@@ -59,4 +63,6 @@ public class RandomStringGenerator {
         return sb.toString();
 
     }
+=======
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 }

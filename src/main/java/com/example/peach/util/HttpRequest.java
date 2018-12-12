@@ -1,4 +1,9 @@
 package com.example.peach.util;
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,9 +13,12 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
+<<<<<<< HEAD
 /**
  * Created by Administrator on 2018/11/15.
  */
+=======
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 public class HttpRequest {
     /**
      * 向指定URL发送GET方法的请求
@@ -124,5 +132,8 @@ public class HttpRequest {
         }
         return result;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 }

@@ -2,6 +2,7 @@ package com.example.peach.service.impl;
 
 import com.example.peach.common.ServiceResponse;
 import com.example.peach.dao.ActOrderMapper;
+<<<<<<< HEAD
 import com.example.peach.dao.ActivityMapper;
 import com.example.peach.dao.UserMapper;
 import com.example.peach.pojo.ActOrder;
@@ -9,6 +10,10 @@ import com.example.peach.pojo.Activity;
 import com.example.peach.pojo.User;
 import com.example.peach.service.ActOrderService;
 import com.example.peach.util.DateSub;
+=======
+import com.example.peach.pojo.ActOrder;
+import com.example.peach.service.ActOrderService;
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,10 +26,14 @@ import java.util.List;
 public class ActOrderServiceImpl implements ActOrderService {
     @Resource
     private ActOrderMapper actOrderMapper;
+<<<<<<< HEAD
     @Resource
     private ActivityMapper activityMapper;
     @Resource
     private UserMapper userMapper;
+=======
+
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
     /**
      * 根据id查询活动单
      * @param id
@@ -42,6 +51,7 @@ public class ActOrderServiceImpl implements ActOrderService {
      */
     @Override
     public ServiceResponse<String> insertActOrder(ActOrder actOrder) {
+<<<<<<< HEAD
          Activity activity= activityMapper.selectById(actOrder.getActivityId());
         //当前时间与活动开始时间的天数差
         Long longs= DateSub.getDaySub(activity.getActtime());
@@ -81,5 +91,17 @@ public class ActOrderServiceImpl implements ActOrderService {
         }
 
         return ServiceResponse.createByError("签到失败");
+=======
+       int insert= actOrderMapper.insertActOrder(actOrder);
+        if (insert>0){
+            return  ServiceResponse.createBySuccess("添加成功");
+        }
+        return ServiceResponse.createByError("添加失败");
+    }
+
+    @Override
+    public List<ActOrder> selectActOrderList(String actnature) {
+        return actOrderMapper.selectActOrderList(actnature);
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
     }
 }
