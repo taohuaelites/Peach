@@ -30,8 +30,7 @@ public class User {
     private String usernative;//籍贯
     private String unionid;
     private  String userMarrytime;//期望结婚时间
-
-
+    
     public Integer getId() {
         return id;
     }
