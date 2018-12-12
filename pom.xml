@@ -26,6 +26,12 @@
     </properties>
 
     <dependencies>
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -35,6 +41,14 @@
                     <artifactId>spring-boot-starter-logging</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
         </dependency>
 
         <!-- log4j -->
@@ -62,9 +76,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <!--<scope>provided</scope>-->
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-tomcat</artifactId>
+        <!--<scope>provided</scope>-->
         </dependency>
 
         <!--阿里云jar包-->
@@ -78,22 +92,12 @@
             <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
             <version>1.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.5</version>
+        </dependency>
 
-        <!--对象转日期,Jackson对象节点创建及使用-->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-annotations</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -101,17 +105,79 @@
             <scope>test</scope>
         </dependency>
 
+
+
+        <!--json-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.28</version>
+        </dependency>
+
+<<<<<<< HEAD
+        <!--对象转日期,Jackson对象节点创建及使用-->
+=======
+
+        <!-- poi office -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.9</version>
+        </dependency>
+
+        <!--JDOM  XML解析器-->
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.6</version>
+        </dependency>
+
+        <!--操作工具类jar包-->
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+
+        <!--thymeleaf依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <!--<version>3.0.7.RELEASE</version>-->
+        </dependency>
+
+
+        <!--Quartz定时管理-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
+            <version>2.0.0.RELEASE</version>
+        </dependency>
+
+
+
         <!-- 阿里巴巴连接池Druid -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.1.5</version>
         </dependency>
-
         <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>1.8.13</version>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.6</version>
         </dependency>
 
         <!--xml转换对象-->
@@ -157,12 +223,17 @@
 
 
 
+
+
     <build>
+        <finalName>peach</finalName>
         <plugins>
+            <!--使用maven打包需要添加这个插件，不然运行没有配置文件 MAINFEST.MF-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+<<<<<<< HEAD
             <!--<plugin>-->
                 <!--<groupId>org.mybatis.generator</groupId>-->
                 <!--<artifactId>mybatis-generator-maven-plugin</artifactId>-->
@@ -196,7 +267,11 @@
                 <!--</includes>-->
             <!--</resource>-->
         <!--</resources>-->
-    </build>
+=======
+        </plugins>
 
+
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
+    </build>
 
 </project>

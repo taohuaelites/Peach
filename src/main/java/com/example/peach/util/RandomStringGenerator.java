@@ -28,16 +28,27 @@ public class RandomStringGenerator {
     }
 
     public static String getRandomStringtime(int length) {
+<<<<<<< HEAD
         String base = "0123456789abcdefghijklmnopqrstuvwxyz";
+=======
+        String base = "0123456789";
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
         SimpleDateFormat myFmt = new SimpleDateFormat("yyMMddHHmmss");
         String charseed = myFmt.format(new Date());
         StringBuffer sb = new StringBuffer();// 装载生成的随机数
         Random random = new Random();// 调用种子生成随机数
+<<<<<<< HEAD
+=======
+        sb.append(charseed);
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
         for (int i = 0; i <length-charseed.length(); i++) {
             int number = random.nextInt(base.length());
             sb.append(base.charAt(number));
         }
+<<<<<<< HEAD
         sb.append(charseed);
+=======
+>>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
         return sb.toString();
     }
 }
