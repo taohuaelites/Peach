@@ -1,10 +1,8 @@
-package com.example.peach.webconfig;
+package com.example.peach.config;
 
 import com.example.peach.interceptor.UrlInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -35,12 +33,15 @@ public class WebInterceptorConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
 //        registry.addViewController("/show/getLogin").setViewName("login");
     }
-
-
-
     @Override
-
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
+        /**
+         * 资源映射路径
+         * addResourceHandler：访问映射路径
+         * addResourceLocations：资源绝对路径
+         */
+        registry.addResourceHandler("/static/userimage/**").addResourceLocations("/static/userimage/");
     }
+
+
 }

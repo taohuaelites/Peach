@@ -5,10 +5,13 @@ import com.example.peach.common.ServiceResponse;
 import com.example.peach.dao.UserMapper;
 import com.example.peach.pojo.User;
 import com.example.peach.service.UserService;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,15 +25,17 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ServiceResponse<String> selectByOpenid(String openid, String type) {
+    public ServiceResponse<Map> selectByOpenid(String openid, String type) {
         User user= userMapper.selectByOpenid(openid);
+        Map<String,Object> map=new  HashMap<>();
         if(type.equals(Conts.OPENID)){
 
             if (user!=null){
-                return ServiceResponse.createByError("用户已经注册过");
+                map.put("user",user);
+                return ServiceResponse.createBySuccess("用户登录成功",map);
             }
         }
-        return  ServiceResponse.createBySuccess("用户需要注册");
+        return  ServiceResponse.createByError("用户需要注册");
 
 }
 
@@ -40,19 +45,21 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public ServiceResponse<String> lognUser(@ModelAttribute User user) {
-        ServiceResponse<String> response =  this.selectByOpenid(user.getOpenid(),Conts.OPENID);
-        if(!response.isSuccess()){
+    public ServiceResponse<Map> lognUser( User user) {
+        ServiceResponse<Map> response =  this.selectByOpenid(user.getOpenid(),Conts.OPENID);
+        if(response.isSuccess()){
           return response;
        }
         int userlogn = userMapper.insertSelective(user);
+        Map<String,Object> map=new  HashMap<>();
       if(userlogn>0){
-          return ServiceResponse.createBySuccess("授权成功");
+          map.put("user",user);
+          return ServiceResponse.createBySuccess("授权成功",map);
 
         }
-
         return  ServiceResponse.createByError("授权失败!!");
     }
+
 
     /**
      * 根据phone查询user
@@ -70,7 +77,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ServiceResponse<String> updateUser(User user) {
-        return null;
+       int users= userMapper.updateByPrimaryKeySelective(user);
+       if (users>0){
+           return ServiceResponse.createBySuccess("修改成功");
+       }
+        return  ServiceResponse.createByError("修改失败");
+    }
+
+    @Override
+    public List<User> userList() {
+        return userMapper.userList();
     }
 
 }

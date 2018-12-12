@@ -1,31 +1,35 @@
 package com.example.peach.pojo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class User {
-    private Integer id;
-    private String nickname;//昵称
+    private Integer id;//主键id
+    private String nickName;//昵称
     private String userRealname;//真实姓名
     private Date userBirthday;//生日
     private String userphone;//手机号
     private Integer userage;//年龄
-    private Boolean sex;
-    private String country;
+    private Boolean sex; //性别
+    private String country;//国家
     private String province;//省份
-    private String city;
+    private String city;//市
     private String userAddress;//地址
-    private String userAutograph;//签名
+    private String userAutograph;//个性签名
     private String userOccupation;//职业
-    private Boolean isMarriage;//是否
-    private Integer userHeight;
+    private Boolean isMarriage;//婚否
+    private Integer userHeight;//身高
     private String userEducation;//学历
-    private String userSalary;//年薪
+    private String userSalary;//薪资
     private String userInterest;//兴趣爱好
-    private Boolean userJurisdiction;//会员等级
+    private Integer userJurisdiction;//会员等级
     private String userIdcard;//身份证
-    private String headimgurl;//头像
+    private String avatarUrl;//头像
     private Integer userIntegral;//积分
     private String openid;//用户唯一标识
+    private  Boolean isrealname;//是否实名验证
+    private String usernative;//籍贯
+    private String unionid;
+    private  String userMarrytime;//期望结婚时间
 
 
     public Integer getId() {
@@ -36,8 +40,12 @@ public class User {
         this.id = id;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
     }
 
     public Integer getUserage() {
@@ -46,10 +54,6 @@ public class User {
 
     public void setUserage(Integer userage) {
         this.userage = userage;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname == null ? null : nickname.trim();
     }
 
     public String getUserphone() {
@@ -172,11 +176,11 @@ public class User {
         this.userInterest = userInterest == null ? null : userInterest.trim();
     }
 
-    public Boolean getUserJurisdiction() {
+    public Integer getUserJurisdiction() {
         return userJurisdiction;
     }
 
-    public void setUserJurisdiction(Boolean userJurisdiction) {
+    public void setUserJurisdiction(Integer userJurisdiction) {
         this.userJurisdiction = userJurisdiction;
     }
 
@@ -188,12 +192,12 @@ public class User {
         this.userIdcard = userIdcard == null ? null : userIdcard.trim();
     }
 
-    public String getHeadimgurl() {
-        return headimgurl;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
-    public void setHeadimgurl(String headimgurl) {
-        this.headimgurl = headimgurl == null ? null : headimgurl.trim();
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 
     public Integer getUserIntegral() {
@@ -212,4 +216,43 @@ public class User {
         this.openid = openid == null ? null : openid.trim();
     }
 
+    public Boolean getMarriage() {
+        return isMarriage;
+    }
+
+    public void setMarriage(Boolean marriage) {
+        isMarriage = marriage;
+    }
+
+    public Boolean getIsrealname() {
+        return isrealname;
+    }
+
+    public void setIsrealname(Boolean isrealname) {
+        this.isrealname = isrealname;
+    }
+
+    public String getUsernative() {
+        return usernative;
+    }
+
+    public void setUsernative(String usernative) {
+        this.usernative = usernative;
+    }
+
+    public String getUnionid() {
+        return unionid;
+    }
+
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
+    }
+
+    public String getUserMarrytime() {
+        return userMarrytime;
+    }
+
+    public void setUserMarrytime(String userMarrytime) {
+        this.userMarrytime = userMarrytime;
+    }
 }
