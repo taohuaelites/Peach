@@ -1,0 +1,287 @@
+package com.example.peach.service.impl;
+
+import com.example.peach.common.ServiceResponse;
+import com.example.peach.configuration.Configure;
+import com.example.peach.dao.CommodityMapper;
+import com.example.peach.pojo.Orderpay;
+import com.example.peach.pojo.User;
+import com.example.peach.pojo.UserVip;
+import com.example.peach.pojo.pay.OrderQueryParamsInfo;
+import com.example.peach.pojo.pay.OrderReturnInfo;
+import com.example.peach.service.OrderPayService;
+import com.example.peach.service.UserService;
+import com.example.peach.service.WXPayService;
+import com.example.peach.util.*;
+import com.thoughtworks.xstream.XStream;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+@Service
+public class WXPayServiceImpl implements WXPayService {
+    @Resource
+    private UserService userService;
+    @Resource
+    private OrderPayService orderPayService;
+    @Resource
+    private CommodityMapper commodityMapper;
+    @Resource
+    private UserVipServiceImpl userVipService;
+    private static final Logger L = Logger.getLogger(WXPayServiceImpl.class);
+
+    /**
+     * 付款
+     * @param mapinfo
+     * @return
+     * @throws IllegalAccessException
+     */
+    @Override
+    public ServiceResponse<Map> paymettwe(Map mapinfo, HttpServletRequest request) throws IllegalAccessException {
+
+        //处理小数点问题
+//        Double money = (Double) mapinfo.get("money");
+        Double money = (Double)0.01;
+//        BigDecimal bg = new BigDecimal(money * 100);
+
+//        double doubleValue = bg.setScale(bg,BigDecimal.ROUND_HALF_UP).doubleValue();
+        long money2 = Math.round(money*100);
+
+        String amount = String.valueOf(money2);
+        String openid = (String) mapinfo.get("openid");
+        String body= (String) mapinfo.get("body");
+        Map<String,String> paraMap = new TreeMap<String, String>();
+        //设置请求参数(小程序ID)
+        paraMap.put("appid", Configure.getAppID());
+        //设置请求参数(商品描述)
+        paraMap.put("body", body);
+        //设置请求参数(商户号)
+        paraMap.put("mch_id", Configure.getMch_id());
+        //设置请求参数(随机字符串)
+        paraMap.put("nonce_str", RandomStringGenerator.getRandomStringByLength(32));
+        //设置请求参数(商户订单号)
+        paraMap.put("out_trade_no", RandomStringGenerator.getRandomStringtime(32));
+        //设置请求参数(总金额)
+        paraMap.put("total_fee", amount);
+        //设置请求参数(终端IP)
+        paraMap.put("spbill_create_ip", Configure.getSpbill_create_ip());
+//        paraMap.put("spbill_create_ip",PayUtil.getIpAddress(request));
+        //设置请求参数(通知地址)
+        paraMap.put("notify_url","http://localhost:8080/api/pay/weixin/WXpayBack");
+//        paraMap.put("notify_url","http://www.thy66.cn/peach/api/pay/weixin/WXpayBack");
+        //设置请求参数(交易类型)
+        paraMap.put("trade_type", "JSAPI");
+        //设置交易起始时间
+        SimpleDateFormat myFmt = new SimpleDateFormat("yyyyMMddHHmmss");
+        paraMap.put("time_start", myFmt.format(new Date()));
+        //设置交易结束时间
+
+        paraMap.put("time_expire",myFmt.format((new Date()).getTime()+30*60*1000));
+
+        //设置请求参数(openid)(在接口文档中 该参数 是否必填项 但是一定要注意 如果交易类型设置成'JSAPI'则必须传入openid)
+        paraMap.put("openid", openid);
+        System.out.println("openid+++++"+paraMap.put("openid", openid));
+        paraMap = PayUtil.paraFilter(paraMap);
+        String stringA = Signature.formatUrlMap(paraMap,false,false);
+        System.out.println("签名"+stringA);
+
+        String sign = MD5.MD5Encode(stringA+"&key="+ Configure.getKey()).toUpperCase();
+        paraMap.put("sign",sign);
+        String sxml = PayUtil.MaptoXml(paraMap);
+        Map map = new HashMap();
+        try {
+            String result = PayRequest.httpRequest(Configure.TYURL,"POST",sxml);
+            System.out.println(result);
+            XStream xStream = new XStream();
+            xStream.alias("xml", OrderReturnInfo.class);
+            OrderReturnInfo orderInfo = (OrderReturnInfo)xStream.fromXML(result);
+            //应该创建 支付表数据
+            System.out.println("是否成功+"+orderInfo.getReturn_code());
+            if("SUCCESS".equals(orderInfo.getReturn_code())&&orderInfo.getResult_code().equals(orderInfo.getReturn_code())){
+                long time = System.currentTimeMillis()/1000;
+                Map payInfo = new HashMap();
+                payInfo.put("timeStamp",String.valueOf(time));
+                payInfo.put("nonceStr", paraMap.get("nonce_str"));
+                payInfo.put("package", "prepay_id="+orderInfo.getPrepay_id());
+                payInfo.put("signType", "MD5");
+                String stringSignTemp = "appId=" + Configure.getAppID() + "&nonceStr=" + paraMap.get("nonce_str") + "&package=prepay_id=" + orderInfo.getPrepay_id()+ "&signType=MD5&timeStamp=" + String.valueOf(time);
+                //生成二次签名
+                String paySign = PayUtil.sign(stringSignTemp, Configure.getKey(), "utf-8").toUpperCase();
+                System.out.println("二次生成签名(MD5):"+paySign);
+                map.put("status", 200);
+                map.put("msg", "统一下单成功!");
+                map.put("data", payInfo);
+                payInfo.put("paySign", paySign);
+                //逻辑层  添加订单表
+                Orderpay orderpay = new Orderpay();
+                orderpay.setOutTradeNo(paraMap.get("out_trade_no"));
+                User user = userService.selectByOpenid(openid);
+                if(user==null){
+                    return ServiceResponse.createByError("此用户不存在",map);
+                }
+                orderpay.setUserId(user.getId());
+                orderpay.setTradeType(orderInfo.getTrade_type());
+                orderpay.setBody(body);
+                orderpay.setTotalFee( money);
+                orderpay.setTradeStatus("NOTPAY");//NOTPAY未支付
+                orderpay.setCommodityId((Integer) mapinfo.get("commodityId"));
+                orderpay.setCreateTime(paraMap.get("time_start"));
+                orderpay.setUpdateTime(paraMap.get("time_expire"));
+                int getrows = orderPayService.insertOrderPay(orderpay);
+                if(getrows>0){
+                    System.out.println("用户订单添加成功");
+                    return ServiceResponse.createBySuccess(map);
+                }else {
+                    System.out.println("用户订单导入失败");
+                    return ServiceResponse.createByError("用户订单导入失败",map);
+                }
+            }
+            map.put("status",500);
+            map.put("msg", "统一下单失败!");
+            map.put("data", null);
+            return ServiceResponse.createByError(map);
+            //将 数据包ID 返回
+        } catch (Exception e) {
+            L.info("微信 统一下单 异常："+e.getMessage());
+            e.printStackTrace();
+        }
+        L.info("微信 统一下单 失败");
+        return ServiceResponse.createByError(null);
+    }
+
+    /**
+     *支付回调,修改user信息(vip,appointment,Integral)
+     * @param openid
+     * @param out_trade_no
+     * @param cash_fee
+     */
+    @Transactional
+    public void wxpayBackmysql(String openid,String out_trade_no,Double cash_fee) throws ParseException {
+        Orderpay orderpay = orderPayService.selectByouttradeno(out_trade_no);
+        User user=userService.selectByOpenid(openid);
+        int id = user.getId();
+        if(id==orderpay.getUserId()) {
+            SimpleDateFormat myFmt = new SimpleDateFormat("yyyyMMddHHmmss");
+            String time = myFmt.format(new Date());
+            Orderpay updateOrderpay = new Orderpay();
+            updateOrderpay.setTradeStatus("SUCCESS");
+            updateOrderpay.setEndTime(time);
+            updateOrderpay.setOutTradeNo(out_trade_no);
+            int getrows = orderPayService.updateOrder_statusByout_trade_no(updateOrderpay);
+            if (getrows > 0) {
+                System.out.println("订单记录修改成功");
+            } else {
+                System.out.println("订单记录修改失败");
+            }
+            //判断是否充值的是会员
+            if (orderpay.getCommodityId() <= 4 && orderpay.getCommodityId() >= 1) {
+                int userIntegral = (int) Math.round(cash_fee +user.getUserIntegral());//积分
+                int appointment = commodityMapper.selectByPrimaryKey(orderpay.getCommodityId()).getCommodityFrequency();
+                User updateuser = new User();
+                updateuser.setUserNewold(0);
+                updateuser.setUserIntegral(userIntegral);
+                updateuser.setOpenid(openid);
+                ServiceResponse updateUser = userService.updateUnewoldAndUIntegralByOpenid(updateuser);
+                if (updateUser.isSuccess()) {
+                    System.out.println("用户积分,新老用户,状态修改成功");
+
+                } else {
+                    System.out.println("用户积分,新老用户,修改失败");
+                }
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date());
+                cal.add(Calendar.YEAR, 1);//增加一年
+                UserVip userVip = new UserVip();
+                userVip.setUserId(orderpay.getUserId());
+                userVip.setVipGrade(orderpay.getCommodityId());
+                userVip.setVipAppointment(appointment);
+                userVip.setVipCreatetime(myFmt.parse(time));
+                userVip.setVipEndtime(cal.getTime());
+                ServiceResponse updateUserVip = userVipService.updateByUserId(userVip);
+                if (updateUserVip.isSuccess()) {
+                    System.out.println("用户vip信息,修改成功");
+                } else {
+                    System.out.println("用户vip信息,修改失败");
+                }
+            }
+            //充值的钱包
+            else {
+                ServiceResponse response = userVipService.updateUwlletByUserId(cash_fee, orderpay.getUserId());
+                if (response.isSuccess()) {
+                    System.out.println("钱包充值成功(mysql)");
+                } else {
+                    System.out.println("钱包充值失败(mysql)");
+                }
+            }
+        }else{
+            System.out.println("订单记录和openid不是用一个人");
+        }
+    }
+
+    /**
+     *  订单状态查询
+     * @param out_trade_no 商户订单号
+     * @return
+     */
+    @Override
+    public ServiceResponse<Object> orderQueryZT(String out_trade_no) {
+        try{
+
+            Map<String,String> paraMap = new TreeMap<String, String>();
+            paraMap.put("appid",Configure.getAppID());
+            paraMap.put("mch_id",Configure.getMch_id());
+            paraMap.put("nonce_str",RandomStringGenerator.getRandomStringByLength(32));
+            //二选一
+            paraMap.put("out_trade_no",out_trade_no);
+//          paraMap.put("transaction_id",request.getParameter("transaction_id"));
+            String stringA = Signature.formatUrlMap(paraMap,false,false);
+            String sign = MD5.MD5Encode(stringA+"&key="+Configure.getKey()).toUpperCase();
+            paraMap.put("sign",sign);
+            String sxml = PayUtil.MaptoXml(paraMap);
+            String ordrxml = PayRequest.httpRequest(Configure.QUERY_URL,"POST",sxml);
+            //xml转换对象
+            XStream xStream = new XStream();
+            xStream.alias("xml", OrderQueryParamsInfo.class);
+            OrderQueryParamsInfo orderQuerypostInfo = (OrderQueryParamsInfo)xStream.fromXML(ordrxml);
+            if (orderQuerypostInfo.getReturn_code().equals("SUCCESS")&&orderQuerypostInfo.getResult_code().equals(orderQuerypostInfo.getReturn_code())){
+                //更新订单
+                //判断交易状态是否成功
+                Orderpay orderpay = new Orderpay();
+                System.out.println(orderQuerypostInfo.getOut_trade_no());
+                if(orderQuerypostInfo.getTrade_state().equals("SUCCESS")){
+                    orderpay.setTradeStatus(orderQuerypostInfo.getTrade_state());
+                    orderpay.setTransactionId(orderQuerypostInfo.getTransaction_id());
+                    orderpay.setOutTradeNo(orderQuerypostInfo.getOut_trade_no());
+                    int getrows = orderPayService.updateOrder_statusByout_trade_no(orderpay);
+                    if (getrows > 0) {
+                        return ServiceResponse.createBySuccess("更新订单成功", orderQuerypostInfo);
+                    } else {
+                        return ServiceResponse.createByError("更新订单导入数据库失败", orderQuerypostInfo);
+                    }
+                }else {
+
+                    orderpay.setTradeStatus(orderQuerypostInfo.getTrade_state());
+                    orderpay.setOutTradeNo(orderQuerypostInfo.getOut_trade_no());
+                    int getrows = orderPayService.updateOrder_statusByout_trade_no(orderpay);
+                    if (getrows > 0) {
+                        return ServiceResponse.createBySuccess("更新订单成功", orderQuerypostInfo);
+                    } else {
+                        return ServiceResponse.createByError("更新订单导入数据库失败", orderQuerypostInfo);
+                    }
+                }
+//                    return ServiceResponse.createBySuccess(orderQuerypostInfo);
+            }else{
+                return ServiceResponse.createByError("查询失败",orderQuerypostInfo);
+            }
+
+        }catch (Exception e){
+            L.error("微信查询订单失败！", e);
+        }
+        return  ServiceResponse.createByError(null);
+    }
+}

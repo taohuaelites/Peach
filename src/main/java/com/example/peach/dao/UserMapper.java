@@ -2,12 +2,10 @@ package com.example.peach.dao;
 
 import com.example.peach.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
+import org.apache.ibatis.annotations.Param;
 
-
-@Component
 @Mapper
-public interface UserMapper  {
+public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(User record);
@@ -19,4 +17,13 @@ public interface UserMapper  {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    int updateByPrimarynickname(@Param("nickname") String nickname, @Param("id") int id);
+
+    User selectByOpenid(String openid);
+
+    Boolean selectBynewolduser(String openid);
+    //充值钱包
+    int updateUnewoldAndUIntegralByOpenid(User user);
+
 }

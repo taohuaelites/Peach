@@ -138,7 +138,7 @@
             3. XMLMAPPER:会生成Mapper接口,接口完全依赖XML
             注意,如果context是MyBatis3Simple:只支持ANNOTATEDMAPPER和XMLMAPPER
         -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="${peach.Package}"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${peach.Package}.dao"
                              targetProject="${peach.url}\src\main\java">
             <!-- 在targetPackage的基础上,根据数据库的schema再生成一层package,最终生成的类放在这个package下,默认为false -->
             <property name="enableSubPackages" value="false"/>
@@ -188,8 +188,8 @@
 
             注意,table里面很多参数都是对javaModelGenerator,context等元素的默认属性的一个复写
         -->
-        <table tableName="user"
-               domainObjectName="User"
+        <table tableName="peach_commodity"
+               domainObjectName="Commodity"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

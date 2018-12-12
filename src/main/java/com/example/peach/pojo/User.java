@@ -1,55 +1,57 @@
 package com.example.peach.pojo;
 
-import javax.persistence.*;
 import java.util.Date;
-@Entity
-@Table(name = "user")
-public class User {
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    private Integer id;
-    @Column(name = "nickname")
-    private String nickname;//昵称
-    @Column(name = "user_realname")
-    private String userRealname;//真实姓名
-    @Column(name = "user_Birthday")
-    private Date userBirthday;//生日
-    @Column(name = "sex")
-    private Boolean sex;
-    @Column(name = "country")
-    private String country;
-    @Column(name = "province")
-    private String province;//省份
-    @Column(name = "city")
-    private String city;
-    @Column(name = "user_address")
-    private String userAddress;//地址
-    @Column(name = "uset_autograph")
-    private String userAutograph;//签名
-    @Column(name = "user_occupation")
-    private String userOccupation;//职业
-    @Column(name = "is_marriage")
-    private Boolean isMarriage;//是否
-    @Column(name = "user_height")
-    private Integer userHeight;
-    @Column(name = "user_education")
-    private String userEducation;//学历
-    @Column(name = "user_salary")
-    private String userSalary;//年薪
-    @Column(name = "user_interest")
-    private String userInterest;//兴趣爱好
-    @Column(name = "user_jurisdiction")
-    private Boolean userJurisdiction;//会员等级
-    @Column(name = "user_idcard")
-    private String userIdcard;//身份证
-    @Column(name = "headimgurl")
-    private String headimgurl;//头像
-    @Column(name = "user_integral")
-    private Integer userIntegral;//积分
-    @Column(name = "openid")
-    private String openid;//用户唯一标识
 
+public class User {
+    private Integer id;
+
+    private String nickname;
+
+    private String userRealname;
+
+    private Date userBirthday;
+
+    private Boolean sex;
+
+    private String country;
+
+    private String province;
+
+    private String city;
+
+    private String userAddress;
+
+    private String userAutograph;
+
+    private String userOccupation;
+
+    private Boolean isMarriage;
+
+    private Integer userHeight;
+
+    private String userEducation;
+
+    private String userSalary;
+
+    private String userInterest;
+
+    private Boolean userJurisdiction;
+
+    private String userIdcard;
+
+    private String headimgurl;
+
+    private Integer userIntegral;
+
+    private String openid;
+
+    private String usetAutograph;
+
+    private String userHeadportrait;
+
+    private String userName;
+
+    private Integer userNewold;
 
     public Integer getId() {
         return id;
@@ -64,7 +66,7 @@ public class User {
     }
 
     public void setNickname(String nickname) {
-        this.nickname = nickname == null ? null : nickname.trim();
+        this.nickname = nickname;
     }
 
     public String getUserRealname() {
@@ -72,7 +74,7 @@ public class User {
     }
 
     public void setUserRealname(String userRealname) {
-        this.userRealname = userRealname == null ? null : userRealname.trim();
+        this.userRealname = userRealname;
     }
 
     public Date getUserBirthday() {
@@ -96,7 +98,7 @@ public class User {
     }
 
     public void setCountry(String country) {
-        this.country = country == null ? null : country.trim();
+        this.country = country;
     }
 
     public String getProvince() {
@@ -104,7 +106,7 @@ public class User {
     }
 
     public void setProvince(String province) {
-        this.province = province == null ? null : province.trim();
+        this.province = province;
     }
 
     public String getCity() {
@@ -112,7 +114,7 @@ public class User {
     }
 
     public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
+        this.city = city;
     }
 
     public String getUserAddress() {
@@ -120,7 +122,7 @@ public class User {
     }
 
     public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress == null ? null : userAddress.trim();
+        this.userAddress = userAddress;
     }
 
     public String getUserAutograph() {
@@ -128,7 +130,7 @@ public class User {
     }
 
     public void setUserAutograph(String userAutograph) {
-        this.userAutograph = userAutograph == null ? null : userAutograph.trim();
+        this.userAutograph = userAutograph;
     }
 
     public String getUserOccupation() {
@@ -136,15 +138,15 @@ public class User {
     }
 
     public void setUserOccupation(String userOccupation) {
-        this.userOccupation = userOccupation == null ? null : userOccupation.trim();
+        this.userOccupation = userOccupation;
     }
 
-    public Boolean getIsMarriage() {
+    public Boolean getMarriage() {
         return isMarriage;
     }
 
-    public void setIsMarriage(Boolean isMarriage) {
-        this.isMarriage = isMarriage;
+    public void setMarriage(Boolean marriage) {
+        isMarriage = marriage;
     }
 
     public Integer getUserHeight() {
@@ -160,7 +162,7 @@ public class User {
     }
 
     public void setUserEducation(String userEducation) {
-        this.userEducation = userEducation == null ? null : userEducation.trim();
+        this.userEducation = userEducation;
     }
 
     public String getUserSalary() {
@@ -168,7 +170,7 @@ public class User {
     }
 
     public void setUserSalary(String userSalary) {
-        this.userSalary = userSalary == null ? null : userSalary.trim();
+        this.userSalary = userSalary;
     }
 
     public String getUserInterest() {
@@ -176,7 +178,7 @@ public class User {
     }
 
     public void setUserInterest(String userInterest) {
-        this.userInterest = userInterest == null ? null : userInterest.trim();
+        this.userInterest = userInterest;
     }
 
     public Boolean getUserJurisdiction() {
@@ -192,7 +194,7 @@ public class User {
     }
 
     public void setUserIdcard(String userIdcard) {
-        this.userIdcard = userIdcard == null ? null : userIdcard.trim();
+        this.userIdcard = userIdcard;
     }
 
     public String getHeadimgurl() {
@@ -200,7 +202,7 @@ public class User {
     }
 
     public void setHeadimgurl(String headimgurl) {
-        this.headimgurl = headimgurl == null ? null : headimgurl.trim();
+        this.headimgurl = headimgurl;
     }
 
     public Integer getUserIntegral() {
@@ -216,7 +218,38 @@ public class User {
     }
 
     public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
+        this.openid = openid;
     }
 
+    public String getUsetAutograph() {
+        return usetAutograph;
+    }
+
+    public void setUsetAutograph(String usetAutograph) {
+        this.usetAutograph = usetAutograph;
+    }
+
+    public String getUserHeadportrait() {
+        return userHeadportrait;
+    }
+
+    public void setUserHeadportrait(String userHeadportrait) {
+        this.userHeadportrait = userHeadportrait;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Integer getUserNewold() {
+        return userNewold;
+    }
+
+    public void setUserNewold(Integer userNewold) {
+        this.userNewold = userNewold;
+    }
 }

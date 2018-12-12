@@ -1,17 +1,17 @@
 package com.example.peach.common;
 
 public enum  ResponseCode {
-    SUCCESS(0,"SUCCESS"),
-    ERROR(1,"ERROR");
-    private final int code;
+    SUCCESS(true,"SUCCESS"),
+    ERROR(false,"ERROR");
+    private final Boolean code;
     private final String desc;
 
-    ResponseCode(int code,String desc){
+    ResponseCode(Boolean code,String desc){
         this.code = code;
         this.desc = desc;
     }
 
-    public int getCode() {
+    public Boolean getCode() {
         return code;
     }
 
