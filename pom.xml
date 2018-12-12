@@ -27,12 +27,6 @@
     </properties>
 
     <dependencies>
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -44,9 +38,6 @@
             </exclusions>
         </dependency>
 
-
-<<<<<<< HEAD
-=======
         <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
@@ -65,7 +56,7 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
+
 
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
@@ -96,7 +87,7 @@
             <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
             <version>1.1.0</version>
         </dependency>
-<<<<<<< HEAD
+
 
         <!--jackson的jar包依赖-->
         <!--<dependency>-->
@@ -148,7 +139,7 @@
             <version>2.4</version>
             <classifier>jdk15</classifier>
         </dependency>
-=======
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
@@ -183,14 +174,7 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.9</version>
         </dependency>
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 
-        <!--JDOM  XML解析器-->
-        <dependency>
-            <groupId>org.jdom</groupId>
-            <artifactId>jdom2</artifactId>
-            <version>2.0.6</version>
-        </dependency>
 
         <!--操作工具类jar包-->
         <dependency>
@@ -295,7 +279,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-<<<<<<< HEAD
         <resources>
             <!--<resource>-->
                 <!--<directory>src/main/java</directory>-->
@@ -315,8 +298,7 @@
             <!--</resource>-->
         </resources>
 
-=======
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
+
 
 
     </build>

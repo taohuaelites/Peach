@@ -13,11 +13,7 @@ public class Activity {
     private Timestamp acttime;//活动时间
     private  Timestamp actendtime;//活动截止时间
     private  String actplace;//活动地点
-<<<<<<< HEAD
-    private Double actcost;//活动费用
-=======
     private double actcost;//活动费用
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
     private  String actrule;//活动规则
     private  String actcontent;//活动内容
     private  String actimgurl;//活动图片路径

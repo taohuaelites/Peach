@@ -20,9 +20,9 @@ public interface ActivityMapper {
 
     int deleteActivity(Integer id);
 
-<<<<<<< HEAD
-    List<Activity>  selectByActnature();
-=======
+
+    List<Activity>  selectActivity();
+
     Activity selectByActnature(String actnature);
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
+
 }

@@ -4,7 +4,7 @@ package com.example.peach.pojo;
 import java.util.List;
 
 /**
-<<<<<<< HEAD
+    活动单
  * Created by Administrator on 2018/11/17.
  */
 public class ActOrder {
@@ -16,19 +16,6 @@ public class ActOrder {
     private String orderNumber;
     private Integer status;
     private  Integer signIn;
-=======
- * 活动单
- * Created by Administrator on 2018/11/17.
- */
-public class ActOrder {
-    private Integer id;//主键
-    private Integer activityId;//活动id
-    private Integer userId;//用户id
-    private String orderNumber;//单号
-    private Integer status;//状态
-    private List<Activity> activityList;//活动表集合
-    private  List<User> userList;//用户集合
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 
     public Integer getId() {
         return id;
@@ -85,7 +72,6 @@ public class ActOrder {
     public void setUserList(List<User> userList) {
         this.userList = userList;
     }
-<<<<<<< HEAD
 
     public Integer getSignIn() {
         return signIn;
@@ -94,6 +80,4 @@ public class ActOrder {
     public void setSignIn(Integer signIn) {
         this.signIn = signIn;
     }
-=======
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
 }

@@ -21,7 +21,6 @@ public class DemoTest {
 
     @Test
     public void test(){
-        User user = userMapper.selectByPrimaryKey(1);
-        System.out.println(user.getUserNickname());
+
     }
 }

@@ -63,7 +63,7 @@ public class ActivityController {
      */
     @RequestMapping(value="/selectActnature",method = RequestMethod.GET)
     public Map<String,Object> selectActnature(){
-      List<Activity> activity=  activityService.selectByActnature();
+      List<Activity> activity=  activityService.selectActivity();
       Map<String,Object> map=new HashMap<>();
         map.put("activity",activity);
         return  map;

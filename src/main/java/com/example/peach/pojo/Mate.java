@@ -9,10 +9,7 @@ public class Mate {
     private String mateHeight;//身高
     private String mateSalary;//薪资
     private String mateEducation;//学历
-<<<<<<< HEAD
-=======
     private String mateMarrytime;//期望结婚时间
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
     private String mateNative;//籍贯
     private String mateMarriage;//婚姻状况
     private String mateBelief;//信仰
@@ -61,8 +58,6 @@ public class Mate {
         this.mateEducation = mateEducation;
     }
 
-<<<<<<< HEAD
-=======
     public String getMateMarrytime() {
         return mateMarrytime;
     }
@@ -71,7 +66,7 @@ public class Mate {
         this.mateMarrytime = mateMarrytime;
     }
 
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
+
     public String getMateNative() {
         return mateNative;
     }

@@ -25,26 +25,25 @@ public class InterestController {
     private UserService userService;
 
     @RequestMapping(value = "/list")
-    public List<String> selectById(@RequestParam int id){
-        List<String> list=interestService.selectById(id);
+    public List<String> selectById(@RequestParam int id) {
+        List<String> list = interestService.selectById(id);
         return list;
     }
 
 
-    @RequestMapping(value = "/getUser")
-    public HashMap<String,Object> selectUserByInterest(@RequestParam int id){
-
-        HashMap<String,Object> map=userService.selectUserByInterest(id);
-
-        return map;
-    }
+//    @RequestMapping(value = "/getUser")
+//    public HashMap<String, Object> selectUserByInterest(@RequestParam int id) {
+//
+//        HashMap<String, Object> map = userService.selectUserByInterest(id);
+//
+//        return map;
+//    }
 
 
     @RequestMapping(value = "update")
-    public ServiceResponse updateInterest(@RequestParam int id,@RequestParam(value = "data[]")String[] data){
+    public ServiceResponse updateInterest(@RequestParam int id, @RequestParam(value = "data[]") String[] data) {
 
-        for (int i=0;i<data.length;i++){
-            data[i]
-        }
+        return null;
+
     }
 }

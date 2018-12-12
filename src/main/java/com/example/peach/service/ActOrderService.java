@@ -13,11 +13,8 @@ public interface ActOrderService {
 
     ServiceResponse<String> insertActOrder(ActOrder actOrder);
 
-<<<<<<< HEAD
     List<ActOrder> selectActOrderList(Integer activityId);
 
     ServiceResponse<String> updateActOrder(ActOrder actOrder);
-=======
-    List<ActOrder> selectActOrderList(String actnature);
->>>>>>> ead560b8456e748583ec8e8b4b62cdfbe8875259
+
 }
