@@ -31,7 +31,6 @@ public class User {
     private String usernative;//籍贯
     private String unionid;
     private  String userMarrytime;//期望结婚时间
-    private  Boolean userNewold;//是否为新老用户
 
     public Integer getId() {
         return id;
@@ -256,4 +255,7 @@ public class User {
     public void setUserNewold(Boolean userNewold) {
         this.userNewold = userNewold;
     }
+
+    private  Boolean userNewold;//是否为新老用户
+
 }

@@ -389,4 +389,17 @@
     <select id="selectBynewolduser" parameterType="java.lang.String" resultMap="BaseResultMap">
         select user_newold from user where  openid = #{openid};
     </select>
+
+    <select id="selectUserByInterest" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select *
+        from user
+        where  user_interest LIKE CONCAT(CONCAT('%',#{interest},'%'))
+    </select>
+
+    <update id="updateUserPhone" parameterType="User">
+        UPDATE user
+        set user_phone= #{userPhone}
+        WHERE id= #{id}
+    </update>
+
 </mapper>

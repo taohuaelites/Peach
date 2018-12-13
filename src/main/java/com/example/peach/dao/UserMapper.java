@@ -34,4 +34,9 @@ public interface UserMapper {
 
     //充值钱包
     int updateUnewoldAndUIntegralByOpenid(User user);
+
+    List<User> selectUserByInterest(String interest);
+
+    int updateUserPhone(User user);
+
 }

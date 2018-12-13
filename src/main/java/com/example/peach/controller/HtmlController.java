@@ -12,6 +12,6 @@ public class HtmlController {
 
     @RequestMapping(value = "index")
     public String getHtml(){
-        return "index";
+        return "login";
     }
 }

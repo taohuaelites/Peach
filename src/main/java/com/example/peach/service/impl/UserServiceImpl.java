@@ -127,4 +127,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.userList();
     }
 
+    @Override
+    public  int updateUserPhone(User user) {
+
+        return userMapper.updateUserPhone(user);
+    }
+
+
 }

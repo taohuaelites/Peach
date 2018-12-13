@@ -32,6 +32,6 @@ public interface UserService {
 
     List<User> userList();
 
-
+    int updateUserPhone(User user);
 }
 
