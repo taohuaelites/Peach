@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Component
 @Mapper
-@Repository
 public interface UserVipMapper {
     int deleteByPrimaryKey(Integer id);
 

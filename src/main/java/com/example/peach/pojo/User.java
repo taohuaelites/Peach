@@ -137,11 +137,11 @@ public class User {
         this.userOccupation = userOccupation;
     }
 
-    public Boolean getMarriage() {
+    public Boolean getIsMarriage() {
         return isMarriage;
     }
 
-    public void setMarriage(Boolean marriage) {
+    public void setIsMarriage(Boolean marriage) {
         isMarriage = marriage;
     }
 
