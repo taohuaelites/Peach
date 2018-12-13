@@ -32,11 +32,18 @@ public class UserServiceImpl implements UserService {
 
             if (user!=null){
                 map.put("user",user);
-                return ServiceResponse.createBySuccess("用户登录成功",map);
+            return ServiceResponse.createBySuccess("用户登录成功",map);
+        }
+            return  ServiceResponse.createByError("用户需要注册");
+        }
+        if (type.equals(Conts.NEWOLD)){
+            if(user.getUserNewold()) {
+                return ServiceResponse.createBySuccess("用户是新用户");
+            }else{
+                return ServiceResponse.createByError("用户是老用户");
             }
         }
-        return  ServiceResponse.createByError("用户需要注册");
-
+        return ServiceResponse.createByError("错误");
     }
 
     /**
@@ -82,6 +89,37 @@ public class UserServiceImpl implements UserService {
             return ServiceResponse.createBySuccess("修改成功");
         }
         return  ServiceResponse.createByError("修改失败");
+    }
+    /**
+     * 该买会员修改积分,如果是新用户修改成老用户
+     * @param user
+     * @return
+     */
+    @Override
+    public ServiceResponse<Integer> updateUnewoldAndUIntegralByOpenid(User user) {
+        int getrows = userMapper.updateByPrimaryKeySelective(user);
+        if(getrows>0){
+            return ServiceResponse.createBySuccess("用户信息修改成功");
+        }else{
+            return  ServiceResponse.createByError("用户信息修改失败");
+        }
+    }
+//
+    /**
+     * 根据openid 查询用户
+     * @param openid
+     * @return
+     */
+    @Override
+    public User selectByOpenid(String openid) {
+        User user = userMapper.selectByOpenid(openid);
+        if(user!=null){
+            System.out.println("openid:查询成功");
+            return user;
+        }else{
+            System.out.println("没有次用户");
+            return user;
+        }
     }
 
     @Override

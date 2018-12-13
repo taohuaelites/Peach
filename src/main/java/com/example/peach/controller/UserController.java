@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,13 +69,13 @@ public class UserController {
      *
      * 查询所有用户
      */
-        @RequestMapping(value = "/userList",method = RequestMethod.POST)
-        public Map<String,Object> userList(){
-             List<User> users= userService.userList();
-            Map<String,Object> map =new HashMap<>();
-            map.put("userlist",users);
-            return  map;
-        }
+    @RequestMapping(value = "/userList",method = RequestMethod.POST)
+    public Map<String,Object> userList(){
+        List<User> users= userService.userList();
+        Map<String,Object> map =new HashMap<>();
+        map.put("userlist",users);
+        return  map;
+    }
     /**
      * 更新兴趣爱好
      * @param
@@ -98,9 +99,9 @@ public class UserController {
         return userService.updateUser(user);
     }
     @RequestMapping(value = "/test")
-        public String test(Model model){
-            model.addAttribute("name","saa");
-            return "demo";
-        }
+    public String test(Model model){
+        model.addAttribute("name","saa");
+        return "demo";
+    }
 
 }

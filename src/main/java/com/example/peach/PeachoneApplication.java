@@ -1,15 +1,16 @@
 package com.example.peach;
-import org.mybatis.spring.annotation.MapperScan;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
-@MapperScan("com.example.peach.mapper")
+@Mapper
 public class PeachoneApplication {
 
 
     public static void main(String[] args) {
         SpringApplication.run(PeachoneApplication.class, args);
 
+        };
 
     }
-}

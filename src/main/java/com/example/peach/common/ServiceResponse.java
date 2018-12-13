@@ -12,28 +12,28 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServiceResponse<T> implements Serializable {
     private static final long serialVersionUID = 1L;
-    private int status;//状态:0,1
+    private Boolean status;//状态:0,1
     private String msg;//响应的信息
     private T data;//数据
 
-    private ServiceResponse(int status){
+    private ServiceResponse(Boolean status){
         this.status = status;
     }
-    private ServiceResponse(int status,String msg){
+    private ServiceResponse(Boolean status,String msg){
         this.status = status;
         this.msg = msg;
     }
-    private ServiceResponse(int status,T data){
+    private ServiceResponse(Boolean status,T data){
         this.status = status;
         this.data = data;
     }
-    private ServiceResponse(int status,String msg,T data){
+    private ServiceResponse(Boolean status,String msg,T data){
         this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
-    public int getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 

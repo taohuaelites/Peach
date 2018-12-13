@@ -60,6 +60,7 @@
             <result column="user_native" jdbcType="VARCHAR" property="usernative" />
             <result column="unionid" jdbcType="VARCHAR" property="unionid" />
             <result column="user_marrytime" jdbcType="VARCHAR" property="userMarrytime" />
+            <result column="user_newold" jdbcType="BIT" property="userNewold" />
         </collection>
     </resultMap>
 
@@ -72,7 +73,7 @@
     SELECT a.id,a.activity_id,a.user_id,a.`status`,a.signin,a.actorder_number,activity_name,activity_contentname,activity_time,activity_endtime,activity_place,activity_cost,
         activity_rule,activity_content,activity_imgurl,activity_nature,user_nickname,user_realname,user_birthday,sex,user_phone,user_age, country, province, city, user_address,
     user_autograph, user_occupation, is_marriage, user_height, user_education, user_salary,
-    user_interest, user_jurisdiction, user_idcard, headimgurl, user_integral, openid,is_realname,user_native,unionid,user_marrytime
+    user_interest, user_jurisdiction, user_idcard, headimgurl, user_integral, openid,is_realname,user_native,unionid,user_marrytime,user_newold
     FROM actorder a
     LEFT JOIN `user` u ON a.user_id=u.id
     LEFT JOIN activity y ON y.id=a.activity_id

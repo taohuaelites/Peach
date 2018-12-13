@@ -1,5 +1,6 @@
 package com.example.peach.pojo;
 
+
 import java.sql.Date;
 
 public class User {
@@ -30,6 +31,7 @@ public class User {
     private String usernative;//籍贯
     private String unionid;
     private  String userMarrytime;//期望结婚时间
+    private  Boolean userNewold;//是否为新老用户
 
     public Integer getId() {
         return id;
@@ -44,15 +46,23 @@ public class User {
     }
 
     public void setNickName(String nickName) {
-        this.nickName = nickName == null ? null : nickName.trim();
+        this.nickName = nickName;
     }
 
-    public Integer getUserage() {
-        return userage;
+    public String getUserRealname() {
+        return userRealname;
     }
 
-    public void setUserage(Integer userage) {
-        this.userage = userage;
+    public void setUserRealname(String userRealname) {
+        this.userRealname = userRealname;
+    }
+
+    public Date getUserBirthday() {
+        return userBirthday;
+    }
+
+    public void setUserBirthday(Date userBirthday) {
+        this.userBirthday = userBirthday;
     }
 
     public String getUserphone() {
@@ -63,20 +73,12 @@ public class User {
         this.userphone = userphone;
     }
 
-    public String getUserRealname() {
-        return userRealname;
+    public Integer getUserage() {
+        return userage;
     }
 
-    public void setUserRealname(String userRealname) {
-        this.userRealname = userRealname == null ? null : userRealname.trim();
-    }
-
-    public Date getUserBirthday() {
-        return userBirthday;
-    }
-
-    public void setUserBirthday(Date userBirthday) {
-        this.userBirthday = userBirthday;
+    public void setUserage(Integer userage) {
+        this.userage = userage;
     }
 
     public Boolean getSex() {
@@ -92,7 +94,7 @@ public class User {
     }
 
     public void setCountry(String country) {
-        this.country = country == null ? null : country.trim();
+        this.country = country;
     }
 
     public String getProvince() {
@@ -100,7 +102,7 @@ public class User {
     }
 
     public void setProvince(String province) {
-        this.province = province == null ? null : province.trim();
+        this.province = province;
     }
 
     public String getCity() {
@@ -108,7 +110,7 @@ public class User {
     }
 
     public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
+        this.city = city;
     }
 
     public String getUserAddress() {
@@ -116,7 +118,7 @@ public class User {
     }
 
     public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress == null ? null : userAddress.trim();
+        this.userAddress = userAddress;
     }
 
     public String getUserAutograph() {
@@ -124,7 +126,7 @@ public class User {
     }
 
     public void setUserAutograph(String userAutograph) {
-        this.userAutograph = userAutograph == null ? null : userAutograph.trim();
+        this.userAutograph = userAutograph;
     }
 
     public String getUserOccupation() {
@@ -132,15 +134,15 @@ public class User {
     }
 
     public void setUserOccupation(String userOccupation) {
-        this.userOccupation = userOccupation == null ? null : userOccupation.trim();
+        this.userOccupation = userOccupation;
     }
 
-    public Boolean getIsMarriage() {
+    public Boolean getMarriage() {
         return isMarriage;
     }
 
-    public void setIsMarriage(Boolean isMarriage) {
-        this.isMarriage = isMarriage;
+    public void setMarriage(Boolean marriage) {
+        isMarriage = marriage;
     }
 
     public Integer getUserHeight() {
@@ -156,7 +158,7 @@ public class User {
     }
 
     public void setUserEducation(String userEducation) {
-        this.userEducation = userEducation == null ? null : userEducation.trim();
+        this.userEducation = userEducation;
     }
 
     public String getUserSalary() {
@@ -164,7 +166,7 @@ public class User {
     }
 
     public void setUserSalary(String userSalary) {
-        this.userSalary = userSalary == null ? null : userSalary.trim();
+        this.userSalary = userSalary;
     }
 
     public String getUserInterest() {
@@ -172,7 +174,7 @@ public class User {
     }
 
     public void setUserInterest(String userInterest) {
-        this.userInterest = userInterest == null ? null : userInterest.trim();
+        this.userInterest = userInterest;
     }
 
     public Integer getUserJurisdiction() {
@@ -188,7 +190,7 @@ public class User {
     }
 
     public void setUserIdcard(String userIdcard) {
-        this.userIdcard = userIdcard == null ? null : userIdcard.trim();
+        this.userIdcard = userIdcard;
     }
 
     public String getAvatarUrl() {
@@ -196,7 +198,7 @@ public class User {
     }
 
     public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
+        this.avatarUrl = avatarUrl;
     }
 
     public Integer getUserIntegral() {
@@ -212,15 +214,7 @@ public class User {
     }
 
     public void setOpenid(String openid) {
-        this.openid = openid == null ? null : openid.trim();
-    }
-
-    public Boolean getMarriage() {
-        return isMarriage;
-    }
-
-    public void setMarriage(Boolean marriage) {
-        isMarriage = marriage;
+        this.openid = openid;
     }
 
     public Boolean getIsrealname() {
@@ -253,5 +247,13 @@ public class User {
 
     public void setUserMarrytime(String userMarrytime) {
         this.userMarrytime = userMarrytime;
+    }
+
+    public Boolean getUserNewold() {
+        return userNewold;
+    }
+
+    public void setUserNewold(Boolean userNewold) {
+        this.userNewold = userNewold;
     }
 }
