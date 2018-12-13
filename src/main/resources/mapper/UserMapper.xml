@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.peach.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.example.peach.pojo.User">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_nickname" jdbcType="VARCHAR" property="nickName" />
+        <result column="user_realname" jdbcType="VARCHAR" property="userRealname" />
+        <result column="user_birthday" jdbcType="DATE" property="userBirthday" />
+        <result column="user_phone" jdbcType="VARCHAR" property="userphone" />
+        <result column="user_age" jdbcType="INTEGER" property="userage" />
+        <result column="sex" jdbcType="BIT" property="sex" />
+        <result column="country" jdbcType="VARCHAR" property="country" />
+        <result column="province" jdbcType="VARCHAR" property="province" />
+        <result column="city" jdbcType="VARCHAR" property="city" />
+        <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+        <result column="user_autograph" jdbcType="VARCHAR" property="userAutograph" />
+        <result column="user_occupation" jdbcType="VARCHAR" property="userOccupation" />
+        <result column="is_marriage" jdbcType="BIT" property="isMarriage" />
+        <result column="user_height" jdbcType="INTEGER" property="userHeight" />
+        <result column="user_education" jdbcType="VARCHAR" property="userEducation" />
+        <result column="user_salary" jdbcType="VARCHAR" property="userSalary" />
+        <result column="user_interest" jdbcType="VARCHAR" property="userInterest" />
+        <result column="user_jurisdiction" jdbcType="INTEGER" property="userJurisdiction" />
+        <result column="user_idcard" jdbcType="CHAR" property="userIdcard" />
+        <result column="headimgurl" jdbcType="VARCHAR" property="avatarUrl" />
+        <result column="user_integral" jdbcType="INTEGER" property="userIntegral" />
+        <result column="openid" jdbcType="VARCHAR" property="openid" />
+        <result column="is_realname" jdbcType="BIT" property="isrealname" />
+        <result column="user_native" jdbcType="VARCHAR" property="usernative" />
+        <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+        <result column="user_marrytime" jdbcType="VARCHAR" property="userMarrytime" />
+        <result column="user_newold" jdbcType="BIT" property="userNewold" />
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_nickname, user_realname, user_birthday, sex,user_phone,user_age, country, province, city, user_address,
+        user_autograph, user_occupation, is_marriage, user_height, user_education, user_salary,
+        user_interest, user_jurisdiction, user_idcard, headimgurl, user_integral, openid,is_realname,user_native,
+        unionid,user_marrytime,user_newold
+
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <!--根据openid 查询user-->
+    <select id="selectByOpenid" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where openid = #{openid,jdbcType=VARCHAR}
+    </select>
+    <!--根据手机号phone查询user-->
+    <select id="selectByphone" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+        where user_phone = #{userphone,jdbcType=VARCHAR}
+    </select>
+    <!--查询所有用户-->
+    <select id="userList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from user
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.example.peach.pojo.User">
+        insert into user (id,user_nickname, user_realname,
+        user_birthday, sex,user_phone,user_age, country,
+        province, city, user_address,
+        user_autograph, user_occupation, is_marriage,
+        user_height, user_education, user_salary,
+        user_interest, user_jurisdiction, user_idcard,
+        headimgurl, user_integral, openid,openid,is_realname,
+        user_native,unionid,user_marrytime
+        )
+        values (#{id,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{userRealname,jdbcType=VARCHAR},
+        #{userBirthday,jdbcType=DATE}, #{sex,jdbcType=BIT}, #{userphone,jdbcType=VARCHAR}, #{userage,jdbcType=INTEGER}, #{country,jdbcType=VARCHAR},
+        #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR},
+        #{userAutograph,jdbcType=VARCHAR}, #{userOccupation,jdbcType=VARCHAR}, #{isMarriage,jdbcType=BIT},
+        #{userHeight,jdbcType=INTEGER}, #{userEducation,jdbcType=VARCHAR}, #{userSalary,jdbcType=VARCHAR},
+        #{userInterest,jdbcType=VARCHAR}, #{userJurisdiction,jdbcType=INTEGER}, #{userIdcard,jdbcType=CHAR},
+        #{avatarUrl,jdbcType=VARCHAR}, #{userIntegral,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR},
+        #{isrealname,jdbcType=BIT}, #{user_native,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR},
+        #{userMarrytime,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.example.peach.pojo.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="nickName != null">
+                user_nickname,
+            </if>
+            <if test="userRealname != null">
+                user_realname,
+            </if>
+            <if test="userBirthday != null">
+                user_birthday,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="userphone != null">
+                user_phone,
+            </if>
+            <if test="userage != null">
+                user_age,
+            </if>
+
+            <if test="country != null">
+                country,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="city != null">
+                city,
+            </if>
+            <if test="userAddress != null">
+                user_address,
+            </if>
+            <if test="userAutograph != null">
+                user_autograph,
+            </if>
+            <if test="userOccupation != null">
+                user_occupation,
+            </if>
+            <if test="isMarriage != null">
+                is_marriage,
+            </if>
+            <if test="userHeight != null">
+                user_height,
+            </if>
+            <if test="userEducation != null">
+                user_education,
+            </if>
+            <if test="userSalary != null">
+                user_salary,
+            </if>
+            <if test="userInterest != null">
+                user_interest,
+            </if>
+            <if test="userJurisdiction != null">
+                user_jurisdiction,
+            </if>
+            <if test="userIdcard != null">
+                user_idcard,
+            </if>
+            <if test="avatarUrl != null">
+                headimgurl,
+            </if>
+            <if test="userIntegral != null">
+                user_integral,
+            </if>
+            <if test="openid != null">
+                openid,
+            </if>
+            <if test="isrealname != null">
+                is_realname,
+            </if>
+            <if test="usernative != null">
+                user_native,
+            </if>
+            <if test="unionid != null">
+                unionid,
+            </if>
+            <if test="userMarrytime != null">
+                user_marrytime,
+            </if>
+            <if test="userNewold != null">
+                user_newold,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="userRealname != null">
+                #{userRealname,jdbcType=VARCHAR},
+            </if>
+            <if test="userBirthday != null">
+                #{userBirthday,jdbcType=DATE},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=BIT},
+            </if>
+            <if test="userphone != null">
+                user_phone = #{userphone,jdbcType=BIT},
+            </if>
+            <if test="userage != null">
+                user_age = #{userage,jdbcType=INTEGER},
+            </if>
+            <if test="country != null">
+                #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="userAddress != null">
+                #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="userAutograph != null">
+                #{userAutograph,jdbcType=VARCHAR},
+            </if>
+            <if test="userOccupation != null">
+                #{userOccupation,jdbcType=VARCHAR},
+            </if>
+            <if test="isMarriage != null">
+                #{isMarriage,jdbcType=BIT},
+            </if>
+            <if test="userHeight != null">
+                #{userHeight,jdbcType=INTEGER},
+            </if>
+            <if test="userEducation != null">
+                #{userEducation,jdbcType=VARCHAR},
+            </if>
+            <if test="userSalary != null">
+                #{userSalary,jdbcType=VARCHAR},
+            </if>
+            <if test="userInterest != null">
+                #{userInterest,jdbcType=VARCHAR},
+            </if>
+            <if test="userJurisdiction != null">
+                #{userJurisdiction,jdbcType=INTEGER},
+            </if>
+            <if test="userIdcard != null">
+                #{userIdcard,jdbcType=CHAR},
+            </if>
+            <if test="avatarUrl != null">
+                #{avatarUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="userIntegral != null">
+                #{userIntegral,jdbcType=INTEGER},
+            </if>
+            <if test="openid != null">
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="isrealname != null">
+                #{isrealname,jdbcType=BIT},
+            </if>
+            <if test="usernative != null">
+                #{usernative,jdbcType=VARCHAR},
+            </if>
+            <if test="unionid != null">
+                #{unionid,jdbcType=VARCHAR},
+            </if>
+            <if test="userMarrytime != null">
+                #{userMarrytime,jdbcType=VARCHAR},
+            </if>
+            <if test="userNewold != null">
+                #{userNewold,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.peach.pojo.User">
+        update user
+        <set>
+            <if test="nickName != null">
+                user_nickname = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="userRealname != null">
+                user_realname = #{userRealname,jdbcType=VARCHAR},
+            </if>
+            <if test="userBirthday != null">
+                user_birthday = #{userBirthday,jdbcType=DATE},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=BIT},
+            </if>
+            <if test="userphone != null">
+                user_phone = #{userphone,jdbcType=BIT},
+            </if>
+            <if test="userage != null">
+                user_age = #{userage,jdbcType=INTEGER},
+            </if>
+            <if test="country != null">
+                country = #{country,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                city = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="userAddress != null">
+                user_address = #{userAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="userAutograph != null">
+                user_autograph = #{userAutograph,jdbcType=VARCHAR},
+            </if>
+            <if test="userOccupation != null">
+                user_occupation = #{userOccupation,jdbcType=VARCHAR},
+            </if>
+            <if test="isMarriage != null">
+                is_marriage = #{isMarriage,jdbcType=BIT},
+            </if>
+            <if test="userHeight != null">
+                user_height = #{userHeight,jdbcType=INTEGER},
+            </if>
+            <if test="userEducation != null">
+                user_education = #{userEducation,jdbcType=VARCHAR},
+            </if>
+            <if test="userSalary != null">
+                user_salary = #{userSalary,jdbcType=VARCHAR},
+            </if>
+            <if test="userInterest != null">
+                user_interest = #{userInterest,jdbcType=VARCHAR},
+            </if>
+            <if test="userJurisdiction != null">
+                user_jurisdiction = #{userJurisdiction,jdbcType=INTEGER},
+            </if>
+            <if test="userIdcard != null">
+                user_idcard = #{userIdcard,jdbcType=CHAR},
+            </if>
+            <if test="avatarUrl != null">
+                headimgurl = #{avatarUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="userIntegral != null">
+                user_integral = #{userIntegral,jdbcType=INTEGER},
+            </if>
+            <!--<if test="openid != null">-->
+            <!--openid = #{openid,jdbcType=VARCHAR},-->
+            <!--</if>-->
+            <if test="isrealname != null">
+                is_realname=#{isrealname,jdbcType=BIT},
+            </if>
+            <if test="usernative != null">
+                user_native=#{usernative,jdbcType=VARCHAR},
+            </if>
+            <if test="unionid != null">
+                unionid= #{unionid,jdbcType=VARCHAR},
+            </if>
+            <if test="userMarrytime != null">
+                user_marrytime= #{userMarrytime,jdbcType=VARCHAR},
+            </if>
+            <if test="userNewold != null">
+                user_newold= #{userNewold,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where openid = #{openid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.peach.pojo.User">
+        update user
+        set user_nickname = #{nickName,jdbcType=VARCHAR},
+        user_realname = #{userRealname,jdbcType=VARCHAR},
+        user_birthday = #{userBirthday,jdbcType=DATE},
+        user_phone = #{userphone,jdbcType=VARCHAR},
+        user_age = #{userage,jdbcType=INTEGER},
+        sex = #{sex,jdbcType=BIT},
+        country = #{country,jdbcType=VARCHAR},
+        province = #{province,jdbcType=VARCHAR},
+        city = #{city,jdbcType=VARCHAR},
+        user_address = #{userAddress,jdbcType=VARCHAR},
+        user_autograph = #{userAutograph,jdbcType=VARCHAR},
+        user_occupation = #{userOccupation,jdbcType=VARCHAR},
+        is_marriage = #{isMarriage,jdbcType=BIT},
+        user_height = #{userHeight,jdbcType=INTEGER},
+        user_education = #{userEducation,jdbcType=VARCHAR},
+        user_salary = #{userSalary,jdbcType=VARCHAR},
+        user_interest = #{userInterest,jdbcType=VARCHAR},
+        user_jurisdiction = #{userJurisdiction,jdbcType=INTEGER},
+        user_idcard = #{userIdcard,jdbcType=CHAR},
+        headimgurl = #{avatarUrl,jdbcType=VARCHAR},
+        user_integral = #{userIntegral,jdbcType=INTEGER},
+        openid = #{openid,jdbcType=VARCHAR},
+        is_realname = #{isrealname,jdbcType=VARCHAR},
+        user_native = #{usernative,jdbcType=VARCHAR},
+        unionid = #{unionid,jdbcType=VARCHAR},
+        user_marrytime= #{userMarrytime,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimarynickname" parameterType="com.example.peach.pojo.User">
+        update user set nickname=#{nickname} where id=#{id};
+    </update>
+    <select id="selectBynewolduser" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select user_newold from user where  openid = #{openid};
+    </select>
+
+    <select id="selectUserByInterest" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select *
+        from user
+        where  user_interest LIKE CONCAT(CONCAT('%',#{interest},'%'))
+    </select>
+
+    <update id="updateUserPhone" parameterType="User">
+        UPDATE user
+        set user_phone= #{userPhone}
+        WHERE id= #{id}
+    </update>
+
+</mapper>
