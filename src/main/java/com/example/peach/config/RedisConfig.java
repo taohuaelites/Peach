@@ -1,6 +1,7 @@
 package com.example.peach.config;
 
 
+import com.example.peach.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -70,6 +71,21 @@ public class RedisConfig extends CachingConfigurerSupport {
         }
     }
 
+
+    /**
+     * 注入封装RedisTemplate
+     * @Title: redisUtil
+     * @return RedisUtil
+     * @autor lpl
+     * @date 2018年12月21日
+     * @throws
+     */
+    @Bean(name = "redisUtil")
+    public RedisUtil redisUtil(StringRedisTemplate stringRedisTemplate) {
+        RedisUtil redisUtil = new RedisUtil();
+        redisUtil.setRedisTemplate(stringRedisTemplate);
+        return redisUtil;
+    }
 
 }
 

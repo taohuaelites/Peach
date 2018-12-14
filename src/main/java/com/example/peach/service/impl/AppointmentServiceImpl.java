@@ -74,7 +74,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int rs=appointmentMapper.updateStatus1(appointment);
         if (rs>0){
-            return ServiceResponse.createBySuccess("约见成功！");
+            return ServiceResponse.createBySuccess();
         }else{
             return ServiceResponse.createByError("操作失败！");
         }
@@ -86,7 +86,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         int rs=appointmentMapper.updateStatus2(appointment);
         if (rs>0){
-            return ServiceResponse.createBySuccess("拒绝成功！");
+            return ServiceResponse.createBySuccess();
         }else{
             return ServiceResponse.createByError("操作失败！");
         }

@@ -3,6 +3,7 @@ package com.example.peach.controller;
 import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.Appointment;
 import com.example.peach.service.AppointmentService;
+import com.example.peach.service.UserVipService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,9 @@ public class AppointmentController {
 
     @Resource
     private AppointmentService appointmentService;
+
+    @Resource
+    private UserVipService userVipService;
 
     //添加约见
     @RequestMapping(value = "/insertappointment", method = RequestMethod.POST)
@@ -73,8 +77,7 @@ public class AppointmentController {
             if (!response.isSuccess()) {
                 return response;
             } else {
-                ServiceResponse.createBySuccess("拒绝约见！");
-                return response;
+                return ServiceResponse.createBySuccess("拒绝约见！");
             }
         } else {
             return ServiceResponse.createByError("传入空值！");
@@ -90,8 +93,13 @@ public class AppointmentController {
             if (!response.isSuccess()) {
                 return response;
             } else {
-                ServiceResponse.createBySuccess("接受约见！");
-                return response;
+                //同意约见，修改约见次数
+                response = userVipService.upateUappointmentByid(appointment.getMyid(), appointment.getYouid());
+                if (!response.isSuccess()) {
+                    return ServiceResponse.createByError("约见次数不足！");
+                } else {
+                    return ServiceResponse.createBySuccess("接受约见！");
+                }
             }
         } else {
             return ServiceResponse.createByError("传入空值！");

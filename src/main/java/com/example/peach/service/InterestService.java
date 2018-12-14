@@ -16,5 +16,5 @@ public interface InterestService {
 
     ServiceResponse insertInterest(Interest interest);
 
-    ServiceResponse selectUserByInterest(int id);
+    ServiceResponse selectUserByInterest(Integer id);
 }
