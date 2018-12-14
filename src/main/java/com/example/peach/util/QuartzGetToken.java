@@ -48,7 +48,7 @@ public class QuartzGetToken {
         //拿到accesstoken
         String access_token = (String) json.get("access_token");
         //打印access_token
-        System.out.println(access_token);
+        //System.out.println(access_token);
 
         //下面的操作我是存放到数据库了，大家可以更具自己的业务进行存储
         //封装数据
@@ -66,10 +66,9 @@ public class QuartzGetToken {
                 System.out.println("access_token更新失败");
             }
         }else{
-            System.out.println("access_token获取为null");
+            //System.out.println("access_token获取为null");
 
         }
-
         //结束
         System.out.println("定时任务结束了");
     }

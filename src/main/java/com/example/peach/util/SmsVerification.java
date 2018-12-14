@@ -30,7 +30,7 @@ public class SmsVerification {
     private UserService userService;
 
     @Resource
-    private StringRedisTemplate template;
+    private RedisUtil redisUtil;
 
     // 短信应用SDK AppID
     static final int appid = 1400167937; // 1400开头
@@ -49,66 +49,69 @@ public class SmsVerification {
 
     public ServiceResponse Send(String phoneNumber, Integer id) {
 
-        String number=getMsgCode();
+        String number = getMsgCode();
 
-        if (!template.hasKey(id.toString())) {
-            try {
-                String[] params = {number,"2"};//数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
-                SmsSingleSender ssender = new SmsSingleSender(appid, appkey);
-                SmsSingleSenderResult result = ssender.sendWithParam("86",phoneNumber ,
-                        templateId, params, smsSign, "",  "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
-
-                System.out.println(result);
-                if(result.errMsg.equals("OK")){
-                    template.opsForValue().set(id.toString(),number,240, TimeUnit.SECONDS);
-                    template.opsForValue().set(phoneNumber,phoneNumber,240,TimeUnit.SECONDS);
-                    return ServiceResponse.createBySuccess("发送成功！");
-                }else {
+        if (!redisUtil.hasKey(id.toString())) {
+            Boolean bool = redisUtil.set(id.toString(), number, 240);
+            Boolean lean = redisUtil.set(phoneNumber, phoneNumber, 240);
+            if (bool && lean) {
+                try {
+                    String[] params = {number, "2"};//数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
+                    SmsSingleSender ssender = new SmsSingleSender(appid, appkey);
+                    SmsSingleSenderResult result = ssender.sendWithParam("86", phoneNumber,
+                            templateId, params, smsSign, "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
+                    //System.out.println(result);
+                    if (result.errMsg.equals("OK")) {
+                        return ServiceResponse.createBySuccess("发送成功！");
+                    } else {
+                        return ServiceResponse.createByError("发送失败！");
+                    }
+                } catch (HTTPException e) {
+                    // HTTP响应码错误
+                    e.printStackTrace();
+                    return ServiceResponse.createByError("发送失败！");
+                } catch (JSONException e) {
+                    // json解析错误
+                    e.printStackTrace();
+                    return ServiceResponse.createByError("发送失败！");
+                } catch (IOException e) {
+                    // 网络IO错误
+                    e.printStackTrace();
                     return ServiceResponse.createByError("发送失败！");
                 }
-            } catch (HTTPException e) {
-                // HTTP响应码错误
-                e.printStackTrace();
-                return ServiceResponse.createByError("发送失败！");
-            } catch (JSONException e) {
-                // json解析错误
-                e.printStackTrace();
-                return ServiceResponse.createByError("发送失败！");
-            } catch (IOException e) {
-                // 网络IO错误
-                e.printStackTrace();
-                return ServiceResponse.createByError("发送失败！");
+            } else {
+                return ServiceResponse.createByError("请重新发送！");
             }
-        }else{
+        } else {
             return ServiceResponse.createByError("请稍后发送！");
         }
     }
 
 
+    public ServiceResponse Verification(User user, String number) {
 
-
-    public ServiceResponse Verification(User user, String number){
-
-       if (template.hasKey(String.valueOf(user.getId()))){
-           String num=template.opsForValue().get(String.valueOf(user.getId()));
-           String phone=template.opsForValue().get(user.getUserphone());
-           if (user.getUserphone().equals(phone) && number.equals(num)){
-               userService.updateUserPhone(user);
-               return ServiceResponse.createBySuccess("绑定成功！");
-           }else{
-               return ServiceResponse.createByError("输入错误！");
-           }
-        }else {
-           return ServiceResponse.createByError("请发送验证码！");
-       }
+        if (redisUtil.hasKey(String.valueOf(user.getId()))) {
+            String num = (String) redisUtil.get(String.valueOf(user.getId()));
+            String phone = (String) redisUtil.get(user.getUserphone());
+            if (user.getUserphone().equals(phone) && number.equals(num)) {
+                int rs = userService.updateUserPhone(user);
+                if (rs > 0) {
+                    return ServiceResponse.createBySuccess("绑定成功！");
+                } else {
+                    return ServiceResponse.createByError("绑定失败！");
+                }
+            } else {
+                return ServiceResponse.createByError("输入错误！");
+            }
+        } else {
+            return ServiceResponse.createByError("请发送验证码！");
+        }
     }
-
-
-
 
 
     /**
      * 生成随机的6位数，短信验证码
+     *
      * @return
      */
     private static String getMsgCode() {

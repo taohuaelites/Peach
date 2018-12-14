@@ -71,12 +71,21 @@ public class RedisConfig extends CachingConfigurerSupport {
             latch.countDown();
         }
     }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6a7db9e9f3898421f9b603c60b3d9744a614630a
     /**
      * 注入封装RedisTemplate
      * @Title: redisUtil
      * @return RedisUtil
      * @autor lpl
+<<<<<<< HEAD
      * @date 2017年12月21日
+=======
+     * @date 2018年12月21日
+>>>>>>> 6a7db9e9f3898421f9b603c60b3d9744a614630a
      * @throws
      */
     @Bean(name = "redisUtil")
@@ -85,5 +94,9 @@ public class RedisConfig extends CachingConfigurerSupport {
         redisUtil.setRedisTemplate(stringRedisTemplate);
         return redisUtil;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6a7db9e9f3898421f9b603c60b3d9744a614630a
 }
 

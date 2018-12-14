@@ -34,7 +34,7 @@ public class InterestServiceImpl implements InterestService{
     }
 
     @Override
-    public ServiceResponse selectUserByInterest(int id) {
+    public ServiceResponse selectUserByInterest(Integer id) {
 
         List<String> list=selectById(id);
         List<User> users=new ArrayList<>();
