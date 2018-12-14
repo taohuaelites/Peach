@@ -18,10 +18,10 @@ import java.util.List;
 public interface FavoriteMapper {
 
     //查询自己的心仪对象
-    List<Favorite> selectByMyId(@Param("myid") int myid);
+    List<Favorite> selectByMyId(@Param("myid") Integer myid);
 
     //查询心仪自己的对象
-    List<Favorite> selectByYouId(@Param("youid") int youid);
+    List<Favorite> selectByYouId(@Param("youid") Integer youid);
 
     //查询相互心仪的对象
     List<Favorite> selectAll();

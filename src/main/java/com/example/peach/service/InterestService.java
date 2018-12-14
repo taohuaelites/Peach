@@ -10,9 +10,11 @@ import java.util.List;
  */
 public interface InterestService {
 
-    List<String> selectById(int id);
+    List<String> selectById(Integer id);
 
     ServiceResponse updateInterest(Interest interest);
 
     ServiceResponse insertInterest(Interest interest);
+
+    ServiceResponse selectUserByInterest(int id);
 }

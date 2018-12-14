@@ -1,12 +1,12 @@
 package com.example.peach.controller;
 
 import com.example.peach.common.ServiceResponse;
+import com.example.peach.pojo.Interest;
 import com.example.peach.pojo.User;
 import com.example.peach.service.InterestService;
 import com.example.peach.service.UserService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -25,25 +25,45 @@ public class InterestController {
     private UserService userService;
 
     @RequestMapping(value = "/list")
-    public List<String> selectById(@RequestParam int id) {
-        List<String> list = interestService.selectById(id);
-        return list;
+    public ServiceResponse selectById(@RequestParam Integer id) {
+
+        if (id!=null){
+            List<String> list = interestService.selectById(id);
+            return ServiceResponse.createBySuccess(list);
+        }else{
+            return ServiceResponse.createByError("传入空值！");
+        }
     }
 
 
-//    @RequestMapping(value = "/getUser")
-//    public HashMap<String, Object> selectUserByInterest(@RequestParam int id) {
-//
-//        HashMap<String, Object> map = userService.selectUserByInterest(id);
-//
-//        return map;
-//    }
+    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
+    public ServiceResponse selectUserByInterest(@RequestParam Integer id){
+
+        if (id!=null){
+            ServiceResponse response=interestService.selectUserByInterest(id);
+            return response;
+        }else {
+            return ServiceResponse.createByError("传入空值！");
+        }
+    }
 
 
-    @RequestMapping(value = "update")
-    public ServiceResponse updateInterest(@RequestParam int id, @RequestParam(value = "data[]") String[] data) {
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ServiceResponse updateInterest(@RequestParam Integer id,@RequestParam(value = "data[]")String[] data){
 
-        return null;
+        String str= StringUtils.join(data,",");
+        Interest interest=new Interest();
+        interest.setId(id);
+        interest.setCategory(str);
+        return interestService.updateInterest(interest);
+    }
+
+
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public ServiceResponse insertInerest(@ModelAttribute Interest interest){
+
+        return interestService.insertInterest(interest);
 
     }
+
 }
