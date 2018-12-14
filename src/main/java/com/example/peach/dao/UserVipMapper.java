@@ -5,10 +5,11 @@ import com.example.peach.pojo.merge.UvipUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+
 
 @Component
 @Mapper
+
 public interface UserVipMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -28,7 +29,7 @@ public interface UserVipMapper {
     //相减约见次数
     int updateAppiontmentByUserId(@Param(value = "vipAppointment") Integer vipAppointment, @Param(value = "userId") Integer userid);
 
-    int updateUwalletByUserId(@Param(value = "userWallet") Double money,@Param(value = "userId") Integer userId);
+    int updateUwalletByUserId(@Param(value = "userWallet") Double money, @Param(value = "userId") Integer userId);
     //查询会员信息,和user   id,openiid
     UvipUser selectUvipUser(Integer userId);
 }
