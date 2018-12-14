@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface InterestMapper {
 
-    Interest selectById(int id);
+    Interest selectById(Integer id);
 
     int updateInterest(Interest interest);
 

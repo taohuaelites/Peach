@@ -33,26 +33,25 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     //查询自己的约见计划
     @Override
-    public ServiceResponse<Object> selectByMyId(int myid) {
+    public ServiceResponse<Object> selectByMyId(Integer myid) {
 
         List<Appointment> list=appointmentMapper.selectByMyId(myid);
         if(list!=null && list.size()>0){
             return ServiceResponse.createBySuccess(list);
         }else{
-            return ServiceResponse.createByError();
+            return ServiceResponse.createByError("没有约见计划！");
         }
-
     }
 
     //查询约见自己的计划
     @Override
-    public ServiceResponse<Object> selectByYouId(int youid) {
+    public ServiceResponse<Object> selectByYouId(Integer youid) {
 
         List<Appointment> list=appointmentMapper.selectByYouId(youid);
         if(list!=null && list.size()>0){
             return ServiceResponse.createBySuccess(list);
         }else{
-            return ServiceResponse.createByError();
+            return ServiceResponse.createByError("没有约见计划！");
         }
     }
 

@@ -8,31 +8,34 @@
              <result column="createtime" property="createTime"/>
              <result column="note" property="note"/>
              <collection property="list" ofType="com.example.peach.pojo.User">
-                 <id column="id" property="id" jdbcType="INTEGER" />
-                 <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
-                 <result column="user_realname" property="userRealname" jdbcType="VARCHAR" />
-                 <result column="user_sex" property="userSex" jdbcType="BIT" />
-                 <result column="user_phone" property="userPhone" jdbcType="INTEGER" />
-                 <result column="user_birthday" property="userBirthday" jdbcType="DATE" />
-                 <result column="user_address" property="userAddress" jdbcType="VARCHAR" />
-                 <result column="user_autograph" property="userAutograph" jdbcType="VARCHAR" />
-                 <result column="user_occupation" property="userOccupation" jdbcType="VARCHAR" />
-                 <result column="is_marriage" property="isMarriage" jdbcType="BIT" />
-                 <result column="user_height" property="userHeight" jdbcType="INTEGER" />
-                 <result column="user_education" property="userEducation" jdbcType="VARCHAR" />
-                 <result column="user_salary" property="userSalary" jdbcType="VARCHAR" />
-                 <result column="user_interest" property="userInterest" jdbcType="VARCHAR" />
-                 <result column="user_jurisdiction" property="userJurisdiction" jdbcType="INTEGER" />
-                 <result column="user_idcard" property="userIdcard" jdbcType="CHAR" />
-                 <result column="headimgurl" property="headimgurl" jdbcType="VARCHAR" />
-                 <result column="user_integral" property="userIntegral" jdbcType="INTEGER" />
-                 <result column="is_realname" property="isRealname" jdbcType="BIT" />
-                 <result column="openid" property="openid" jdbcType="VARCHAR" />
-                 <result column="user_native" property="userNative" jdbcType="VARCHAR" />
-                 <result column="unionid" property="unionid" jdbcType="VARCHAR" />
-                 <result column="province" property="province" jdbcType="VARCHAR" />
-                 <result column="city" property="city" jdbcType="VARCHAR" />
-                 <result column="country" property="country" jdbcType="VARCHAR" />
+                 <id column="id" jdbcType="INTEGER" property="id" />
+                 <result column="user_nickname" jdbcType="VARCHAR" property="nickName" />
+                 <result column="user_realname" jdbcType="VARCHAR" property="userRealname" />
+                 <result column="user_birthday" jdbcType="DATE" property="userBirthday" />
+                 <result column="user_phone" jdbcType="VARCHAR" property="userphone" />
+                 <result column="user_age" jdbcType="INTEGER" property="userage" />
+                 <result column="sex" jdbcType="BIT" property="sex" />
+                 <result column="country" jdbcType="VARCHAR" property="country" />
+                 <result column="province" jdbcType="VARCHAR" property="province" />
+                 <result column="city" jdbcType="VARCHAR" property="city" />
+                 <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+                 <result column="user_autograph" jdbcType="VARCHAR" property="userAutograph" />
+                 <result column="user_occupation" jdbcType="VARCHAR" property="userOccupation" />
+                 <result column="is_marriage" jdbcType="BIT" property="isMarriage" />
+                 <result column="user_height" jdbcType="INTEGER" property="userHeight" />
+                 <result column="user_education" jdbcType="VARCHAR" property="userEducation" />
+                 <result column="user_salary" jdbcType="VARCHAR" property="userSalary" />
+                 <result column="user_interest" jdbcType="VARCHAR" property="userInterest" />
+                 <result column="user_jurisdiction" jdbcType="INTEGER" property="userJurisdiction" />
+                 <result column="user_idcard" jdbcType="CHAR" property="userIdcard" />
+                 <result column="headimgurl" jdbcType="VARCHAR" property="avatarUrl" />
+                 <result column="user_integral" jdbcType="INTEGER" property="userIntegral" />
+                 <result column="openid" jdbcType="VARCHAR" property="openid" />
+                 <result column="is_realname" jdbcType="BIT" property="isrealname" />
+                 <result column="user_native" jdbcType="VARCHAR" property="usernative" />
+                 <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+                 <result column="user_marrytime" jdbcType="VARCHAR" property="userMarrytime" />
+                 <result column="user_newold" jdbcType="BIT" property="userNewold" />
              </collection>
 
          </resultMap>

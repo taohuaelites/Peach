@@ -63,6 +63,10 @@ public class SignInServiceImpl implements SignInService {
                 return ServiceResponse.createBySuccess("打卡成功");
             }
         } else if (longs <= -1) {
+            if (longs<=-2){
+                signIn.setSignInNumber(1);
+                users.setUserIntegral(user.getUserIntegral() + 3);
+            }else if (longs==-1){
             Integer number = selectSignIn.getSignInNumber() + 1;
             if (number < 7) {
                 users.setUserIntegral(user.getUserIntegral() + 3);
@@ -71,12 +75,14 @@ public class SignInServiceImpl implements SignInService {
                 users.setUserIntegral(user.getUserIntegral() + 23);
                 signIn.setSignInNumber(0);
             }
+            }
             users.setOpenid(user.getOpenid());
             int sUpdate =  sigInMapper.updateSignIn(signIn);
             int uUpdate= userMapper.updateByPrimaryKeySelective(users);
             if (uUpdate>0&&sUpdate>0){
                 return ServiceResponse.createBySuccess("打卡成功");
-            }
+        }
+
         }
         return ServiceResponse.createByError("打卡失败,已经打过卡了");
     }

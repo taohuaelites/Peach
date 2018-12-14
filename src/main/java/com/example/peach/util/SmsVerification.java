@@ -2,6 +2,11 @@ package com.example.peach.util;
 
 import com.example.peach.common.ServiceResponse;
 
+import com.example.peach.pojo.User;
+import com.example.peach.service.UserService;
+import com.github.qcloudsms.SmsSingleSender;
+import com.github.qcloudsms.SmsSingleSenderResult;
+import com.github.qcloudsms.httpclient.HTTPException;
 import org.json.JSONException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,9 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class SmsVerification {
+
+    @Resource
+    private UserService userService;
 
     @Resource
     private StringRedisTemplate template;
@@ -79,13 +87,13 @@ public class SmsVerification {
 
 
 
-    public ServiceResponse Verification(String phoneNumber, String number, Integer id){
+    public ServiceResponse Verification(User user, String number){
 
-       if (template.hasKey(id.toString())){
-           String num=template.opsForValue().get(id.toString());
-           String phone=template.opsForValue().get(phoneNumber);
-           if (phoneNumber.equals(phone) && number.equals(num)){
-               //存储号码
+       if (template.hasKey(String.valueOf(user.getId()))){
+           String num=template.opsForValue().get(String.valueOf(user.getId()));
+           String phone=template.opsForValue().get(user.getUserphone());
+           if (user.getUserphone().equals(phone) && number.equals(num)){
+               userService.updateUserPhone(user);
                return ServiceResponse.createBySuccess("绑定成功！");
            }else{
                return ServiceResponse.createByError("输入错误！");

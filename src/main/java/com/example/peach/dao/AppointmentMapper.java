@@ -19,10 +19,10 @@ public interface AppointmentMapper {
     int insertAppointment(@ModelAttribute Appointment appointment);
     
     //查询自己的约见计划
-    List<Appointment> selectByMyId(@Param("myid") int myid);
+    List<Appointment> selectByMyId(@Param("myid") Integer myid);
 
     //查询约见自己的计划
-    List<Appointment> selectByYouId(@Param("youid") int youid);
+    List<Appointment> selectByYouId(@Param("youid") Integer youid);
 
     //查询是否已有约见计划
     List<Appointment> selectAppointment(@ModelAttribute Appointment appointment);

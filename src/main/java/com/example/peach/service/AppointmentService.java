@@ -15,10 +15,10 @@ public interface AppointmentService {
     ServiceResponse<String> insertAppointment(Appointment appointment);
 
     //查询自己的约见计划
-    ServiceResponse<Object> selectByMyId(int myid);
+    ServiceResponse<Object> selectByMyId(Integer myid);
 
     //查询约见自己的计划
-    ServiceResponse<Object> selectByYouId(int youid);
+    ServiceResponse<Object> selectByYouId(Integer youid);
 
     //查询是否已有约见计划
     ServiceResponse<String> selectAppointment(Appointment appointment);

@@ -13,13 +13,13 @@ import java.util.List;
 public interface FavoriteService {
 
     //查询自己的心仪对象
-    HashMap<String,Object> selectByMyId(int myid);
+    ServiceResponse<Object> selectByMyId(Integer myid);
 
     //查询心仪自己的对象
-    HashMap<String,Object> selectByYouId(int youid);
+    ServiceResponse<Object> selectByYouId(Integer youid);
 
     //查询相互心仪的对象
-    HashMap<String,Object> selectAll();
+    ServiceResponse<Object> selectAll();
 
     //查询是否重复
     ServiceResponse<String> selectFavorite(Favorite favorite);

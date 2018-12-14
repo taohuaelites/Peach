@@ -23,36 +23,41 @@ public class FavoriteController {
     private FavoriteService favoriteService;
 
     //查询自己的心仪对象
-    @RequestMapping(value = "/selectByMyId" , method = RequestMethod.POST)
-    public HashMap<String,Object> selectByMyId(@RequestParam int myid) {
+    @RequestMapping(value = "/selectbymyid" , method = RequestMethod.GET)
+    public ServiceResponse selectByMyId(@RequestParam Integer myid) {
 
-        HashMap<String,Object> map = favoriteService.selectByMyId(myid);
-
-        return map;
+        if (myid!=null){
+            ServiceResponse response= favoriteService.selectByMyId(myid);
+            return response;
+        }else {
+            return ServiceResponse.createByError("传入空值！");
+        }
     }
 
 
     //查询心仪自己的对象
-    @RequestMapping(value = "/selectByYouId", method = RequestMethod.POST)
-    public HashMap<String,Object> selectByYouId(@RequestParam int youid) {
+    @RequestMapping(value = "/selectbyyouid", method = RequestMethod.GET)
+    public ServiceResponse selectByYouId(@RequestParam Integer youid) {
 
-        HashMap<String,Object> map= favoriteService.selectByYouId(youid);
-
-        return map;
+        if (youid!=null){
+            ServiceResponse response= favoriteService.selectByYouId(youid);
+            return response;
+        }else{
+            return ServiceResponse.createByError("传入空值！");
+        }
     }
 
 
     //查询相互心仪的对象
-    @RequestMapping(value = "/selectAll" , method = RequestMethod.GET)
-    public HashMap<String,Object> selectAll() {
+    @RequestMapping(value = "/selectall" , method = RequestMethod.GET)
+    public ServiceResponse selectAll() {
 
-        HashMap<String,Object> map = favoriteService.selectAll();
-
-        return map;
+        ServiceResponse response = favoriteService.selectAll();
+        return response;
     }
 
 
-    @RequestMapping(value = "/insertFavorite", method = RequestMethod.POST)
+    @RequestMapping(value = "/insertfavorite", method = RequestMethod.POST)
     public ServiceResponse<String> insertFavorite(@ModelAttribute Favorite favorite) {
 
         //查询是否已存在
@@ -62,20 +67,21 @@ public class FavoriteController {
         } else {
             //添加
             response = favoriteService.insertFavorite(favorite);
+            return response;
         }
-
-        return response;
     }
 
 
     //删除心仪对象
-    @RequestMapping(value = "/deleteFavorite", method = RequestMethod.POST)
+    @RequestMapping(value = "/deletefavorite", method = RequestMethod.POST)
     public ServiceResponse<String> deleteFavorite(@ModelAttribute Favorite favorite) {
 
-            //删除
-        ServiceResponse<String> response = favoriteService.deleteFavorite(favorite);
-
-        return response;
+        if (favorite!=null){
+            ServiceResponse<String> response = favoriteService.deleteFavorite(favorite);
+            return response;
+        }else{
+            return ServiceResponse.createByError("传入空值！");
+        }
     }
 
 }
