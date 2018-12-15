@@ -1,57 +1,37 @@
 package com.example.peach.pojo;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 public class User {
-    private Integer id;
-
-    private String userNickname;
-
-    private String userRealname;
-
-    private Date userBirthday;
-
-    private Boolean sex;
-
-    private String country;
-
-    private String province;
-
-    private String city;
-
-    private String userAddress;
-
-    private String userAutograph;
-
-    private String userOccupation;
-
-    private Boolean isMarriage;
-
-    private Integer userHeight;
-
-    private String userEducation;
-
-    private String userSalary;
-
-    private String userInterest;
-
-    private Boolean userJurisdiction;
-
-    private String userIdcard;
-
-    private String headimgurl;
-
-    private Integer userIntegral;
-
-    private String openid;
-
-    private String usetAutograph;
-
-    private String userHeadportrait;
-
-    private String userName;
-
-    private Boolean userNewold;
+    private Integer id;//主键id
+    private String nickName;//昵称
+    private String userRealname;//真实姓名
+    private Date userBirthday;//生日
+    private String userphone;//手机号
+    private Integer userage;//年龄
+    private Boolean sex; //性别
+    private String country;//国家
+    private String province;//省份
+    private String city;//市
+    private String userAddress;//地址
+    private String userAutograph;//个性签名
+    private String userOccupation;//职业
+    private Boolean isMarriage;//婚否
+    private Integer userHeight;//身高
+    private String userEducation;//学历
+    private String userSalary;//薪资
+    private String userInterest;//兴趣爱好
+    private Integer userJurisdiction;//会员等级
+    private String userIdcard;//身份证
+    private String avatarUrl;//头像
+    private Integer userIntegral;//积分
+    private String openid;//用户唯一标识
+    private  Boolean isrealname;//是否实名验证
+    private String usernative;//籍贯
+    private String unionid;
+    private  String userMarrytime;//期望结婚时间
+    private  Boolean userNewold;//是否为新老用户
 
     public Integer getId() {
         return id;
@@ -61,12 +41,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserNickname() {
-        return userNickname;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setUserNickname(String userNickname) {
-        this.userNickname = userNickname;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public String getUserRealname() {
@@ -83,6 +63,22 @@ public class User {
 
     public void setUserBirthday(Date userBirthday) {
         this.userBirthday = userBirthday;
+    }
+
+    public String getUserphone() {
+        return userphone;
+    }
+
+    public void setUserphone(String userphone) {
+        this.userphone = userphone;
+    }
+
+    public Integer getUserage() {
+        return userage;
+    }
+
+    public void setUserage(Integer userage) {
+        this.userage = userage;
     }
 
     public Boolean getSex() {
@@ -141,11 +137,11 @@ public class User {
         this.userOccupation = userOccupation;
     }
 
-    public Boolean getMarriage() {
+    public Boolean getIsMarriage() {
         return isMarriage;
     }
 
-    public void setMarriage(Boolean marriage) {
+    public void setIsMarriage(Boolean marriage) {
         isMarriage = marriage;
     }
 
@@ -181,11 +177,11 @@ public class User {
         this.userInterest = userInterest;
     }
 
-    public Boolean getUserJurisdiction() {
+    public Integer getUserJurisdiction() {
         return userJurisdiction;
     }
 
-    public void setUserJurisdiction(Boolean userJurisdiction) {
+    public void setUserJurisdiction(Integer userJurisdiction) {
         this.userJurisdiction = userJurisdiction;
     }
 
@@ -197,12 +193,12 @@ public class User {
         this.userIdcard = userIdcard;
     }
 
-    public String getHeadimgurl() {
-        return headimgurl;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
-    public void setHeadimgurl(String headimgurl) {
-        this.headimgurl = headimgurl;
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 
     public Integer getUserIntegral() {
@@ -221,28 +217,36 @@ public class User {
         this.openid = openid;
     }
 
-    public String getUsetAutograph() {
-        return usetAutograph;
+    public Boolean getIsrealname() {
+        return isrealname;
     }
 
-    public void setUsetAutograph(String usetAutograph) {
-        this.usetAutograph = usetAutograph;
+    public void setIsrealname(Boolean isrealname) {
+        this.isrealname = isrealname;
     }
 
-    public String getUserHeadportrait() {
-        return userHeadportrait;
+    public String getUsernative() {
+        return usernative;
     }
 
-    public void setUserHeadportrait(String userHeadportrait) {
-        this.userHeadportrait = userHeadportrait;
+    public void setUsernative(String usernative) {
+        this.usernative = usernative;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUnionid() {
+        return unionid;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUnionid(String unionid) {
+        this.unionid = unionid;
+    }
+
+    public String getUserMarrytime() {
+        return userMarrytime;
+    }
+
+    public void setUserMarrytime(String userMarrytime) {
+        this.userMarrytime = userMarrytime;
     }
 
     public Boolean getUserNewold() {

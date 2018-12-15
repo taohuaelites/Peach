@@ -3,8 +3,9 @@ package com.example.peach.util;
 
 import com.example.peach.configuration.Configure;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.commons.lang3.StringUtils;
+
 
 import java.lang.reflect.Field;
 import java.net.URLEncoder;

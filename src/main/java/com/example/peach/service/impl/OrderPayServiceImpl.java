@@ -115,7 +115,7 @@ public class OrderPayServiceImpl implements OrderPayService {
      */
     @Override
     public ServiceResponse<Map> Pricerevision(String openid, int id) throws ParseException {
-        ServiceResponse response = userService.selectOpenid(openid,Conts.NEWOLD);
+        ServiceResponse response = userService.selectByOpenid(openid,Conts.NEWOLD);
 
         Map map = new HashMap();
         map.put("openid", openid);

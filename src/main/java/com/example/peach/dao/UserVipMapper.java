@@ -4,9 +4,11 @@ import com.example.peach.pojo.UserVip;
 import com.example.peach.pojo.merge.UvipUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @Mapper
 public interface UserVipMapper {
     int deleteByPrimaryKey(Integer id);

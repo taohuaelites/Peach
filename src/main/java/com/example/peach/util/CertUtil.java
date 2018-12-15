@@ -1,6 +1,7 @@
 package com.example.peach.util;
 
 import com.example.peach.configuration.Configure;
+
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.thoughtworks.xstream.io.xml.XmlFriendlyNameCoder;
@@ -14,6 +15,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
+
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;

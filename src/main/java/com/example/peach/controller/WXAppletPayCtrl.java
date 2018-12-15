@@ -59,7 +59,7 @@ public class WXAppletPayCtrl {
      */
     @RequestMapping(value = "/weixin/payvip", method = RequestMethod.POST)
     public ServiceResponse<Map> payVip(HttpServletRequest request) throws ParseException, IllegalAccessException {
-        ServiceResponse openidresponse = userService.selectOpenid(request.getParameter("openid"), Conts.OPENID);
+        ServiceResponse openidresponse = userService.selectByOpenid(request.getParameter("openid"), Conts.OPENID);
         if (openidresponse.isSuccess()) {
             ServiceResponse orderPayresponse = orderPayService.Pricerevision(request.getParameter("openid"), 2);
             if (orderPayresponse.isSuccess()) {

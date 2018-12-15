@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.peach.dao.AppointmentMapper">
+    <resultMap  id="BaseResultMap" type="com.example.peach.pojo.Appointment" >
+        <id column="id" property="id"/>
+        <result column="user_id" property="userid"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createTime"/>
+        <result column="note" property="note"/>
+        <collection property="list" ofType="com.example.peach.pojo.User">
+            <id column="id" jdbcType="INTEGER" property="id" />
+            <result column="user_nickname" jdbcType="VARCHAR" property="nickName" />
+            <result column="user_realname" jdbcType="VARCHAR" property="userRealname" />
+            <result column="user_birthday" jdbcType="DATE" property="userBirthday" />
+            <result column="user_phone" jdbcType="VARCHAR" property="userphone" />
+            <result column="user_age" jdbcType="INTEGER" property="userage" />
+            <result column="sex" jdbcType="BIT" property="sex" />
+            <result column="country" jdbcType="VARCHAR" property="country" />
+            <result column="province" jdbcType="VARCHAR" property="province" />
+            <result column="city" jdbcType="VARCHAR" property="city" />
+            <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+            <result column="user_autograph" jdbcType="VARCHAR" property="userAutograph" />
+            <result column="user_occupation" jdbcType="VARCHAR" property="userOccupation" />
+            <result column="is_marriage" jdbcType="BIT" property="isMarriage" />
+            <result column="user_height" jdbcType="INTEGER" property="userHeight" />
+            <result column="user_education" jdbcType="VARCHAR" property="userEducation" />
+            <result column="user_salary" jdbcType="VARCHAR" property="userSalary" />
+            <result column="user_interest" jdbcType="VARCHAR" property="userInterest" />
+            <result column="user_jurisdiction" jdbcType="INTEGER" property="userJurisdiction" />
+            <result column="user_idcard" jdbcType="CHAR" property="userIdcard" />
+            <result column="headimgurl" jdbcType="VARCHAR" property="avatarUrl" />
+            <result column="user_integral" jdbcType="INTEGER" property="userIntegral" />
+            <result column="openid" jdbcType="VARCHAR" property="openid" />
+            <result column="is_realname" jdbcType="BIT" property="isrealname" />
+            <result column="user_native" jdbcType="VARCHAR" property="usernative" />
+            <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+            <result column="user_marrytime" jdbcType="VARCHAR" property="userMarrytime" />
+            <result column="user_newold" jdbcType="BIT" property="userNewold" />
+        </collection>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_nickname, user_realname, user_birthday, sex,user_phone,user_age, country, province, city, user_address,
+        user_autograph, user_occupation, is_marriage, user_height, user_education, user_salary,
+        user_interest, user_jurisdiction, user_idcard, headimgurl, user_integral, openid,is_realname,user_native,
+        unionid,user_marrytime,user_newold
+
+    </sql>
+
+    <!--查询自己约见的对象-->
+    <select id="selectByMyId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--SELECT a.myid,u.user_realname,u.id
+            FROM  appointment a JOIN user u ON a.youid=u.id
+            WHERE a.myid= #{myid}-->
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user u
+        WHERE id in(SELECT youid FROM appointment WHERE myid=  #{myid} )
+    </select>
+
+    <!--查询约见自己的对象-->
+    <select id="selectByYouId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--SELECT a.youid,u.user_realname,u.id
+        FROM  appointment a JOIN user u ON a.myid=u.id
+        WHERE a.youid=1-->
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user u
+        WHERE id in(SELECT myid FROM appointment WHERE youid= #{youid} )
+    </select>
+
+    <!--查询相互心仪的对象-->
+    <!--<select id="selectAll"  resultType="com.example.peach.pojo.Appointment">-->
+        <!--SELECT	u.id,u.user_realname,f.myid,f.youid-->
+        <!--FROM user u-->
+        <!--JOIN favorite f ON u.id=f.myid-->
+        <!--JOIN favorite a ON u.id=a.youid-->
+        <!--WHERE f.youid=a.myid AND a.youid=f.myid-->
+    <!--</select>-->
+
+
+
+    <!--查询是否已有约见计划-->
+    <select id="selectAppointment" parameterType="com.example.peach.pojo.Appointment" resultType="com.example.peach.pojo.Appointment">
+        SELECT	a.id
+        FROM appointment a
+        WHERE (a.myid= #{myid} AND a.youid= #{youid} ) OR (a.myid=#{youid} AND a.youid=#{myid} )
+    </select>
+
+    <!--添加约见对象-->
+    <insert id="insertAppointment" parameterType="java.lang.Integer">
+        INSERT INTO appointment(myid,youid,status)
+        VALUES( #{myid} , #{youid} , 0 )
+    </insert>
+
+    <!--拒绝约见-->
+    <update id="updateStatus1" parameterType="com.example.peach.pojo.Appointment" >
+          UPDATE appointment  SET status= 1 WHERE myid= #{youid} AND youid= #{myid}
+    </update>
+
+    <!--同意约见-->
+    <update id="updateStatus2" parameterType="com.example.peach.pojo.Appointment" >
+        UPDATE appointment  SET status= 2 WHERE myid= #{youid} AND youid= #{myid}
+    </update>
+
+</mapper>

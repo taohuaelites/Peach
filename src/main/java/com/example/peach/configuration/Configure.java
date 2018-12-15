@@ -4,9 +4,9 @@ package com.example.peach.configuration;
  * 商户配置
  */
 public class Configure {
-        // 商户支付秘钥
-        private static String key = "b4f78c2a192fb51f1417eefdf2ae9b74";
 
+    // 商户支付秘钥
+        private static String key = "b4f78c2a192fb51f1417eefdf2ae9b74";
         //小程序ID
         private static String appID = "wxd472817c47fa123a";
         //申请商户号的appid

@@ -3,6 +3,7 @@ package com.example.peach;
 import com.example.peach.dao.CommodityMapper;
 import com.example.peach.dao.UserVipMapper;
 import com.example.peach.pojo.Orderpay;
+import com.example.peach.pojo.User;
 import com.example.peach.service.OrderPayService;
 import com.example.peach.service.UserService;
 import com.example.peach.service.UserVipService;
@@ -37,5 +38,6 @@ public class PeachoneApplicationTests {
         orderpay.setOutTradeNo("vv20f2eyc3may186j8tp181213233314");
         int getrows = orderPayService.updateOrder_statusByout_trade_no(orderpay);
         System.out.println(getrows);
+       User user= userService.selectByOpenid("o5ZMc5McBorI7lPHbbtVZThlqsz4");
     }
 }
