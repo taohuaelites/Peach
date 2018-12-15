@@ -11,7 +11,6 @@ import com.example.peach.service.WXPayService;
 import com.example.peach.util.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -32,11 +31,9 @@ public class PeachoneApplicationTests {
     @Resource
     private WXPayService wxPayService;
     @Resource
-<<<<<<< HEAD
     private CommodityMapper commodityMapper;
-=======
+    @Resource
     private RedisUtil redisUtil;
->>>>>>> 0e2482c6f075569b83e0b9c76a85eab496290541
     @Test
     public void ppp(){
         Orderpay orderpay = new Orderpay();

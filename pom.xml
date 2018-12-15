@@ -68,7 +68,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.28</version>
         </dependency>
-<<<<<<< HEAD
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -80,7 +79,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-=======
         <!--<dependency>-->
             <!--<groupId>com.fasterxml.jackson.core</groupId>-->
             <!--<artifactId>jackson-databind</artifactId>-->
@@ -91,7 +89,6 @@
                 <!--</exclusion>-->
             <!--</exclusions>-->
         <!--</dependency>-->
->>>>>>> 0e2482c6f075569b83e0b9c76a85eab496290541
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>

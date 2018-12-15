@@ -6,17 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-<<<<<<< HEAD
 import java.util.List;
 
 @Component
 @Mapper
-=======
-
-@Component
-@Mapper
-
->>>>>>> 0e2482c6f075569b83e0b9c76a85eab496290541
 public interface UserVipMapper {
     int deleteByPrimaryKey(Integer id);
 
