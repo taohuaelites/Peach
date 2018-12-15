@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-@Repository
+
 @Mapper
 public interface OrderpayMapper {
     int deleteByPrimaryKey(Integer id);

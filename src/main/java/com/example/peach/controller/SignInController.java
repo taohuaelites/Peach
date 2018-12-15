@@ -29,7 +29,7 @@ public class SignInController {
      * @param userId
      * @return
      */
-    @RequestMapping(value = "/selectByuserId",method = RequestMethod.POST)
+    @RequestMapping(value = "/selectByuserId",method = RequestMethod.GET)
     public ServiceResponse<Map> selectByuserId(@RequestParam Integer userId){
         return signInService.selectByuserId(userId);
     }

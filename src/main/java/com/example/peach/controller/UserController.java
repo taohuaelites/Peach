@@ -52,7 +52,7 @@ public class UserController {
      *
      * 查询所有用户
      */
-    @RequestMapping(value = "/userList",method = RequestMethod.POST)
+    @RequestMapping(value = "/userList",method = RequestMethod.GET)
     public Map<String,Object> userList(){
         List<User> users= userService.userList();
         Map<String,Object> map =new HashMap<>();

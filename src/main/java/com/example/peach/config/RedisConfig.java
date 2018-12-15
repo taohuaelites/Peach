@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -71,13 +72,12 @@ public class RedisConfig extends CachingConfigurerSupport {
         }
     }
 
-
     /**
      * 注入封装RedisTemplate
      * @Title: redisUtil
      * @return RedisUtil
      * @autor lpl
-     * @date 2018年12月21日
+     * @date 2017年12月21日
      * @throws
      */
     @Bean(name = "redisUtil")

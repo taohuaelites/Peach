@@ -21,7 +21,7 @@ public interface ActivityMapper {
     int deleteActivity(Integer id);
 
 
-    List<Activity>  selectActivity();
+    List<Activity> selectActivity();
 
     Activity selectByActnature(String actnature);
 

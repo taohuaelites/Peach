@@ -37,10 +37,10 @@ public class FavoriteController {
 
     //查询心仪自己的对象
     @RequestMapping(value = "/selectbyyouid", method = RequestMethod.GET)
-    public ServiceResponse selectByYouId(@RequestParam Integer youid) {
+    public ServiceResponse selectByYouId(@RequestParam Integer myid) {
 
-        if (youid!=null){
-            ServiceResponse response= favoriteService.selectByYouId(youid);
+        if (myid!=null){
+            ServiceResponse response= favoriteService.selectByYouId(myid);
             return response;
         }else{
             return ServiceResponse.createByError("传入空值！");

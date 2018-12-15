@@ -26,7 +26,7 @@ public class MateController {
     /**
      * 根据userId查询
      */
-    @RequestMapping(value = "/selectByuserId", method = RequestMethod.POST)
+    @RequestMapping(value = "/selectByuserId", method = RequestMethod.GET)
     public Map<String, Object> selectByuserId(Integer userId) {
         Mate mate = mateService.selectByuserId(userId);
         Map<String, Object> map = new HashMap<>();

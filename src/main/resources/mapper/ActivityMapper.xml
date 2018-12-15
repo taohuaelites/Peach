@@ -24,8 +24,8 @@
     from activity
     where id = #{id,jdbcType=INTEGER}
     </select>
-    <!--根据activity_nature查询-->
-    <select id="selectByActnature" resultMap="BaseMap">
+    <!--查询所有活动-->
+    <select id="selectActivity" resultMap="BaseMap">
         select
         <include refid="Base_Column_List" />
         from activity

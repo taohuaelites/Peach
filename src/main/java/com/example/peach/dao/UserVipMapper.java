@@ -6,10 +6,17 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+<<<<<<< HEAD
 import java.util.List;
 
 @Component
 @Mapper
+=======
+
+@Component
+@Mapper
+
+>>>>>>> 0e2482c6f075569b83e0b9c76a85eab496290541
 public interface UserVipMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -29,7 +36,7 @@ public interface UserVipMapper {
     //相减约见次数
     int updateAppiontmentByUserId(@Param(value = "vipAppointment") Integer vipAppointment, @Param(value = "userId") Integer userid);
 
-    int updateUwalletByUserId(@Param(value = "userWallet") Double money,@Param(value = "userId") Integer userId);
+    int updateUwalletByUserId(@Param(value = "userWallet") Double money, @Param(value = "userId") Integer userId);
     //查询会员信息,和user   id,openiid
     UvipUser selectUvipUser(Integer userId);
     //查询所有vip(非vip和vip)信息

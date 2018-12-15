@@ -68,6 +68,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.28</version>
         </dependency>
+<<<<<<< HEAD
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -79,6 +80,18 @@
                 </exclusion>
             </exclusions>
         </dependency>
+=======
+        <!--<dependency>-->
+            <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+            <!--<artifactId>jackson-databind</artifactId>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>com.fasterxml.jackson.core</groupId>-->
+                    <!--<artifactId>jackson-annotations</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
+>>>>>>> 0e2482c6f075569b83e0b9c76a85eab496290541
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
@@ -100,11 +113,11 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.8.13</version>
         </dependency>
-        <dependency>
-            <groupId>com.vaadin.external.google</groupId>
-            <artifactId>android-json</artifactId>
-            <version>0.0.20131108.vaadin1</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.vaadin.external.google</groupId>-->
+            <!--<artifactId>android-json</artifactId>-->
+            <!--<version>0.0.20131108.vaadin1</version>-->
+        <!--</dependency>-->
         <!--图片上传需要依赖的-->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -182,9 +195,9 @@
         </dependency>
         <!--&lt;!&ndash;使用commons-lang3实现Unicode码转中文&ndash;&gt;-->
         <!--<dependency>-->
-            <!--<groupId>org.apache.commons</groupId>-->
-            <!--<artifactId>commons-lang3</artifactId>-->
-            <!--<version>3.8.1</version>-->
+        <!--<groupId>org.apache.commons</groupId>-->
+        <!--<artifactId>commons-lang3</artifactId>-->
+        <!--<version>3.8.1</version>-->
         <!--</dependency>-->
         <!--对象转日期,Jackson对象节点创建及使用-->
         <dependency>

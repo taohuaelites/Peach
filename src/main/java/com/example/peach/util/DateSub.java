@@ -15,7 +15,7 @@ public class DateSub {
             return 0;
         }
         long day = 0;
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String sysDate = format.format(new Date());
         try {
             Date dates = format.parse(sysDate);

@@ -61,8 +61,8 @@ public class ActivityController {
     /**
      * 查询所有活动
      */
-    @RequestMapping(value="/selectActnature",method = RequestMethod.GET)
-    public Map<String,Object> selectActnature(){
+    @RequestMapping(value="/selectActivity",method = RequestMethod.GET)
+    public Map<String,Object> selectActivity(){
       List<Activity> activity=  activityService.selectActivity();
       Map<String,Object> map=new HashMap<>();
         map.put("activity",activity);
