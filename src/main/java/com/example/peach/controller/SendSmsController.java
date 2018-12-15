@@ -2,11 +2,10 @@ package com.example.peach.controller;
 
 import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.User;
+import com.example.peach.service.UserService;
 import com.example.peach.util.SmsVerification;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -20,16 +19,21 @@ public class SendSmsController {
 
     @Resource
     private SmsVerification smsVerification;
+    @Resource
+    private UserService userService;
 
-    @RequestMapping(value = "/sms")
-    public ServiceResponse<Map> sendSms(@RequestParam String phoneNumber, @RequestParam Integer id) {
+    @RequestMapping(value = "/sms", method = RequestMethod.POST)
+    public ServiceResponse sendSms(@RequestParam String phoneNumber) {
 
-        ServiceResponse response = smsVerification.Send(phoneNumber,id);
-
-        return response;
+        ServiceResponse response=userService.selectPhone(phoneNumber);
+        if (!response.isSuccess()){
+            return response;
+        }else{
+            return smsVerification.Send(phoneNumber);
+        }
     }
 
-    @RequestMapping(value = "/verification")
+    @RequestMapping(value = "/verification", method = RequestMethod.POST)
     public ServiceResponse SmsVerification(@ModelAttribute User user, @RequestParam String number) {
 
         ServiceResponse response=smsVerification.Verification(user,number);

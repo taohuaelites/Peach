@@ -39,9 +39,10 @@ public class PeachoneApplicationTests {
     public  void demo(){
 
 
+        Boolean lo=redisUtil.hasKey("name");
      Boolean boo=     redisUtil.set("name","xiaohe");
        Object str=   redisUtil.get("name");
-        System.out.println(str+"sasasasa");
+        System.out.println(lo);
 
     }
 }

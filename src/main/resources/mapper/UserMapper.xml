@@ -398,7 +398,7 @@
 
     <update id="updateUserPhone" parameterType="User">
         UPDATE user
-        set user_phone= #{userPhone}
+        set user_phone= #{userphone}
         WHERE id= #{id}
     </update>
 

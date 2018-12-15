@@ -1,5 +1,6 @@
 package com.example.peach.controller;
 
+import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.Token;
 import com.example.peach.service.TokenService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,19 +24,13 @@ public class GetTokenController {
     private TokenService tokenService;
 
     @RequestMapping(value = "/token",  method = RequestMethod.GET)
-    public HashMap<String,String> GetToken(){
+    public ServiceResponse GetToken(){
 
         Token token=tokenService.selectById();
-        ObjectMapper mapper=new ObjectMapper();
-        HashMap<String,String> map=new HashMap<>();
-        if (token.getAccess_token()!=null){
-            String access_token=token.getAccess_token();
-            map.put("access_token",access_token);
-
+        if (token!=null){
+            return ServiceResponse.createBySuccess(token);
         }else {
-            map.put("access_token",null);
+            return ServiceResponse.createByError("获取失败！");
         }
-        return map;
     }
-
 }

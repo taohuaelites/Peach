@@ -1,23 +1,22 @@
 package com.example.peach.util;
 
+
 import com.example.peach.common.ServiceResponse;
 
 import com.example.peach.pojo.User;
 import com.example.peach.service.UserService;
-import com.github.qcloudsms.SmsSingleSender;
-import com.github.qcloudsms.SmsSingleSenderResult;
-import com.github.qcloudsms.httpclient.HTTPException;
-import org.json.JSONException;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Service;
-import com.github.qcloudsms.SmsSingleSender;
-import com.github.qcloudsms.SmsSingleSenderResult;
-import com.github.qcloudsms.httpclient.HTTPException;
-import javax.annotation.Resource;
 
+import com.github.qcloudsms.SmsSingleSender;
+import com.github.qcloudsms.SmsSingleSenderResult;
+import com.github.qcloudsms.httpclient.HTTPException;
+
+
+import org.json.JSONException;
+import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+
 
 /**
  * Created by Administrator on 2018/12/7.
@@ -47,19 +46,18 @@ public class SmsVerification {
     // 签名
     static final String smsSign = "他她派"; // NOTE: 这里的签名"腾讯云"只是一个示例，真实的签名需要在短信控制台中申请，另外签名参数使用的是`签名内容`，而不是`签名ID`
 
-    public ServiceResponse Send(String phoneNumber, Integer id) {
+    public ServiceResponse Send(String phoneNumber) {
 
         String number = getMsgCode();
 
-        if (!redisUtil.hasKey(id.toString())) {
-            Boolean bool = redisUtil.set(id.toString(), number, 240);
+        if (!redisUtil.hasKey(phoneNumber) ){
+            Boolean bool = redisUtil.set(number, number, 240);
             Boolean lean = redisUtil.set(phoneNumber, phoneNumber, 240);
             if (bool && lean) {
                 try {
-                    String[] params = {number, "2"};//数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
+                    String[] params = {number, "4"};//数组具体的元素个数和模板中变量个数必须一致，例如事例中templateId:5678对应一个变量，参数数组中元素个数也必须是一个
                     SmsSingleSender ssender = new SmsSingleSender(appid, appkey);
-                    SmsSingleSenderResult result = ssender.sendWithParam("86", phoneNumber,
-                            templateId, params, smsSign, "", "");  // 签名参数未提供或者为空时，会使用默认签名发送短信
+                    SmsSingleSenderResult result = ssender.sendWithParam("86", phoneNumber, templateId, params, smsSign,"","");  // 签名参数未提供或者为空时，会使用默认签名发送短信
                     //System.out.println(result);
                     if (result.errMsg.equals("OK")) {
                         return ServiceResponse.createBySuccess("发送成功！");
@@ -69,15 +67,15 @@ public class SmsVerification {
                 } catch (HTTPException e) {
                     // HTTP响应码错误
                     e.printStackTrace();
-                    return ServiceResponse.createByError("发送失败！");
+                    return ServiceResponse.createByError("HTTP响应码错误！");
                 } catch (JSONException e) {
                     // json解析错误
                     e.printStackTrace();
-                    return ServiceResponse.createByError("发送失败！");
+                    return ServiceResponse.createByError("json解析错误！");
                 } catch (IOException e) {
                     // 网络IO错误
                     e.printStackTrace();
-                    return ServiceResponse.createByError("发送失败！");
+                    return ServiceResponse.createByError("网络IO错误！");
                 }
             } else {
                 return ServiceResponse.createByError("请重新发送！");
@@ -90,9 +88,9 @@ public class SmsVerification {
 
     public ServiceResponse Verification(User user, String number) {
 
-        if (redisUtil.hasKey(String.valueOf(user.getId()))) {
-            String num = (String) redisUtil.get(String.valueOf(user.getId()));
-            String phone = (String) redisUtil.get(user.getUserphone());
+        if (redisUtil.hasKey(number)) {
+            Object num =redisUtil.get(number);
+            Object phone =redisUtil.get(user.getUserphone());
             if (user.getUserphone().equals(phone) && number.equals(num)) {
                 int rs = userService.updateUserPhone(user);
                 if (rs > 0) {
