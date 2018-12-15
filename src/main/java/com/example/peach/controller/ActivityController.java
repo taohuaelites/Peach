@@ -15,7 +15,6 @@ import java.util.Map;
  * Created by Administrator on 2018/11/15.
  */
 @RestController
-@MapperScan("com.example.peach.mapper")
 @RequestMapping("/activity")
 public class ActivityController {
     @Resource

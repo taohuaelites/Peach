@@ -17,7 +17,6 @@ import java.util.Map;
  * Created by Administrator on 2018/11/17.
  */
 @RestController
-@MapperScan("com.example.peach.mapper")
 @RequestMapping("/actorder")
 public class ActOrderController {
     @Resource

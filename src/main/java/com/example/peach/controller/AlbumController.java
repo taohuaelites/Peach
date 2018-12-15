@@ -30,7 +30,6 @@ import java.util.UUID;
  * Created by Administrator on 2018/11/23.
  */
 @RestController
-@MapperScan("com.example.peach.mapper")
 @RequestMapping("/album")
 public class AlbumController {
 

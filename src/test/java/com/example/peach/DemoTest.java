@@ -20,6 +20,7 @@ public class DemoTest {
 
     @Test
     public void test(){
-
+        int l = 10/0;
+        System.out.println(l);
     }
 }

@@ -16,7 +16,6 @@ import java.util.Map;
  * Created by Administrator on 2018/11/15.
  */
 @RestController
-@MapperScan("com.example.peach.mapper")
 public class CodeUserInfo {
     @Resource
     private UserService userService;

@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ServiceResponse<Map> selectByOpenid(String openid, String type) {
+        if(openid!=null){
         User user = userMapper.selectByOpenid(openid);
         Map<String, Object> map = new HashMap<>();
         if (type.equals(Conts.OPENID)) {
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
             } else {
                 return ServiceResponse.createByError("用户是老用户");
             }
+        }
         }
         return ServiceResponse.createByError("错误");
     }
