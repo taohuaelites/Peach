@@ -24,4 +24,17 @@ public interface WXPayService {
      * @return
      */
     ServiceResponse<Object> orderQueryZT(String out_trade_no);
+
+    /**
+     * 订单关闭
+     * @param out_trade_no
+     * @return
+     */
+    ServiceResponse<Object> ClosePay(String out_trade_no);
+
+    /**
+     *  30分钟内没有支付,自动关闭订单
+     * @param out_trade_no 订单号
+     */
+    void orderClose(String out_trade_no);
 }

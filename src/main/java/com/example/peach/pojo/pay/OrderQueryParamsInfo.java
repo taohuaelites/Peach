@@ -1,5 +1,8 @@
 package com.example.peach.pojo.pay;
 
+/**
+ * 订单查询返回信息
+ */
 public class OrderQueryParamsInfo {
     // 返回状态码，通信标识，SUCCESS/FAIL
     private String return_msg;
@@ -45,7 +48,8 @@ public class OrderQueryParamsInfo {
     private String out_trade_no;
     // 支付完成时间
     private String time_end;
-
+    //附加数据
+    private String attach;
     // 交易状态描述
     private String trade_state_desc;
     public String getReturn_code() {

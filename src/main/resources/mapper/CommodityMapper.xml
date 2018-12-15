@@ -126,4 +126,9 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectCommodity" parameterType="List" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from peach_commodity;
+  </select>
 </mapper>

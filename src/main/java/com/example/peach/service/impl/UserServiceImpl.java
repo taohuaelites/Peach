@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
             }
         }
         if (type.equals(Conts.NEWOLD)){
-            if(user.getUserNewold()==1) {
+            if(user.getUserNewold()) {
                 return ServiceResponse.createBySuccess("用户是新用户");
             }else{
                 return ServiceResponse.createByError("用户是老用户");
@@ -47,20 +47,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    //录入授权信息
-    @Override
-    public ServiceResponse<String> lognUser(User user) {
-        ServiceResponse<String> response =  this.selectOpenid(user.getOpenid(),Conts.OPENID);
-        if(!response.isSuccess()){
-            return response;
-        }
-        int getrows= userMapper.insert(user);
-        if(getrows>0){
-            return ServiceResponse.createBySuccess("授权成功");
-
-        }
-        return  ServiceResponse.createByError("授权失败!!");
-    }
 
     /**
      * 该买会员修改积分,如果是新用户修改成老用户

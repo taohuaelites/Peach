@@ -5,14 +5,16 @@ import com.example.peach.common.Conts;
 import com.example.peach.common.ServiceResponse;
 import com.example.peach.configuration.Configure;
 import com.example.peach.pojo.Orderpay;
-import com.example.peach.pojo.pay.OrderCloseInfo;
 import com.example.peach.pojo.pay.OrderQueryParamsInfo;
 import com.example.peach.pojo.pay.Transfers;
 import com.example.peach.pojo.pay.TransfersInfo;
 import com.example.peach.service.OrderPayService;
 import com.example.peach.service.UserService;
 import com.example.peach.service.WXPayService;
-import com.example.peach.util.*;
+import com.example.peach.util.CertUtil;
+import com.example.peach.util.PayUtil;
+import com.example.peach.util.RandomStringGenerator;
+import com.example.peach.util.Signature;
 import com.thoughtworks.xstream.XStream;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +32,6 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.regex.Pattern;
 
 /**
@@ -63,7 +64,12 @@ public class WXAppletPayCtrl {
             ServiceResponse orderPayresponse = orderPayService.Pricerevision(request.getParameter("openid"), 2);
             if (orderPayresponse.isSuccess()) {
                 ServiceResponse<Map> response1 = wxPayService.paymettwe((Map) orderPayresponse.getData(),request);
-                return response1;
+                if(response1.isSuccess()){
+                    return response1;
+                }else{
+                    return response1;
+                }
+
             } else {
                 return orderPayresponse;
             }
@@ -187,45 +193,8 @@ public class WXAppletPayCtrl {
      */
     @RequestMapping(value = "/closepay", method = RequestMethod.POST)
     public ServiceResponse<Object> ClosePay(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            Map<String, String> paraMap = new TreeMap<String, String>();
-            paraMap.put("appid", Configure.getAppID());
-            paraMap.put("mch_id", Configure.getMch_id());
-            //二选一
-            paraMap.put("out_trade_no", request.getParameter("out_trade_no"));
-            // paraMap.put("transaction_id",request.getParameter("transaction_id"));
-            paraMap.put("nonce_str", RandomStringGenerator.getRandomStringByLength(32));
-            String stringA = Signature.formatUrlMap(paraMap, false, false);
-            String sign = MD5.MD5Encode(stringA + "&key=" + Configure.getKey()).toUpperCase();
-            paraMap.put("sign", sign);
-            String sxml = PayUtil.MaptoXml(paraMap);
-            String ordrxml = PayRequest.httpRequest(Configure.Close_URL, "POST", sxml);
-            //xml转换对象
-            System.out.println(ordrxml);
-            XStream xStream = new XStream();
-            xStream.alias("xml", OrderCloseInfo.class);
-            OrderCloseInfo orderCloseInfo = (OrderCloseInfo) xStream.fromXML(ordrxml);
-
-            if (orderCloseInfo.getReturn_code().equals("SUCCESS")) {
-                if (orderCloseInfo.getResult_code().equals(orderCloseInfo.getReturn_code())) {
-                    //业务逻辑
-                    int getrows = orderPayService.delectByoutTradeNo(request.getParameter("out_trade_no"));
-                    if (getrows > 0) {
-                        return ServiceResponse.createBySuccess("订单关闭成功", orderCloseInfo);
-                    } else {
-                        return ServiceResponse.createByError("订单数据库删除失败", orderCloseInfo);
-                    }
-
-                } else {
-                    return ServiceResponse.createByError(orderCloseInfo);
-                }
-            } else {
-                return ServiceResponse.createByError(orderCloseInfo);
-            }
-        } catch (Exception e) {
-            L.error("订单关闭失败" + e);
-        }
-        return ServiceResponse.createByError(null);
+        ServiceResponse closerequse = wxPayService.ClosePay(request.getParameter("out_trade_no"));
+        return closerequse;
     }
 
     private final String Refund_URL = "https://api.mch.weixin.qq.com/secapi/pay/refund";
@@ -243,8 +212,6 @@ public class WXAppletPayCtrl {
         String param = PayUtil.wxPayRefund(out_trade_no, String.valueOf(money));
         System.out.println("支付退款签名:" + param);
         String result = "";
-        String code = Conts.CODE_SUCCESS;//状态码
-        String msg = Conts.REFUND_SUCCESS;//提示信息
         Map map = null;
         try {
             result = CertUtil.refund(param);
@@ -263,12 +230,12 @@ public class WXAppletPayCtrl {
 
                     return ServiceResponse.createBySuccess(map);
                 } else {
-                    System.out.println("退款失败:原因" + paraminfo.get("return_msg"));
-                    code = Conts.CODE_ERROR;
-                    msg = (String) paraminfo.get("return_msg");
-                    map.put("return_msg", paraminfo.get("return_msg"));
-                    return ServiceResponse.createByError(map);
+                    System.out.println("退款失败:原因" + paraminfo.get("err_code_des"));
+                    return ServiceResponse.createByError(paraminfo);
                 }
+            } else {
+                System.out.println("退款失败:原因" + paraminfo.get("return_msg"));
+                return ServiceResponse.createByError(paraminfo);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -280,7 +247,6 @@ public class WXAppletPayCtrl {
 
     /**
      * 订单历史
-     *
      * @param userId
      * @return
      */

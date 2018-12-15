@@ -5,6 +5,8 @@ import com.example.peach.pojo.merge.UvipUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface UserVipMapper {
     int deleteByPrimaryKey(Integer id);
@@ -28,4 +30,6 @@ public interface UserVipMapper {
     int updateUwalletByUserId(@Param(value = "userWallet") Double money,@Param(value = "userId") Integer userId);
     //查询会员信息,和user   id,openiid
     UvipUser selectUvipUser(Integer userId);
+    //查询所有vip(非vip和vip)信息
+    List<UvipUser> selectAllUvipUser();
 }

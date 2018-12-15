@@ -17,6 +17,7 @@
     <result column="vip_createtime" jdbcType="TIMESTAMP" property="vipCreatetime" />
     <result column="vip_endtime" jdbcType="TIMESTAMP" property="vipEndtime" />
     <result column="user_wallet" jdbcType="DECIMAL" property="userWallet" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <collection property="user" column="user_id" ofType="com.example.peach.pojo.User">
        <id column="id" jdbcType="INTEGER" property="id" />
       <result column="openid" jdbcType="VARCHAR" property="openid" />
@@ -159,5 +160,10 @@
     select v.*,u.id,u.openid
     from user as u,user_vip as v
     where u.id=#{userId} and u.id=v.user_id;
+  </select>
+  <select id="selectAllUvipUser" parameterType="List" resultMap="UserVipandUser">
+    select v.*,u.*
+    from user as u,user_vip as v
+    where u.id=v.user_id;
   </select>
 </mapper>

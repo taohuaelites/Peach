@@ -5,7 +5,7 @@ import java.util.Date;
 public class User {
     private Integer id;
 
-    private String nickname;
+    private String userNickname;
 
     private String userRealname;
 
@@ -51,7 +51,7 @@ public class User {
 
     private String userName;
 
-    private Integer userNewold;
+    private Boolean userNewold;
 
     public Integer getId() {
         return id;
@@ -61,12 +61,12 @@ public class User {
         this.id = id;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getUserNickname() {
+        return userNickname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUserNickname(String userNickname) {
+        this.userNickname = userNickname;
     }
 
     public String getUserRealname() {
@@ -245,11 +245,11 @@ public class User {
         this.userName = userName;
     }
 
-    public Integer getUserNewold() {
+    public Boolean getUserNewold() {
         return userNewold;
     }
 
-    public void setUserNewold(Integer userNewold) {
+    public void setUserNewold(Boolean userNewold) {
         this.userNewold = userNewold;
     }
 }

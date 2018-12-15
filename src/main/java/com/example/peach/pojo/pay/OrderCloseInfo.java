@@ -1,5 +1,8 @@
 package com.example.peach.pojo.pay;
 
+/**
+ * 关闭订单返回信息
+ */
 public class OrderCloseInfo {
     private String return_msg;
     // 返回状态码，通信标识，SUCCESS/FAIL

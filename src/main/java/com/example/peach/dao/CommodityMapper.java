@@ -3,6 +3,8 @@ package com.example.peach.dao;
 import com.example.peach.pojo.Commodity;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface CommodityMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +18,6 @@ public interface CommodityMapper {
     int updateByPrimaryKeySelective(Commodity record);
 
     int updateByPrimaryKey(Commodity record);
+
+    List<Commodity> selectCommodity();
 }

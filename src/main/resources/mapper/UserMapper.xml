@@ -3,7 +3,7 @@
 <mapper namespace="com.example.peach.dao.UserMapper">
   <resultMap id="BaseResultMap" type="com.example.peach.pojo.User">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
     <result column="user_realname" jdbcType="VARCHAR" property="userRealname" />
     <result column="user_birthday" jdbcType="DATE" property="userBirthday" />
     <result column="sex" jdbcType="BIT" property="sex" />
@@ -29,13 +29,13 @@
     <result column="user_newold" jdbcType="BIT" property="userNewold" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, nickname, user_realname, user_birthday, sex, country, province, city, user_address,
-    user_autograph, user_occupation, is_marriage, user_height, user_education, user_salary,
-    user_interest, user_jurisdiction, user_idcard, headimgurl, user_integral, openid,
+    id, user_nickname, user_realname, user_birthday, sex, country, province, city, user_address, 
+    user_autograph, user_occupation, is_marriage, user_height, user_education, user_salary, 
+    user_interest, user_jurisdiction, user_idcard, headimgurl, user_integral, openid, 
     uset_autograph, user_headportrait, user_name, user_newold
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=INTEGER}
@@ -45,23 +45,23 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.example.peach.pojo.User">
-    insert into user (id, nickname, user_realname,
-      user_birthday, sex, country,
-      province, city, user_address,
-      user_autograph, user_occupation, is_marriage,
-      user_height, user_education, user_salary,
-      user_interest, user_jurisdiction, user_idcard,
-      headimgurl, user_integral, openid,
-      uset_autograph, user_headportrait, user_name,
+    insert into user (id, user_nickname, user_realname, 
+      user_birthday, sex, country, 
+      province, city, user_address, 
+      user_autograph, user_occupation, is_marriage, 
+      user_height, user_education, user_salary, 
+      user_interest, user_jurisdiction, user_idcard, 
+      headimgurl, user_integral, openid, 
+      uset_autograph, user_headportrait, user_name, 
       user_newold)
-    values (#{id,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{userRealname,jdbcType=VARCHAR},
-      #{userBirthday,jdbcType=DATE}, #{sex,jdbcType=BIT}, #{country,jdbcType=VARCHAR},
-      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR},
-      #{userAutograph,jdbcType=VARCHAR}, #{userOccupation,jdbcType=VARCHAR}, #{isMarriage,jdbcType=BIT},
-      #{userHeight,jdbcType=INTEGER}, #{userEducation,jdbcType=VARCHAR}, #{userSalary,jdbcType=VARCHAR},
-      #{userInterest,jdbcType=VARCHAR}, #{userJurisdiction,jdbcType=BIT}, #{userIdcard,jdbcType=CHAR},
-      #{headimgurl,jdbcType=VARCHAR}, #{userIntegral,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR},
-      #{usetAutograph,jdbcType=VARCHAR}, #{userHeadportrait,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR},
+    values (#{id,jdbcType=INTEGER}, #{userNickname,jdbcType=VARCHAR}, #{userRealname,jdbcType=VARCHAR}, 
+      #{userBirthday,jdbcType=DATE}, #{sex,jdbcType=BIT}, #{country,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{userAddress,jdbcType=VARCHAR}, 
+      #{userAutograph,jdbcType=VARCHAR}, #{userOccupation,jdbcType=VARCHAR}, #{isMarriage,jdbcType=BIT}, 
+      #{userHeight,jdbcType=INTEGER}, #{userEducation,jdbcType=VARCHAR}, #{userSalary,jdbcType=VARCHAR}, 
+      #{userInterest,jdbcType=VARCHAR}, #{userJurisdiction,jdbcType=BIT}, #{userIdcard,jdbcType=CHAR}, 
+      #{headimgurl,jdbcType=VARCHAR}, #{userIntegral,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, 
+      #{usetAutograph,jdbcType=VARCHAR}, #{userHeadportrait,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
       #{userNewold,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.example.peach.pojo.User">
@@ -70,8 +70,8 @@
       <if test="id != null">
         id,
       </if>
-      <if test="nickname != null">
-        nickname,
+      <if test="userNickname != null">
+        user_nickname,
       </if>
       <if test="userRealname != null">
         user_realname,
@@ -147,8 +147,8 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
+      <if test="userNickname != null">
+        #{userNickname,jdbcType=VARCHAR},
       </if>
       <if test="userRealname != null">
         #{userRealname,jdbcType=VARCHAR},
@@ -224,8 +224,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.example.peach.pojo.User">
     update user
     <set>
-      <if test="nickname != null">
-        nickname = #{nickname,jdbcType=VARCHAR},
+      <if test="userNickname != null">
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
       </if>
       <if test="userRealname != null">
         user_realname = #{userRealname,jdbcType=VARCHAR},
@@ -301,7 +301,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.peach.pojo.User">
     update user
-    set nickname = #{nickname,jdbcType=VARCHAR},
+    set user_nickname = #{userNickname,jdbcType=VARCHAR},
       user_realname = #{userRealname,jdbcType=VARCHAR},
       user_birthday = #{userBirthday,jdbcType=DATE},
       sex = #{sex,jdbcType=BIT},
@@ -334,7 +334,7 @@
     where openid=#{openid};
   </select>
   <update id="updateByPrimarynickname" parameterType="com.example.peach.pojo.User">
-    update user set nickname=#{nickname} where id=#{id};
+    update user set user_nickname=#{userNickname} where id=#{id};
   </update>
   <select id="selectBynewolduser" parameterType="java.lang.String" resultMap="BaseResultMap">
     select user_newold from user where  openid = #{openid};

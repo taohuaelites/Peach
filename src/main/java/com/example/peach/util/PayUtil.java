@@ -12,8 +12,6 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
-import static jdk.nashorn.internal.objects.NativeDebug.map;
-
 public class PayUtil {
     /**
      * 签名字符串
@@ -169,19 +167,23 @@ public class PayUtil {
         Document document = builder.build(in);
         //得到根节点
         Element element = document.getRootElement();
-        List list = element.getChildren();
-        Iterator iterator = list.iterator();
-        while(iterator.hasNext()){
-            Element e = (Element) iterator.next();
-            String key = e.getName();
-            String value = "";
-            List children = e.getChildren();
-            if(children.isEmpty()){
-                value = e.getTextNormalize();
-            }else{
-                value = getChildrenText(children);
-            }
-            map(key,value);
+//        List list = element.getChildren();
+//        Iterator iterator = list.iterator();
+//        while(iterator.hasNext()){
+//            Element e = (Element) iterator.next();
+//            String key = e.getName();
+//            String value = "";
+//            List children = e.getChildren();
+//            if(children.isEmpty()){
+//                value = e.getTextNormalize();
+//            }else{
+//                value = getChildrenText(children);
+//            }
+//            map(key,value);
+//        }
+        List<Element> list =element.getChildren();
+        for (Element e : list) {
+            map.put(e.getName(), e.getText());
         }
         in.close();
         return map;

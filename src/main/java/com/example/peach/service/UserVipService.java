@@ -4,6 +4,8 @@ import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.UserVip;
 import com.example.peach.pojo.merge.UvipUser;
 
+import java.util.List;
+
 public interface UserVipService {
     //修改用户信息
     ServiceResponse<String> updateByUserId(UserVip userVip);
@@ -15,4 +17,6 @@ public interface UserVipService {
     ServiceResponse<String> updateUwlletByUserId(Double money,Integer userId);
     //是否会员或会员过期
     ServiceResponse<UvipUser> selectCreatAndEndByUserId(Integer userId);
+    //查询所有vip(非vip和vip)信息
+    ServiceResponse<List> selectAllUvipUser();
 }

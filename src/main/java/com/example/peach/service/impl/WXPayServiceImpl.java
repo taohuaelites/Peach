@@ -6,7 +6,7 @@ import com.example.peach.dao.CommodityMapper;
 import com.example.peach.pojo.Orderpay;
 import com.example.peach.pojo.User;
 import com.example.peach.pojo.UserVip;
-import com.example.peach.pojo.pay.OrderQueryParamsInfo;
+import com.example.peach.pojo.pay.OrderCloseInfo;
 import com.example.peach.pojo.pay.OrderReturnInfo;
 import com.example.peach.service.OrderPayService;
 import com.example.peach.service.UserService;
@@ -41,6 +41,7 @@ public class WXPayServiceImpl implements WXPayService {
      * @return
      * @throws IllegalAccessException
      */
+    @Transactional
     @Override
     public ServiceResponse<Map> paymettwe(Map mapinfo, HttpServletRequest request) throws IllegalAccessException {
 
@@ -101,7 +102,6 @@ public class WXPayServiceImpl implements WXPayService {
             xStream.alias("xml", OrderReturnInfo.class);
             OrderReturnInfo orderInfo = (OrderReturnInfo)xStream.fromXML(result);
             //应该创建 支付表数据
-            System.out.println("是否成功+"+orderInfo.getReturn_code());
             if("SUCCESS".equals(orderInfo.getReturn_code())&&orderInfo.getResult_code().equals(orderInfo.getReturn_code())){
                 long time = System.currentTimeMillis()/1000;
                 Map payInfo = new HashMap();
@@ -112,7 +112,6 @@ public class WXPayServiceImpl implements WXPayService {
                 String stringSignTemp = "appId=" + Configure.getAppID() + "&nonceStr=" + paraMap.get("nonce_str") + "&package=prepay_id=" + orderInfo.getPrepay_id()+ "&signType=MD5&timeStamp=" + String.valueOf(time);
                 //生成二次签名
                 String paySign = PayUtil.sign(stringSignTemp, Configure.getKey(), "utf-8").toUpperCase();
-                System.out.println("二次生成签名(MD5):"+paySign);
                 map.put("status", 200);
                 map.put("msg", "统一下单成功!");
                 map.put("data", payInfo);
@@ -135,9 +134,11 @@ public class WXPayServiceImpl implements WXPayService {
                 int getrows = orderPayService.insertOrderPay(orderpay);
                 if(getrows>0){
                     System.out.println("用户订单添加成功");
+                    orderClose(paraMap.get("out_trade_no"));
                     return ServiceResponse.createBySuccess(map);
                 }else {
                     System.out.println("用户订单导入失败");
+                    L.warn(paraMap.get("out_trade_no")+"用户订单导入失败");
                     return ServiceResponse.createByError("用户订单导入失败",map);
                 }
             }
@@ -147,10 +148,10 @@ public class WXPayServiceImpl implements WXPayService {
             return ServiceResponse.createByError(map);
             //将 数据包ID 返回
         } catch (Exception e) {
-            L.info("微信 统一下单 异常："+e.getMessage());
+            L.error("微信 统一下单 异常："+e.getMessage());
             e.printStackTrace();
         }
-        L.info("微信 统一下单 失败");
+        L.error("微信 统一下单 失败");
         return ServiceResponse.createByError(null);
     }
 
@@ -183,7 +184,7 @@ public class WXPayServiceImpl implements WXPayService {
                 int userIntegral = (int) Math.round(cash_fee +user.getUserIntegral());//积分
                 int appointment = commodityMapper.selectByPrimaryKey(orderpay.getCommodityId()).getCommodityFrequency();
                 User updateuser = new User();
-                updateuser.setUserNewold(0);
+                updateuser.setUserNewold(false);
                 updateuser.setUserIntegral(userIntegral);
                 updateuser.setOpenid(openid);
                 ServiceResponse updateUser = userService.updateUnewoldAndUIntegralByOpenid(updateuser);
@@ -244,44 +245,127 @@ public class WXPayServiceImpl implements WXPayService {
             paraMap.put("sign",sign);
             String sxml = PayUtil.MaptoXml(paraMap);
             String ordrxml = PayRequest.httpRequest(Configure.QUERY_URL,"POST",sxml);
+            System.out.println(ordrxml);
+            Map paraminfo = PayUtil.doXMLParse(ordrxml);
             //xml转换对象
-            XStream xStream = new XStream();
-            xStream.alias("xml", OrderQueryParamsInfo.class);
-            OrderQueryParamsInfo orderQuerypostInfo = (OrderQueryParamsInfo)xStream.fromXML(ordrxml);
-            if (orderQuerypostInfo.getReturn_code().equals("SUCCESS")&&orderQuerypostInfo.getResult_code().equals(orderQuerypostInfo.getReturn_code())){
+//            XStream xStream = new XStream();
+//            xStream.alias("xml", OrderQueryParamsInfo.class);
+//            OrderQueryParamsInfo orderQuerypostInfo = (OrderQueryParamsInfo)xStream.fromXML(ordrxml);
+            if (paraminfo.get("return_code").equals("SUCCESS")&&paraminfo.get("return_code").equals(paraminfo.get("result_code"))){
                 //更新订单
                 //判断交易状态是否成功
                 Orderpay orderpay = new Orderpay();
-                System.out.println(orderQuerypostInfo.getOut_trade_no());
-                if(orderQuerypostInfo.getTrade_state().equals("SUCCESS")){
-                    orderpay.setTradeStatus(orderQuerypostInfo.getTrade_state());
-                    orderpay.setTransactionId(orderQuerypostInfo.getTransaction_id());
-                    orderpay.setOutTradeNo(orderQuerypostInfo.getOut_trade_no());
+                System.out.println(paraminfo.get("out_trade_no"));
+                if(paraminfo.get("trade_state").equals("SUCCESS")){
+                    orderpay.setTradeStatus((String) paraminfo.get("trade_state"));
+                    orderpay.setTransactionId((String) paraminfo.get("transaction_id"));
+                    orderpay.setOutTradeNo((String) paraminfo.get("out_trade_no"));
                     int getrows = orderPayService.updateOrder_statusByout_trade_no(orderpay);
                     if (getrows > 0) {
-                        return ServiceResponse.createBySuccess("更新订单成功", orderQuerypostInfo);
+                        return ServiceResponse.createBySuccess("更新订单成功", paraminfo);
                     } else {
-                        return ServiceResponse.createByError("更新订单导入数据库失败", orderQuerypostInfo);
+                        L.warn(out_trade_no+"更新订单导入数据库失败");
+                        return ServiceResponse.createByError("更新订单导入数据库失败", paraminfo);
                     }
                 }else {
-
-                    orderpay.setTradeStatus(orderQuerypostInfo.getTrade_state());
-                    orderpay.setOutTradeNo(orderQuerypostInfo.getOut_trade_no());
+                    orderpay.setTradeStatus((String) paraminfo.get("trade_state"));
+                    orderpay.setOutTradeNo((String) paraminfo.get("out_trade_no"));
                     int getrows = orderPayService.updateOrder_statusByout_trade_no(orderpay);
                     if (getrows > 0) {
-                        return ServiceResponse.createBySuccess("更新订单成功", orderQuerypostInfo);
+                        return ServiceResponse.createBySuccess("更新订单成功", paraminfo);
                     } else {
-                        return ServiceResponse.createByError("更新订单导入数据库失败", orderQuerypostInfo);
+                        L.warn(out_trade_no+"更新订单导入数据库失败");
+                        return ServiceResponse.createByError("更新订单导入数据库失败", paraminfo);
                     }
                 }
 //                    return ServiceResponse.createBySuccess(orderQuerypostInfo);
             }else{
-                return ServiceResponse.createByError("查询失败",orderQuerypostInfo);
+                L.warn(out_trade_no+"更新订单导入数据库失败");
+                return ServiceResponse.createByError("查询失败,"+paraminfo.get("err_code_des"),paraminfo);
             }
 
         }catch (Exception e){
             L.error("微信查询订单失败！", e);
         }
         return  ServiceResponse.createByError(null);
+    }
+
+    /**
+     *关闭订单
+     * @param out_trade_no
+     * @return
+     */
+    @Override
+    public ServiceResponse<Object> ClosePay(String out_trade_no) {
+        try {
+            Map<String, String> paraMap = new TreeMap<String, String>();
+            paraMap.put("appid", Configure.getAppID());
+            paraMap.put("mch_id", Configure.getMch_id());
+            //二选一
+            paraMap.put("out_trade_no", out_trade_no);
+            // paraMap.put("transaction_id",request.getParameter("transaction_id"));
+            paraMap.put("nonce_str", RandomStringGenerator.getRandomStringByLength(32));
+            String stringA = Signature.formatUrlMap(paraMap, false, false);
+            String sign = MD5.MD5Encode(stringA + "&key=" + Configure.getKey()).toUpperCase();
+            paraMap.put("sign", sign);
+            String sxml = PayUtil.MaptoXml(paraMap);
+            String ordrxml = PayRequest.httpRequest(Configure.Close_URL, "POST", sxml);
+            //xml转换对象
+            System.out.println(ordrxml);
+            XStream xStream = new XStream();
+            xStream.alias("xml", OrderCloseInfo.class);
+            OrderCloseInfo orderCloseInfo = (OrderCloseInfo) xStream.fromXML(ordrxml);
+
+            if (orderCloseInfo.getReturn_code().equals("SUCCESS")) {
+                if (orderCloseInfo.getResult_code().equals(orderCloseInfo.getReturn_code())) {
+                    //业务逻辑
+                    int getrows = orderPayService.delectByoutTradeNo(out_trade_no);
+                    if (getrows > 0) {
+                        return ServiceResponse.createBySuccess("订单关闭成功", orderCloseInfo);
+                    } else {
+                        L.warn(out_trade_no+"订单数据库删除失败");
+                        return ServiceResponse.createByError("订单数据库删除失败", orderCloseInfo);
+                    }
+
+                } else {
+                    return ServiceResponse.createByError(orderCloseInfo);
+                }
+            } else {
+                return ServiceResponse.createByError(orderCloseInfo);
+            }
+        } catch (Exception e) {
+            L.error("订单关闭失败" + e);
+        }
+        return ServiceResponse.createByError(null);
+    }
+
+    /**
+     * 30分钟内没有支付,自动关闭订单
+     * @param out 订单号
+     */
+    @Override
+    public void orderClose(String out) {
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                Orderpay orderpay =  orderPayService.selectByouttradeno(out);
+                try {
+                    if(orderpay.getTradeStatus().equals("NOTPAY")) {
+                        ServiceResponse response = ClosePay(out);
+                        if(response.isSuccess()){
+                            System.out.println("订单关闭");
+                        }else{
+                            System.out.println("关闭失败");
+                            L.warn(out+"订单关闭失败");
+                        }
+                    }
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                // 中断线程
+                timer.cancel();
+            }
+        },30*1000);
     }
 }
