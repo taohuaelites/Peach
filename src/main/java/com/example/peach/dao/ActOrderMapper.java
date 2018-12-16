@@ -24,4 +24,6 @@ public interface ActOrderMapper {
 
     ActOrder selectById(Integer id);
 
+    List<ActOrder> selectByActId(Integer activityId);
+
 }

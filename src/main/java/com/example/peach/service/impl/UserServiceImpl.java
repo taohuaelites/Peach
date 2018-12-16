@@ -140,5 +140,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateUserPhone(user);
     }
 
+    @Override
+    public User selectByPrimaryKey(Integer id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
+
 
 }

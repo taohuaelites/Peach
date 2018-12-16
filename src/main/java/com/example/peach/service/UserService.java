@@ -23,5 +23,7 @@ public interface UserService {
     List<User> userList();
 
     int updateUserPhone(User user);
+
+     User selectByPrimaryKey(Integer id);
 }
 

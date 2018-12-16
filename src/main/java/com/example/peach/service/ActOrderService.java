@@ -21,4 +21,6 @@ public interface ActOrderService {
 
     ActOrder selectById(Integer id);
 
+    List<ActOrder> selectByActId(Integer activityId);
+
 }

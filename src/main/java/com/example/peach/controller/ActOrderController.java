@@ -43,7 +43,7 @@ public class ActOrderController {
         return actOrderService.insertActOrder(actOrder);
     }
     /**
-     * 根据activityId活动性质查询所有
+     * 根据activityId查询
      */
     @RequestMapping(value = "/selectActOrderList",method = RequestMethod.GET)
     public Map<String,Object> selectActOrderList(@RequestParam Integer activityId){
@@ -56,8 +56,8 @@ public class ActOrderController {
      * 根据userId查询活动单
      */
     @RequestMapping(value = "/selectUserIdList",method = RequestMethod.GET)
-    public Map<String,Object> selectUserId(@RequestParam Integer userId) {
-        List<ActOrder> list = actOrderService.selectUserId(userId);
+    public Map<String,Object> selectUserId(@RequestParam Integer id) {
+        List<ActOrder> list = actOrderService.selectUserId(id);
         Map<String, Object> map = new HashMap<>();
         map.put("list", list);
         return map;
@@ -72,6 +72,18 @@ public class ActOrderController {
         map.put("actOrder", actOrder);
         return map;
     }
+    /**
+     * 根据activityId查询用户和相册
+     */
+    @RequestMapping(value = "/selectActId",method = RequestMethod.GET)
+    public Map<String,Object> selectActId(@RequestParam Integer activityId){
+        List<ActOrder> list= actOrderService.selectByActId(activityId);
+        Map<String,Object> map=new HashMap<>();
+        map.put("list",list);
+        return map;
+    }
+
+
     /**
      *  活动签到
      */

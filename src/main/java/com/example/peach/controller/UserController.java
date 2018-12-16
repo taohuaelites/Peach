@@ -6,7 +6,6 @@ import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.User;
 import com.example.peach.service.UserService;
 import org.apache.commons.lang.StringUtils;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +37,16 @@ public class UserController {
     public ServiceResponse<String> selectPhone(@RequestParam("userphone") String phone){
         ServiceResponse<String> response = userService.selectPhone(phone);
         return response;
+    }
+    /**
+     * 根据Id查询用户
+     */
+    @RequestMapping(value = "/selectById",method = RequestMethod.GET)
+    public  Map selectById(@RequestParam Integer id){
+       User user= userService.selectByPrimaryKey(id);
+        Map<String,Object> map=new HashMap<>();
+        map.put("user",user);
+        return map;
     }
     /**
      * 用户信息完善

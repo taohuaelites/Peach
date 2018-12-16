@@ -16,6 +16,7 @@ public class ActOrder {
     private String orderNumber;
     private Integer status;
     private  Integer signIn;
+    private  List<Album> albumList;
 
     public Integer getId() {
         return id;
@@ -79,5 +80,13 @@ public class ActOrder {
 
     public void setSignIn(Integer signIn) {
         this.signIn = signIn;
+    }
+
+    public List<Album> getAlbumList() {
+        return albumList;
+    }
+
+    public void setAlbumList(List<Album> albumList) {
+        this.albumList = albumList;
     }
 }
