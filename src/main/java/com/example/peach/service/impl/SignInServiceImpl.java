@@ -31,10 +31,9 @@ public class SignInServiceImpl implements SignInService {
     public ServiceResponse<Map> selectByuserId(Integer userId) {
         SignIn sigIn = sigInMapper.selectByuserId(userId);
         Map<String, Object> map = new HashMap<>();
-        Long longs = DateSub.getDaySub(sigIn.getSignInTime());
         if (sigIn == null) {
             return ServiceResponse.createByError("打卡");
-        } else if (longs <= -1) {
+        } else if (DateSub.getDaySub(sigIn.getSignInTime()) <= -1) {
             return ServiceResponse.createByError("打卡");
         }
         map.put("sigIn", sigIn);

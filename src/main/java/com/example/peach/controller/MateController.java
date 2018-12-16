@@ -18,7 +18,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/mate")
-@MapperScan("com.example.peach.mapper")
 public class MateController {
     @Resource
     private MateService mateService;

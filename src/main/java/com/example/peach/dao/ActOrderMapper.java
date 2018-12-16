@@ -20,4 +20,6 @@ public interface ActOrderMapper {
 
     int updateActOrder(ActOrder actOrder);
 
+    List<ActOrder> selectUserId(Integer id);
+
 }

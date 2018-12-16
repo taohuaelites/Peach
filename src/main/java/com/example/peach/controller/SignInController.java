@@ -18,7 +18,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/signIn")
-@MapperScan("com.example.peach.mapper")
 public class SignInController {
 
     @Resource

@@ -84,4 +84,14 @@ public class ActOrderServiceImpl implements ActOrderService {
 
         return ServiceResponse.createByError("签到失败");
     }
+
+    /**
+     * 根据userId查询所有活动单
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<ActOrder> selectUserId(Integer userId) {
+        return actOrderMapper.selectUserId(userId);
+    }
 }

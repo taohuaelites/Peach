@@ -17,7 +17,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
-@MapperScan("com.example.peach.mapper")
 public class UserController {
     @Resource
     private UserService userService;

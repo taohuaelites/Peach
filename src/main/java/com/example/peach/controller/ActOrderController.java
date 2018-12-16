@@ -55,6 +55,16 @@ public class ActOrderController {
         return map;
     }
     /**
+     * 根据userId查询活动单
+     */
+    @RequestMapping(value = "/selectUserIdList",method = RequestMethod.GET)
+    public Map<String,Object> selectUserId(@RequestParam Integer userId) {
+        List<ActOrder> list = actOrderService.selectUserId(userId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", list);
+        return map;
+    }
+    /**
      *  活动签到
      */
     @RequestMapping(value = "/updateSignIn",method = RequestMethod.POST)

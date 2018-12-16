@@ -17,4 +17,6 @@ public interface ActOrderService {
 
     ServiceResponse<String> updateActOrder(ActOrder actOrder);
 
+    List<ActOrder> selectUserId(Integer userId);
+
 }
