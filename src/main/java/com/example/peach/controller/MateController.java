@@ -3,11 +3,7 @@ package com.example.peach.controller;
 import com.example.peach.common.ServiceResponse;
 import com.example.peach.pojo.Mate;
 import com.example.peach.service.MateService;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -45,5 +41,15 @@ public class MateController {
     @RequestMapping(value = "/updateMate",method = RequestMethod.POST)
     public ServiceResponse<String> updateMate(@ModelAttribute Mate mate){
         return mateService.updateMate(mate);
+    }
+    /**
+     * 根据openId查询
+     */
+    @RequestMapping(value = "/selectByOpenId",method = RequestMethod.GET)
+    public Map<String, Object> selectByOpenId(@RequestParam String  openid){
+        Mate mates=mateService.selectByOpenId(openid);
+        Map<String, Object> map = new HashMap<>();
+        map.put("mate",mates);
+        return map;
     }
 }

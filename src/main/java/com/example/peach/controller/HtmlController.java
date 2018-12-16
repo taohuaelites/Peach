@@ -3,16 +3,15 @@ package com.example.peach.controller;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Administrator on 2018/11/29.
  */
-@RestController
+@Controller
 @RequestMapping("/http")
 public class HtmlController {
     private static Logger logger = Logger.getLogger(HtmlController.class);
-    @RequestMapping(value = "index")
+    @RequestMapping(value = "/index")
     public String getHtml(){
         return "login";
     }

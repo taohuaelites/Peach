@@ -95,4 +95,15 @@ public class ActOrderServiceImpl implements ActOrderService {
     public List<ActOrder> selectUserId(Integer userId) {
         return actOrderMapper.selectUserId(userId);
     }
+
+
+    /**
+     * 根据活动单id查询
+     * @param Id
+     * @return
+     */
+    @Override
+    public ActOrder selectById(Integer id) {
+        return actOrderMapper.selectById(id);
+    }
 }

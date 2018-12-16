@@ -52,7 +52,7 @@ public class WXAppletPayCtrl {
     /**
      * 购买vip
      *
-     * @param request
+     * @param  request ff
      * @return
      * @throws ParseException
      * @throws IllegalAccessException
@@ -173,26 +173,23 @@ public class WXAppletPayCtrl {
     /**
      * 订单查询
      *
-     * @param request
-     * @param response
+     * @param request out_trade_no商户号
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/orderquery", method = RequestMethod.POST)
-    public ServiceResponse<Object> orderQuery(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ServiceResponse<Object> orderQuery(HttpServletRequest request) throws Exception {
         ServiceResponse<Object> orderQueryZTresponse = wxPayService.orderQueryZT(request.getParameter("out_trade_no"));
         return orderQueryZTresponse;
     }
 
     /**
      * 订单关闭
-     *
-     * @param request
-     * @param response
+     * @param request out_trade_no商户订单
      * @return
      */
     @RequestMapping(value = "/closepay", method = RequestMethod.POST)
-    public ServiceResponse<Object> ClosePay(HttpServletRequest request, HttpServletResponse response) {
+    public ServiceResponse<Object> ClosePay(HttpServletRequest request) {
         ServiceResponse closerequse = wxPayService.ClosePay(request.getParameter("out_trade_no"));
         return closerequse;
     }

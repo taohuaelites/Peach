@@ -40,7 +40,7 @@ public class WebConfig implements WebMvcConfigurer {
          * addResourceHandler：访问映射路径
          * addResourceLocations：资源绝对路径
          */
-        registry.addResourceHandler("/static/images/**").addResourceLocations("/static/images/");
+      //  registry.addResourceHandler("/static/images/**").addResourceLocations("/static/images/");
     }
 
 

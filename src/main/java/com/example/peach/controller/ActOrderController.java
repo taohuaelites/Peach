@@ -5,7 +5,6 @@ import com.example.peach.pojo.ActOrder;
 import com.example.peach.service.ActOrderService;
 import com.example.peach.service.ActivityService;
 import com.example.peach.util.RandomStringGenerator;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -61,6 +60,16 @@ public class ActOrderController {
         List<ActOrder> list = actOrderService.selectUserId(userId);
         Map<String, Object> map = new HashMap<>();
         map.put("list", list);
+        return map;
+    }
+    /**
+     * 根据id查询
+     */
+    @RequestMapping(value = "/selectById",method = RequestMethod.GET)
+    public Map<String,Object> selectById(@RequestParam Integer id) {
+        ActOrder actOrder = actOrderService.selectById(id);
+        Map<String, Object> map = new HashMap<>();
+        map.put("actOrder", actOrder);
         return map;
     }
     /**

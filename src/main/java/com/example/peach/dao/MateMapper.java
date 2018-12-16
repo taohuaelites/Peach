@@ -15,4 +15,6 @@ public interface MateMapper {
     int insertMate(Mate mate);
 
     int updateMate(Mate mate);
+
+    Mate selectByOpenId(String openid);
 }

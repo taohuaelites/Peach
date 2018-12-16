@@ -53,4 +53,14 @@ public class MateServiceImpl implements MateService {
         }
         return ServiceResponse.createByError("修改失败");
     }
+
+    /**
+     * 根据openId查询用户和择偶要求
+     * @param openid
+     * @return
+     */
+    @Override
+    public Mate selectByOpenId(String openid) {
+        return mateMapper.selectByOpenId(openid);
+    }
 }

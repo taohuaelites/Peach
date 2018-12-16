@@ -15,6 +15,50 @@
         <result column="is_children" jdbcType="VARCHAR" property="isChildren"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
     </resultMap>
+    <!--一对一-->
+    <resultMap id="BaseMapperList" type="com.example.peach.pojo.Mate">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="mate_age" jdbcType="VARCHAR" property="mateAge"/>
+        <result column="mate_height" jdbcType="VARCHAR" property="mateHeight"/>
+        <result column="mate_salary" jdbcType="VARCHAR" property="mateSalary"/>
+        <result column="mate_education" jdbcType="VARCHAR" property="mateEducation"/>
+        <result column="mate_native" jdbcType="VARCHAR" property="mateNative"/>
+        <result column="mate_marriage" jdbcType="VARCHAR" property="mateMarriage"/>
+        <result column="mate_belief" jdbcType="VARCHAR" property="mateBelief"/>
+        <result column="mate_drink" jdbcType="VARCHAR" property="mateDrink"/>
+        <result column="mate_smoking" jdbcType="VARCHAR" property="mateSmoking"/>
+        <result column="is_children" jdbcType="VARCHAR" property="isChildren"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <association property="user" javaType="com.example.peach.pojo.User">
+            <result column="user_nickname" jdbcType="VARCHAR" property="nickName" />
+            <result column="user_realname" jdbcType="VARCHAR" property="userRealname" />
+            <result column="user_birthday" jdbcType="DATE" property="userBirthday" />
+            <result column="user_phone" jdbcType="VARCHAR" property="userphone" />
+            <result column="user_age" jdbcType="INTEGER" property="userage" />
+            <result column="sex" jdbcType="BIT" property="sex" />
+            <result column="country" jdbcType="VARCHAR" property="country" />
+            <result column="province" jdbcType="VARCHAR" property="province" />
+            <result column="city" jdbcType="VARCHAR" property="city" />
+            <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+            <result column="user_autograph" jdbcType="VARCHAR" property="userAutograph" />
+            <result column="user_occupation" jdbcType="VARCHAR" property="userOccupation" />
+            <result column="is_marriage" jdbcType="BIT" property="isMarriage" />
+            <result column="user_height" jdbcType="INTEGER" property="userHeight" />
+            <result column="user_education" jdbcType="VARCHAR" property="userEducation" />
+            <result column="user_salary" jdbcType="VARCHAR" property="userSalary" />
+            <result column="user_interest" jdbcType="VARCHAR" property="userInterest" />
+            <result column="user_jurisdiction" jdbcType="INTEGER" property="userJurisdiction" />
+            <result column="user_idcard" jdbcType="CHAR" property="userIdcard" />
+            <result column="headimgurl" jdbcType="VARCHAR" property="avatarUrl" />
+            <result column="user_integral" jdbcType="INTEGER" property="userIntegral" />
+            <result column="openid" jdbcType="VARCHAR" property="openid" />
+            <result column="is_realname" jdbcType="BIT" property="isrealname" />
+            <result column="user_native" jdbcType="VARCHAR" property="usernative" />
+            <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+            <result column="user_marrytime" jdbcType="VARCHAR" property="userMarrytime" />
+            <result column="user_newold" jdbcType="BIT" property="userNewold" />
+        </association>
+    </resultMap>
     <sql id="Base_Column_List">
             id,mate_age,mate_height,mate_salary,mate_education,mate_native,mate_marriage,
             mate_belief,mate_drink,mate_smoking,is_children,user_id
@@ -24,7 +68,18 @@
     <include refid="Base_Column_List"/>
     FROM mate
     WHERE user_id=#{userId,jdbcType=INTEGER}
-</select>
+    </select>
+    <select id="selectByOpenId" resultMap="BaseMapperList" parameterType="java.lang.String">
+    SELECT  m.id,mate_age,mate_height,mate_salary,mate_education,mate_native,mate_marriage,
+			  mate_belief,mate_drink,mate_smoking,is_children,user_id,user_nickname, user_realname,
+				user_birthday, sex,user_phone,user_age, country, province, city, user_address,
+				user_autograph, user_occupation, is_marriage, user_height, user_education, user_salary,
+				user_interest, user_jurisdiction, user_idcard, headimgurl, user_integral, openid,is_realname,user_native,
+				unionid,user_marrytime,user_newold
+    FROM mate m
+    LEFT JOIN `user` u on m.user_id=u.id
+    where openid=#{openid,jdbcType=VARCHAR}
+    </select>
     <insert id="insertMate" parameterType="Mate">
             INSERT INTO mate (mate_age,mate_height,mate_salary,mate_education,
             mate_native,mate_marriage,mate_belief,mate_drink,mate_smoking,is_children,user_id)

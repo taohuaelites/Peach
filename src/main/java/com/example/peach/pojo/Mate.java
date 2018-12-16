@@ -17,6 +17,7 @@ public class Mate {
     private String mateSmoking;//抽烟
     private String isChildren;//有无子女
     private Integer userId;//用户id
+    private  User user;//用户
 
     public Integer getId() {
         return id;
@@ -121,5 +122,13 @@ public class Mate {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

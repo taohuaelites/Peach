@@ -19,4 +19,6 @@ public interface ActOrderService {
 
     List<ActOrder> selectUserId(Integer userId);
 
+    ActOrder selectById(Integer id);
+
 }

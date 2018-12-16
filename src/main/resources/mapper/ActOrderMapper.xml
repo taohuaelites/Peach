@@ -13,9 +13,7 @@
     <resultMap id="BaseListDao" type="com.example.peach.pojo.ActOrder">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="activity_id" jdbcType="INTEGER" property="activityId"/>
-
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
-
         <result column="actorder_number" jdbcType="VARCHAR" property="orderNumber"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="signin" jdbcType="INTEGER" property="signIn"/>
@@ -88,6 +86,16 @@
     LEFT JOIN `user` u ON a.user_id=u.id
     LEFT JOIN activity y ON y.id=a.activity_id
     WHERE a.user_id=#{userId.jdbcType=INTEGER}
+    </select>
+    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseListDao">
+    SELECT a.id,a.activity_id,a.user_id,a.`status`,a.signin,a.actorder_number,activity_name,activity_contentname,activity_time,activity_endtime,activity_place,activity_cost,
+        activity_rule,activity_content,activity_imgurl,activity_nature,user_nickname,user_realname,user_birthday,sex,user_phone,user_age, country, province, city, user_address,
+    user_autograph, user_occupation, is_marriage, user_height, user_education, user_salary,
+    user_interest, user_jurisdiction, user_idcard, headimgurl, user_integral, openid,is_realname,user_native,unionid,user_marrytime,user_newold
+    FROM actorder a
+    LEFT JOIN `user` u ON a.user_id=u.id
+    LEFT JOIN activity y ON y.id=a.activity_id
+    WHERE a.id=#{id.jdbcType=INTEGER}
     </select>
     <insert id="insertActOrder" parameterType="ActOrder">
         INSERT into actorder(activity_id,user_id,actorder_number,status,signin)
